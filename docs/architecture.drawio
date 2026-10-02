@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="0AhinX8-BP4ox4QDc_19">
+    <mxGraphModel dx="3038" dy="899" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="700" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frontend" parent="1" style="swimlane;startSize=36;horizontal=1;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;html=1;" value="Frontend / Web Interface" vertex="1">
+          <mxGeometry height="360" width="300" x="-60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" parent="frontend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#6c8ebf;html=1;" value="Quản lý trung tâm" vertex="1">
+          <mxGeometry height="42" width="240" x="30" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" parent="frontend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#6c8ebf;html=1;" value="Kỹ thuật viên" vertex="1">
+          <mxGeometry height="42" width="240" x="30" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" parent="frontend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#6c8ebf;html=1;" value="Assignment UI" vertex="1">
+          <mxGeometry height="42" width="240" x="30" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="f4" parent="frontend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#6c8ebf;html=1;" value="Appointment UI" vertex="1">
+          <mxGeometry height="42" width="240" x="30" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="backend" parent="1" style="swimlane;startSize=36;horizontal=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;html=1;" value="Backend API / Business Logic" vertex="1">
+          <mxGeometry height="480" width="420" x="400" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="Ticket Query" vertex="1">
+          <mxGeometry height="42" width="170" x="30" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="Technician Query" vertex="1">
+          <mxGeometry height="42" width="170" x="220" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="Assignment Service" vertex="1">
+          <mxGeometry height="42" width="170" x="30" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="UC7 – Kiểm tra điều kiện phân công" vertex="1">
+          <mxGeometry height="42" width="170" x="220" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="b5" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="Appointment Service" vertex="1">
+          <mxGeometry height="42" width="170" x="30" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="b6" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#82b366;html=1;" value="UC8 – Kiểm tra trùng lịch" vertex="1">
+          <mxGeometry height="42" width="170" x="220" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="checks" parent="backend" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;html=1;" value="Business checks" vertex="1">
+          <mxGeometry height="42" width="360" x="30" y="236" as="geometry" />
+        </mxCell>
+        <mxCell id="check1" parent="backend" style="text;align=left;verticalAlign=middle;html=1;" value="Proficiency &gt;= 3" vertex="1">
+          <mxGeometry height="32" width="150" x="45" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="check2" parent="backend" style="text;align=left;verticalAlign=middle;html=1;" value="Same Center" vertex="1">
+          <mxGeometry height="32" width="150" x="220" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="check3" parent="backend" style="text;align=left;verticalAlign=middle;html=1;" value="Technician Availability" vertex="1">
+          <mxGeometry height="32" width="170" x="45" y="332" as="geometry" />
+        </mxCell>
+        <mxCell id="check4" parent="backend" style="text;align=left;verticalAlign=middle;html=1;" value="Appointment Conflict Check" vertex="1">
+          <mxGeometry height="32" width="170" x="220" y="332" as="geometry" />
+        </mxCell>
+        <mxCell id="database" parent="1" style="swimlane;startSize=36;horizontal=1;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;html=1;" value="Database / Smart CRM Data" vertex="1">
+          <mxGeometry height="360" width="300" x="950" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="database" style="shape=cylinder3;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#b85450;html=1;" value="Ticket" vertex="1">
+          <mxGeometry height="44" width="200" x="50" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="database" style="shape=cylinder3;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#b85450;html=1;" value="Technician" vertex="1">
+          <mxGeometry height="44" width="200" x="50" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="database" style="shape=cylinder3;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#b85450;html=1;" value="Technician Skill" vertex="1">
+          <mxGeometry height="44" width="200" x="50" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" parent="database" style="shape=cylinder3;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#b85450;html=1;" value="Assignment" vertex="1">
+          <mxGeometry height="44" width="200" x="50" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" parent="database" style="shape=cylinder3;whiteSpace=wrap;fillColor=#ffffff;strokeColor=#b85450;html=1;" value="Appointment" vertex="1">
+          <mxGeometry height="44" width="200" x="50" y="274" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="frontend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;" target="backend" value="HTTP / API">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="backend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;" target="database" value="Read / Write">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

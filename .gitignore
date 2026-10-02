@@ -10,15 +10,14 @@ dist/
 __pycache__/
 .venv/
 venv/
-
 # Dữ liệu & model lớn
 data/raw/
 models/*.pkl
 models/*.pt
-
 # IDE / OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 *.db
+docs_backup_BT1/

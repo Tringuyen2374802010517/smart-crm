@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="jBboIxJeS307l98wqF84">
+    <mxGraphModel dx="1880" dy="1175" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1200" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;fontSize=22;fontStyle=1;fontColor=#333333;align=center;verticalAlign=middle;" value="Smart CRM – L4 Wireframes" vertex="1">
+          <mxGeometry height="40" width="1840" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="screen1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=2;verticalAlign=top;align=left;spacingTop=12;spacingLeft=14;fontStyle=1;fontSize=15;" value="Screen 1" vertex="1">
+          <mxGeometry height="850" width="440" x="40" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s1title" parent="screen1" style="text;html=1;fontSize=17;fontStyle=1;fontColor=#222222;align=left;verticalAlign=middle;" value="UC1 – Phiếu cần phân công" vertex="1">
+          <mxGeometry height="35" width="390" x="20" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="s1search" parent="screen1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=8;fontColor=#444444;" value="Tìm kiếm phiếu" vertex="1">
+          <mxGeometry height="34" width="210" x="20" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="s1priority" parent="screen1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=8;fontColor=#444444;" value="Priority ▼" vertex="1">
+          <mxGeometry height="34" width="80" x="245" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="s1status" parent="screen1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=8;fontColor=#444444;" value="Status ▼" vertex="1">
+          <mxGeometry height="34" width="75" x="335" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="s1table" parent="screen1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;verticalAlign=top;align=left;spacing=0;" value="&lt;table border=&quot;1&quot; cellpadding=&quot;7&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-collapse:collapse;font-size:10px;color:#333333;&quot;&gt;&lt;tr style=&quot;background:#eeeeee;font-weight:bold;&quot;&gt;&lt;td&gt;Ticket ID&lt;/td&gt;&lt;td&gt;Title&lt;/td&gt;&lt;td&gt;Incident Group&lt;/td&gt;&lt;td&gt;Priority&lt;/td&gt;&lt;td&gt;Status&lt;/td&gt;&lt;td&gt;Center&lt;/td&gt;&lt;td&gt;Action&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;T-1001&lt;/td&gt;&lt;td&gt;Không có mạng&lt;/td&gt;&lt;td&gt;Network&lt;/td&gt;&lt;td&gt;High&lt;/td&gt;&lt;td&gt;Pending&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;td&gt;&lt;button&gt;Phân công&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;T-1002&lt;/td&gt;&lt;td&gt;Lỗi SIM&lt;/td&gt;&lt;td&gt;SIM&lt;/td&gt;&lt;td&gt;Medium&lt;/td&gt;&lt;td&gt;Pending&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;td&gt;&lt;button&gt;Phân công&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;T-1003&lt;/td&gt;&lt;td&gt;Mất kết nối&lt;/td&gt;&lt;td&gt;Network&lt;/td&gt;&lt;td&gt;High&lt;/td&gt;&lt;td&gt;Pending&lt;/td&gt;&lt;td&gt;C2&lt;/td&gt;&lt;td&gt;&lt;button&gt;Phân công&lt;/button&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="230" width="400" x="20" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="screen2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=2;verticalAlign=top;align=left;spacingTop=12;spacingLeft=14;fontStyle=1;fontSize=15;" value="Screen 2" vertex="1">
+          <mxGeometry height="850" width="600" x="520" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s2title" parent="screen2" style="text;html=1;fontSize=17;fontStyle=1;fontColor=#222222;align=left;verticalAlign=middle;" value="UC2 / UC3 / UC7 – Phân công kỹ thuật viên" vertex="1">
+          <mxGeometry height="35" width="550" x="20" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="s2info" parent="screen2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacing=10;fontColor=#333333;" value="&lt;b&gt;Phiếu được chọn&lt;/b&gt;&lt;br&gt;Ticket ID: T-1001&lt;br&gt;Title: Không có mạng&lt;br&gt;Incident Group: Network&lt;br&gt;Priority: High&lt;br&gt;Center: C1" vertex="1">
+          <mxGeometry height="125" width="550" x="20" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="s2section" parent="screen2" style="text;html=1;fontSize=14;fontStyle=1;align=left;verticalAlign=middle;" value="Kỹ thuật viên khả dụng" vertex="1">
+          <mxGeometry height="30" width="550" x="20" y="235" as="geometry" />
+        </mxCell>
+        <mxCell id="s2table" parent="screen2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;verticalAlign=top;align=left;spacing=0;" value="&lt;table border=&quot;1&quot; cellpadding=&quot;7&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border-collapse:collapse;font-size:10px;color:#333333;&quot;&gt;&lt;tr style=&quot;background:#eeeeee;font-weight:bold;&quot;&gt;&lt;td&gt;Select&lt;/td&gt;&lt;td&gt;Technician&lt;/td&gt;&lt;td&gt;Area&lt;/td&gt;&lt;td&gt;Availability&lt;/td&gt;&lt;td&gt;Workload&lt;/td&gt;&lt;td&gt;Incident Group&lt;/td&gt;&lt;td&gt;Proficiency&lt;/td&gt;&lt;td&gt;Center&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;center&quot;&gt;○&lt;/td&gt;&lt;td&gt;Nguyễn An&lt;/td&gt;&lt;td&gt;Q1&lt;/td&gt;&lt;td&gt;Available&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;Network&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;center&quot;&gt;○&lt;/td&gt;&lt;td&gt;Trần Bình&lt;/td&gt;&lt;td&gt;Q2&lt;/td&gt;&lt;td&gt;Available&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;Network&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;center&quot;&gt;○&lt;/td&gt;&lt;td&gt;Lê Chi&lt;/td&gt;&lt;td&gt;Q1&lt;/td&gt;&lt;td&gt;Busy&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;SIM&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;C2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="200" width="550" x="20" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="s2validation" parent="screen2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacing=12;fontColor=#333333;" value="&lt;b&gt;Kiểm tra điều kiện phân công – UC7&lt;/b&gt;&lt;br&gt;&lt;br&gt;☑ Proficiency &amp;gt;= 3&lt;br&gt;☑ Cùng trung tâm&lt;br&gt;☑ Kỹ thuật viên khả dụng&lt;br&gt;&lt;br&gt;&lt;b&gt;Đủ điều kiện phân công&lt;/b&gt;" vertex="1">
+          <mxGeometry height="160" width="550" x="20" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="s2confirm" parent="screen2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6e6e6;strokeColor=#555555;fontStyle=1;" value="Xác nhận phân công" vertex="1">
+          <mxGeometry height="42" width="180" x="150" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="s2cancel" parent="screen2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#555555;" value="Hủy" vertex="1">
+          <mxGeometry height="42" width="90" x="350" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="screen3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=2;verticalAlign=top;align=left;spacingTop=12;spacingLeft=14;fontStyle=1;fontSize=15;" value="Screen 3" vertex="1">
+          <mxGeometry height="850" width="440" x="1160" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s3title" parent="screen3" style="text;html=1;fontSize=17;fontStyle=1;fontColor=#222222;align=left;verticalAlign=middle;" value="UC5 / UC8 – Đặt lịch giao – nhận máy" vertex="1">
+          <mxGeometry height="50" width="400" x="20" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="s3form" parent="screen3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;verticalAlign=top;spacing=12;fontColor=#333333;" value="&lt;b&gt;Ticket ID:&lt;/b&gt; T-1001&lt;br&gt;&lt;b&gt;Technician:&lt;/b&gt; Nguyễn An&lt;br&gt;&lt;b&gt;Appointment Type:&lt;/b&gt; Giao máy ▼&lt;br&gt;&lt;font color=&quot;#666666&quot;&gt;Options: Giao máy | Nhận máy&lt;/font&gt;&lt;br&gt;&lt;b&gt;Scheduled Date:&lt;/b&gt; __ / __ / ____&lt;br&gt;&lt;b&gt;Scheduled Time:&lt;/b&gt; __ : __&lt;br&gt;&lt;b&gt;Status:&lt;/b&gt; Scheduled" vertex="1">
+          <mxGeometry height="240" width="400" x="20" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="s3check" parent="screen3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6e6e6;strokeColor=#555555;fontStyle=1;" value="Kiểm tra trùng lịch" vertex="1">
+          <mxGeometry height="42" width="190" x="125" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="s3validation" parent="screen3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacing=12;fontColor=#333333;" value="&lt;b&gt;UC8 – Kiểm tra trùng lịch&lt;/b&gt;&lt;br&gt;&lt;br&gt;Không có xung đột lịch" vertex="1">
+          <mxGeometry height="120" width="400" x="20" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="s3confirm" parent="screen3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6e6e6;strokeColor=#555555;fontStyle=1;" value="Xác nhận đặt lịch" vertex="1">
+          <mxGeometry height="42" width="170" x="85" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="s3cancel" parent="screen3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#555555;" value="Hủy" vertex="1">
+          <mxGeometry height="42" width="80" x="275" y="715" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
