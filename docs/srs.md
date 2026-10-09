@@ -1,3 +1,4 @@
+
 # SRS Rút Gọn – Smart CRM Mekong Mobile
 
 **Sinh viên:** Nguyễn Minh Trị  
@@ -181,8 +182,8 @@ Tại một thời điểm, một phiếu chỉ được gán cho tối đa mộ
 **BR2 – Điều kiện kỹ thuật viên**  
 Kỹ thuật viên chỉ được phân công cho nhóm sự cố mà kỹ thuật viên có mức proficiency **≥ 3** và phải thuộc cùng trung tâm.
 
-**BR3 – Trạng thái phiếu**  
-Trạng thái phiếu phải tuân theo vòng đời quy định, không được chuyển ngược trạng thái và mọi thay đổi trạng thái phải được ghi nhận.
+**BR3 – Điều kiện trạng thái phiếu**  
+Hệ thống chỉ cho phép phân công kỹ thuật viên đối với các phiếu đang ở trạng thái PENDING (chờ phân công). Các phiếu đã có phân công đang hoạt động không được phân công thêm kỹ thuật viên khác.
 
 **BR4 – Thời hạn cam kết**  
 Thời hạn cam kết xử lý theo mức ưu tiên:

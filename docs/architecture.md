@@ -44,6 +44,7 @@ Trách nhiệm chính:
 
 - Truy vấn các phiếu cần phân công.
 - Truy vấn danh sách kỹ thuật viên khả dụng.
+- Tính khối lượng công việc hiện tại (`current_workload`) của mỗi kỹ thuật viên bằng cách đếm số bản ghi Assignment đang hoạt động (`ended_at IS NULL`), thay vì lưu trực tiếp trong bảng Technician.
 - Xử lý phân công và thay đổi kỹ thuật viên.
 - Thực hiện UC7 – Kiểm tra điều kiện phân công.
 - Kiểm tra proficiency ≥ 3 và kỹ thuật viên thuộc cùng trung tâm.

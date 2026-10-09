@@ -1,3 +1,4 @@
+
 -- Smart CRM – Mekong Mobile
 -- Business Flow: L4 – Phân công kỹ thuật viên và lịch hẹn
 -- Track: SE
@@ -24,8 +25,7 @@ CREATE TABLE technician (
     name VARCHAR(255) NOT NULL,
     center_id INTEGER NOT NULL,
     area VARCHAR(255),
-    availability_status VARCHAR(50) NOT NULL,
-    current_workload INTEGER NOT NULL DEFAULT 0
+    availability_status VARCHAR(50) NOT NULL
 );
 
 -- =====================================================
@@ -41,7 +41,8 @@ CREATE TABLE technician_skill (
     FOREIGN KEY (technician_id)
         REFERENCES technician(technician_id),
 
-    CHECK (proficiency >= 1 AND proficiency <= 5)
+    CHECK (proficiency >= 1 AND proficiency <= 5),
+    UNIQUE (technician_id, incident_group)
 );
 
 -- =====================================================
@@ -81,3 +82,29 @@ CREATE TABLE appointment (
     FOREIGN KEY (technician_id)
         REFERENCES technician(technician_id)
 );
+
+-- =====================================================
+-- 6. INDEXES
+-- =====================================================
+
+-- Tăng tốc lọc phiếu theo trạng thái
+CREATE INDEX idx_ticket_status
+ON ticket(status);
+
+-- Tăng tốc tìm kỹ thuật viên khả dụng theo trung tâm
+CREATE INDEX idx_technician_availability
+ON technician(availability_status, center_id);
+
+-- Tăng tốc tra cứu kỹ năng của kỹ thuật viên
+CREATE INDEX idx_technician_skill_lookup
+ON technician_skill(technician_id, incident_group);
+
+-- Tăng tốc tra cứu lịch hẹn theo kỹ thuật viên và thời gian
+CREATE INDEX idx_appointment_technician_time
+ON appointment(technician_id, scheduled_at);
+
+-- Đảm bảo mỗi phiếu chỉ có tối đa một phân công đang hoạt động
+-- ended_at IS NULL nghĩa là phân công chưa kết thúc
+CREATE UNIQUE INDEX idx_assignment_active_ticket
+ON assignment(ticket_id)
+WHERE ended_at IS NULL;
