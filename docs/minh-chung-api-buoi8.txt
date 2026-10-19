@@ -1,0 +1,24 @@
+SMART CRM - BUOI 8 - MINH CHUNG API
+
+TEST 1: GET /tickets
+STATUS: 200
+BODY: []
+
+TEST 2: POST /tickets - DU LIEU KHONG HOP LE
+STATUS: 400
+BODY: {'detail': 'Tieu de khong duoc de trong'}
+
+
+TEST 3: POST /tickets - DU LIEU HOP LE
+STATUS: 201
+BODY: {'ticket_id': 1, 'title': 'Sua man hinh dien thoai', 'incident_group': 'MAN_HINH', 'priority': 'CAO', 'status': 'PENDING', 'center_id': 1}
+KET QUA: PASS
+
+KIEM TRA SQLITE:
+ticket_id: 1
+title: Sua man hinh dien thoai
+priority: CAO
+status: PENDING
+center_id: 1
+
+KET LUAN: 3/3 TESTS PASSED
