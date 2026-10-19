@@ -1,4 +1,7 @@
+
 from src.backend.api.ticket_api import router as ticket_router
+from src.backend.api.assignment_api import router as assignment_router
+
 import sqlite3
 
 from fastapi import FastAPI
@@ -26,4 +29,6 @@ def db_check():
         "result": result[0]
     }
 
+
 app.include_router(ticket_router)
+app.include_router(assignment_router)
