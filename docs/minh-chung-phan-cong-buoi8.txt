@@ -1,0 +1,14 @@
+===== MINH CHUNG API PHAN CONG KY THUAT VIEN =====
+===== DANH SACH ASSIGNMENT TRONG SQLITE =====
+assignment_id  ticket_id  technician_id            assigned_at             ended_at
+-------------  ---------  -------------  --------------------------------  --------
+            1          1              1  2026-10-19T09:50:23.397928+00:00
+            2          2              1  2026-10-19T11:27:37.999541+00:00
+===== KIEM TRA RANG BUOC DATABASE =====
+===== DANH SACH API =====
+/ ['get']
+/db-check ['get']
+/tickets ['get', 'post']
+/tickets/{ticket_id} ['get', 'put', 'delete']
+/assignments/eligible-technicians/{ticket_id} ['get']
+/assignments/ ['post']
