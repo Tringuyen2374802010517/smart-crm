@@ -20,7 +20,7 @@ Hệ thống hỗ trợ:
 
 - Xem các phiếu đang cần phân công kỹ thuật viên.
 - Xem các kỹ thuật viên đang khả dụng.
-- Kiểm tra kỹ năng và trung tâm của kỹ thuật viên.
+- Kiểm tra trạng thái khả dụng, kỹ năng và trung tâm của kỹ thuật viên.
 - Phân công kỹ thuật viên cho phiếu.
 - Thay đổi kỹ thuật viên phụ trách và ghi nhận lý do.
 - Đặt lịch giao – nhận máy.
@@ -48,6 +48,9 @@ Bài tập không thực hiện:
 | Proficiency | Mức độ thành thạo của kỹ thuật viên đối với nhóm sự cố |
 | Workload | Khối lượng công việc hiện tại của kỹ thuật viên |
 | Trung tâm (Center) | Trung tâm nơi phiếu và kỹ thuật viên được quản lý |
+| PENDING | Trạng thái phiếu đang chờ phân công |
+| AVAILABLE | Trạng thái kỹ thuật viên đang khả dụng |
+| MoSCoW | Phương pháp phân loại mức độ ưu tiên yêu cầu thành MUST, SHOULD, COULD và WON'T |
 
 ---
 
@@ -61,18 +64,18 @@ Bài tập không thực hiện:
 
 ---
 
-## 3. Yêu cầu chức năng và User Story
+## 3. Yêu cầu chức năng và User Stories
 
 ### 3.1. Functional Requirements
 
 **FR1 – Xem phiếu cần phân công**  
-Hệ thống phải cho phép quản lý trung tâm xem danh sách các phiếu đang cần phân công kỹ thuật viên.
+Hệ thống phải cho phép quản lý trung tâm xem danh sách các phiếu đang chờ phân công kỹ thuật viên.
 
 **FR2 – Xem kỹ thuật viên khả dụng**  
 Hệ thống phải cho phép quản lý trung tâm xem danh sách kỹ thuật viên khả dụng cùng thông tin về kỹ năng, khu vực và khối lượng công việc hiện tại.
 
 **FR3 – Phân công kỹ thuật viên**  
-Hệ thống phải cho phép quản lý trung tâm phân công kỹ thuật viên cho một phiếu.
+Hệ thống phải cho phép quản lý trung tâm phân công một kỹ thuật viên phù hợp cho một phiếu đang chờ phân công.
 
 **FR4 – Thay đổi kỹ thuật viên**  
 Hệ thống phải cho phép quản lý trung tâm thay đổi kỹ thuật viên phụ trách và ghi nhận lý do thay đổi.
@@ -84,108 +87,153 @@ Hệ thống phải cho phép quản lý trung tâm tạo lịch giao – nhận
 Hệ thống phải cho phép kỹ thuật viên xem các phiếu và lịch hẹn được giao cho mình.
 
 **FR7 – Kiểm tra điều kiện phân công**  
-Hệ thống phải kiểm tra kỹ thuật viên có mức proficiency phù hợp và thuộc cùng trung tâm trước khi xác nhận phân công.
+Trước khi xác nhận phân công, hệ thống phải kiểm tra trạng thái khả dụng của kỹ thuật viên, mức proficiency phù hợp, trung tâm và tình trạng phân công hiện tại của phiếu.
 
 **FR8 – Kiểm tra trùng lịch**  
 Hệ thống phải kiểm tra xung đột lịch trước khi xác nhận lịch giao – nhận máy.
 
 ### 3.2. User Stories và MoSCoW
 
-**US1 – MUST**  
-Là quản lý trung tâm, tôi muốn xem các phiếu đang cần phân công để biết phiếu nào cần được xử lý.
+#### MUST HAVE
 
-**US2 – MUST**  
-Là quản lý trung tâm, tôi muốn xem các kỹ thuật viên đang khả dụng cùng kỹ năng, khu vực và khối lượng công việc để lựa chọn kỹ thuật viên phù hợp.
+**US1 – Xem phiếu cần phân công**
 
-**US3 – MUST**  
-Là quản lý trung tâm, tôi muốn phân công một kỹ thuật viên cho phiếu để xác định người chịu trách nhiệm xử lý.
+Là quản lý trung tâm, tôi muốn xem các phiếu đang chờ phân công để xác định phiếu cần xử lý.
 
-**US4 – SHOULD**  
-Là quản lý trung tâm, tôi muốn thay đổi kỹ thuật viên phụ trách và ghi nhận lý do để xử lý trường hợp cần điều chỉnh phân công.
+**US2 – Xem kỹ thuật viên khả dụng**
 
-**US5 – SHOULD**  
-Là quản lý trung tâm, tôi muốn đặt lịch giao – nhận máy để xác định thời gian thực hiện việc giao hoặc nhận thiết bị.
+Là quản lý trung tâm, tôi muốn xem các kỹ thuật viên đang khả dụng cùng thông tin kỹ năng, khu vực và khối lượng công việc để lựa chọn người phù hợp.
 
-**US6 – COULD**  
+**US3 – Phân công kỹ thuật viên**
+
+Là quản lý trung tâm, tôi muốn phân công kỹ thuật viên đáp ứng điều kiện về trạng thái khả dụng, kỹ năng và trung tâm cho một phiếu để xác định người chịu trách nhiệm xử lý.
+
+#### SHOULD HAVE
+
+**US4 – Thay đổi kỹ thuật viên**
+
+Là quản lý trung tâm, tôi muốn thay đổi kỹ thuật viên phụ trách và ghi nhận lý do để điều chỉnh phân công khi cần thiết.
+
+**US5 – Đặt lịch giao – nhận máy**
+
+Là quản lý trung tâm, tôi muốn đặt lịch giao – nhận máy có kiểm tra trùng lịch để tránh xung đột thời gian.
+
+#### COULD HAVE
+
+**US6 – Xem công việc được giao**
+
 Là kỹ thuật viên, tôi muốn xem các phiếu và lịch hẹn được giao để theo dõi công việc của mình.
 
-**US7 – SHOULD**  
-Là quản lý trung tâm, tôi muốn hệ thống kiểm tra kỹ năng và trung tâm của kỹ thuật viên trước khi phân công để tránh phân công không phù hợp.
+#### WON'T HAVE – Trong phạm vi bài tập
 
-**US8 – SHOULD**  
-Là quản lý trung tâm, tôi muốn hệ thống kiểm tra trùng lịch trước khi xác nhận lịch giao – nhận máy để tránh xung đột lịch.
+Không triển khai:
+
+- Chức năng thanh toán và xuất hóa đơn.
+- Chức năng quản lý kho và linh kiện.
+- Chức năng đăng nhập và phân quyền chi tiết.
+- Toàn bộ quy trình CRM.
+- Triển khai hệ thống thực tế.
+
+Các nội dung WON'T được xác định là ngoài phạm vi, không phải User Stories cần triển khai trong bài tập này.
 
 ### 3.3. Acceptance Criteria cho các User Story MUST
 
 #### US1 – Xem phiếu cần phân công
 
-**AC1**
+**AC1 – Hiển thị phiếu chờ phân công**
 
-- **Given** quản lý trung tâm đang sử dụng hệ thống.
-- **When** quản lý mở danh sách phiếu cần phân công.
-- **Then** hệ thống hiển thị các phiếu đang chờ phân công kỹ thuật viên.
+- **Given:** Quản lý trung tâm đang sử dụng hệ thống.
+- **When:** Quản lý mở danh sách phiếu cần phân công.
+- **Then:** Hệ thống hiển thị các phiếu có trạng thái PENDING.
 
-**AC2**
+**AC2 – Hiển thị thông tin phiếu**
 
-- **Given** danh sách có nhiều phiếu.
-- **When** hệ thống hiển thị danh sách.
-- **Then** mỗi phiếu hiển thị các thông tin cần thiết như mã phiếu, tiêu đề, mức ưu tiên, trạng thái và trung tâm.
+- **Given:** Danh sách có nhiều phiếu.
+- **When:** Hệ thống hiển thị danh sách.
+- **Then:** Mỗi phiếu có mã phiếu, tiêu đề, mức ưu tiên, trạng thái và trung tâm.
 
 #### US2 – Xem kỹ thuật viên khả dụng
 
-**AC1**
+**AC1 – Hiển thị kỹ thuật viên khả dụng**
 
-- **Given** quản lý đã chọn một phiếu cần phân công.
-- **When** quản lý yêu cầu xem kỹ thuật viên khả dụng.
-- **Then** hệ thống hiển thị danh sách các kỹ thuật viên đang khả dụng.
+- **Given:** Quản lý đã chọn một phiếu cần phân công.
+- **When:** Quản lý yêu cầu xem kỹ thuật viên khả dụng.
+- **Then:** Hệ thống hiển thị danh sách kỹ thuật viên có trạng thái AVAILABLE đáp ứng điều kiện lựa chọn.
 
-**AC2**
+**AC2 – Hiển thị thông tin kỹ thuật viên**
 
-- **Given** danh sách kỹ thuật viên khả dụng được hiển thị.
-- **When** quản lý xem thông tin kỹ thuật viên.
-- **Then** hệ thống hiển thị kỹ năng, khu vực, khối lượng công việc và trạng thái khả dụng.
+- **Given:** Danh sách kỹ thuật viên khả dụng được hiển thị.
+- **When:** Quản lý xem thông tin kỹ thuật viên.
+- **Then:** Hệ thống hiển thị kỹ năng, khu vực, khối lượng công việc và trạng thái khả dụng theo dữ liệu được quản lý.
+
+**AC3 – Không đề xuất kỹ thuật viên không phù hợp**
+
+- **Given:** Kỹ thuật viên không đáp ứng điều kiện về kỹ năng hoặc trung tâm.
+- **When:** Hệ thống xác định danh sách kỹ thuật viên đủ điều kiện cho phiếu.
+- **Then:** Kỹ thuật viên đó không xuất hiện trong danh sách đủ điều kiện.
 
 #### US3 – Phân công kỹ thuật viên
 
-**AC1**
+**AC1 – Phân công thành công**
 
-- **Given** quản lý đã chọn phiếu và một kỹ thuật viên phù hợp.
-- **When** quản lý xác nhận phân công.
-- **Then** hệ thống ghi nhận kỹ thuật viên phụ trách phiếu.
+- **Given:** Phiếu có trạng thái PENDING, chưa có phân công đang hoạt động và kỹ thuật viên đáp ứng các điều kiện.
+- **When:** Quản lý xác nhận phân công.
+- **Then:** Hệ thống tạo bản ghi phân công và xác định kỹ thuật viên phụ trách phiếu.
 
-**AC2**
+**AC2 – Từ chối kỹ thuật viên không phù hợp**
 
-- **Given** kỹ thuật viên không đáp ứng điều kiện phân công.
-- **When** quản lý thực hiện phân công.
-- **Then** hệ thống từ chối phân công và thông báo lý do.
+- **Given:** Kỹ thuật viên không AVAILABLE, không cùng trung tâm hoặc có proficiency dưới 3 đối với nhóm sự cố của phiếu.
+- **When:** Quản lý thực hiện phân công.
+- **Then:** Hệ thống từ chối phân công và thông báo lý do.
+
+**AC3 – Ngăn phân công trùng**
+
+- **Given:** Phiếu đã có phân công đang hoạt động.
+- **When:** Quản lý cố gắng phân công thêm kỹ thuật viên.
+- **Then:** Hệ thống từ chối tạo phân công mới.
 
 ---
 
 ## 4. Yêu cầu phi chức năng
 
-**NFR1 – Hiệu năng danh sách**  
+**NFR1 – Hiệu năng danh sách**
+
 Hệ thống phải hiển thị danh sách phiếu hoặc kỹ thuật viên trong thời gian không quá **2 giây** với tối đa **100 bản ghi**.
 
-**NFR2 – Hiệu năng thao tác**  
+**NFR2 – Hiệu năng thao tác**
+
 Hệ thống phải phản hồi thao tác phân công kỹ thuật viên hoặc đặt lịch trong thời gian không quá **2 giây**.
 
-**NFR3 – Khả dụng thao tác**  
+**NFR3 – Khả dụng thao tác**
+
 Người quản lý phải có thể hoàn thành quy trình phân công kỹ thuật viên trong tối đa **5 bước tương tác chính**, tính từ danh sách phiếu cần phân công.
+
+Các NFR là tiêu chí mục tiêu của hệ thống; việc đạt các tiêu chí cần được kiểm chứng bằng thử nghiệm tương ứng.
 
 ---
 
 ## 5. Ràng buộc và Business Rules
 
-**BR1 – Phân công kỹ thuật viên**  
-Tại một thời điểm, một phiếu chỉ được gán cho tối đa một kỹ thuật viên. Khi thay đổi kỹ thuật viên phải ghi nhận lý do thay đổi.
+**BR1 – Phân công kỹ thuật viên**
 
-**BR2 – Điều kiện kỹ thuật viên**  
-Kỹ thuật viên chỉ được phân công cho nhóm sự cố mà kỹ thuật viên có mức proficiency **≥ 3** và phải thuộc cùng trung tâm.
+Tại một thời điểm, một phiếu chỉ được gán cho tối đa một kỹ thuật viên đang phụ trách. Khi thay đổi kỹ thuật viên phải ghi nhận lý do thay đổi.
 
-**BR3 – Điều kiện trạng thái phiếu**  
-Hệ thống chỉ cho phép phân công kỹ thuật viên đối với các phiếu đang ở trạng thái PENDING (chờ phân công). Các phiếu đã có phân công đang hoạt động không được phân công thêm kỹ thuật viên khác.
+**BR2 – Điều kiện kỹ thuật viên**
 
-**BR4 – Thời hạn cam kết**  
+Kỹ thuật viên chỉ được phân công khi:
+
+- Có trạng thái AVAILABLE.
+- Có proficiency ≥ 3 đối với nhóm sự cố của phiếu.
+- Thuộc cùng trung tâm với phiếu.
+
+**BR3 – Điều kiện trạng thái phiếu**
+
+Hệ thống chỉ cho phép tạo phân công mới đối với các phiếu có trạng thái PENDING và chưa có phân công đang hoạt động.
+
+Trường hợp thay đổi kỹ thuật viên phụ trách được xử lý theo quy trình riêng của FR4, phải bảo đảm không tồn tại đồng thời hai phân công đang hoạt động cho cùng một phiếu.
+
+**BR4 – Thời hạn cam kết**
+
 Thời hạn cam kết xử lý theo mức ưu tiên:
 
 - CAO: 24 giờ.
@@ -206,5 +254,39 @@ Ngày làm việc được tính từ **Thứ Hai đến Thứ Bảy**.
 | FR4 | US4 | UC4 – Thay đổi kỹ thuật viên phụ trách | SHOULD |
 | FR5 | US5 | UC5 – Đặt lịch giao – nhận máy | SHOULD |
 | FR6 | US6 | UC6 – Xem công việc và lịch hẹn được giao | COULD |
-| FR7 | US7 | UC7 – Kiểm tra điều kiện phân công | SHOULD |
-| FR8 | US8 | UC8 – Kiểm tra trùng lịch | SHOULD |
+| FR7 | US3 | UC7 – Kiểm tra điều kiện phân công | MUST |
+| FR8 | US5 | UC8 – Kiểm tra trùng lịch | SHOULD |
+
+**Ghi chú:**
+
+- FR7 là yêu cầu kiểm tra bắt buộc trong quá trình thực hiện US3.
+- FR8 là yêu cầu kiểm tra bắt buộc trong quá trình thực hiện US5.
+- UC7 và UC8 là các chức năng hỗ trợ, cần được thể hiện nhất quán trong đặc tả Use Case và sơ đồ.
+- Việc phân loại MUST/SHOULD/COULD thể hiện mức ưu tiên triển khai, không có nghĩa các điều kiện kiểm tra trong một chức năng được phép bỏ qua khi chức năng đó được triển khai.
+
+---
+
+## 7. Liên kết tài liệu thiết kế
+
+Các tài liệu liên quan trong repository:
+
+- `docs/usecase-spec.md`: Đặc tả Use Case.
+- `docs/usecase.drawio`: Sơ đồ Use Case gốc.
+- `docs/architecture.md`: Mô tả kiến trúc hệ thống.
+- `docs/architecture.drawio`: Sơ đồ kiến trúc gốc.
+- `docs/erd.drawio`: Sơ đồ thực thể và quan hệ.
+- `docs/schema.sql`: Định nghĩa cấu trúc cơ sở dữ liệu bằng SQL DDL.
+- `docs/thay-doi-thiet-ke.md`: Nhật ký quyết định điều chỉnh thiết kế theo phản hồi BT1.
+
+Các tài liệu trên cần được đồng bộ theo SRS sau khi hoàn tất chỉnh sửa.
+
+---
+
+## 8. Lịch sử điều chỉnh
+
+| Phiên bản | Nội dung |
+|---|---|
+| 1.0 | SRS ban đầu cho luồng L4 |
+| 1.1 | Chuẩn hóa User Stories thành 6 mục, bổ sung WON'T, cập nhật Acceptance Criteria, Business Rules và Traceability Matrix theo kế hoạch xử lý phản hồi BT1 |
+
+**Trạng thái:** Đã cập nhật nội dung SRS; chưa xác nhận đồng bộ hoàn tất với tất cả sơ đồ và đặc tả Use Case.

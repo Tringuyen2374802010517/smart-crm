@@ -73,14 +73,17 @@ CREATE TABLE appointment (
     ticket_id INTEGER NOT NULL,
     technician_id INTEGER NOT NULL,
     appointment_type VARCHAR(50) NOT NULL,
-    scheduled_at DATETIME NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
     status VARCHAR(50) NOT NULL,
 
     FOREIGN KEY (ticket_id)
         REFERENCES ticket(ticket_id),
 
     FOREIGN KEY (technician_id)
-        REFERENCES technician(technician_id)
+        REFERENCES technician(technician_id),
+
+    CHECK (end_time > start_time)
 );
 
 -- =====================================================
@@ -101,7 +104,7 @@ ON technician_skill(technician_id, incident_group);
 
 -- Tăng tốc tra cứu lịch hẹn theo kỹ thuật viên và thời gian
 CREATE INDEX idx_appointment_technician_time
-ON appointment(technician_id, scheduled_at);
+ON appointment(technician_id, start_time, end_time);
 
 -- Đảm bảo mỗi phiếu chỉ có tối đa một phân công đang hoạt động
 -- ended_at IS NULL nghĩa là phân công chưa kết thúc
