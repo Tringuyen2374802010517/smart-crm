@@ -21,3 +21,6 @@ models/*.pt
 Thumbs.db
 *.db
 docs_backup_BT1/
+
+# Local README backup
+README.backup.md
