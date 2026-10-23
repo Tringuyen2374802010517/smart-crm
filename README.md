@@ -261,7 +261,7 @@ Thư mục `dist/` được tạo khi build và được loại trừ khỏi Git
 
 ### 3.9. Kiểm tra trên môi trường mới
 
-Quy trình kiểm tra fresh clone cần xác nhận:
+Kết quả kiểm thử fresh clone:
 
 - Clone repository thành công.
 - Cài đặt Python dependencies thành công.
@@ -271,7 +271,7 @@ Quy trình kiểm tra fresh clone cần xác nhận:
 - Frontend kết nối được API.
 - Unit tests chạy thành công.
 
-**Trạng thái:** Đã kiểm tra riêng schema, seed, Frontend build và unit tests trên môi trường phát triển. Kiểm thử fresh clone hoàn chỉnh cần được thực hiện trước khi nộp bài.
+**Trạng thái:** Đã kiểm tra riêng schema, seed, Frontend build và unit tests trên môi trường phát triển. ĐÃ HOÀN THÀNH kiểm thử fresh clone ngày 23/10/2026: cài dependencies, nạp schema và seed, 9/9 unit test PASS, Frontend build thành công, Backend và Frontend khởi chạy và giao diện hiển thị đầy đủ.
 
 ---
 
@@ -752,4 +752,4 @@ Từ Buổi 8, dự án bắt đầu triển khai Backend, cơ sở dữ liệu,
 
 Các chức năng thay đổi kỹ thuật viên, quản lý lịch hẹn và kiểm tra xung đột lịch vẫn cần tiếp tục phát triển.
 
-Trước khi nộp bài, cần xác nhận lại khả năng chạy trên môi trường fresh clone, minh chứng giao diện và lịch sử Git commit.
+Đã kiểm tra fresh clone, minh chứng giao diện và lịch sử Git commit trong phiên rà soát ngày 23/10/2026. Trước khi nộp, chỉ cần đối chiếu lại nội dung PDF và yêu cầu nộp cụ thể của giảng viên.
