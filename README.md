@@ -622,13 +622,34 @@ Kết quả:
 - 9 modules transformed
 - Build thành công
 
-### 8.6. Các hạng mục cần kiểm tra trước khi nộp
+### 8.6. Minh chứng và kiểm thử fresh clone
 
-- Hoàn thiện và kiểm tra ảnh chụp màn hình minh chứng trong `docs/`.
-- Kiểm thử fresh clone đầy đủ.
+Đã lưu 6 ảnh minh chứng Frontend trong `docs/`:
+
+- `buoi10-ticket-list.png` – Danh sách Ticket.
+- `buoi10-ticket-detail.png` – Chi tiết Ticket.
+- `buoi10-assignment-success.png` – Phân công thành công.
+- `buoi10-loading-state.png` – Trạng thái Loading.
+- `buoi10-empty-state.png` – Trạng thái Empty.
+- `buoi10-error-state.png` – Trạng thái Error.
+
+Đã kiểm thử fresh clone từ GitHub trên nhánh `dev`:
+
+- Cài đặt Python dependencies thành công.
+- Tạo SQLite database từ `docs/schema.sql` và `docs/seed.sql`.
+- Backend trả về dữ liệu thực qua REST API.
+- Frontend kết nối Backend và thực hiện phân công kỹ thuật viên thành công.
+- API từ chối phân công trùng.
+- 9/9 unit tests PASSED.
+- Frontend build thành công bằng Vite.
+
+Khi kiểm thử giao diện fresh clone, đã sử dụng cổng Backend `8001` và Frontend `5174` cùng cấu hình CORS/API tạm thời để tránh xung đột với môi trường phát triển.
+
+Các công việc còn lại trước khi nộp:
+
 - Kiểm tra README khớp với mã nguồn và tài liệu thiết kế.
-- Kiểm tra lịch sử Git commit theo yêu cầu giảng viên.
-- Rà soát toàn bộ checklist Buổi 10.
+- Kiểm tra lịch sử Git commit.
+- Rà soát checklist Buổi 10.
 
 ### 8.7. Các chức năng chưa triển khai
 
