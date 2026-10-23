@@ -1,3 +1,4 @@
+
 import sqlite3
 from pathlib import Path
 
@@ -14,9 +15,27 @@ def get_connection():
 def get_all_tickets():
     with get_connection() as connection:
         rows = connection.execute(
-            "SELECT * FROM ticket ORDER BY ticket_id"
+            """
+            SELECT
+                t.*,
+                EXISTS (
+                    SELECT 1
+                    FROM assignment a
+                    WHERE a.ticket_id = t.ticket_id
+                      AND a.ended_at IS NULL
+                ) AS is_assigned
+            FROM ticket t
+            ORDER BY t.ticket_id
+            """
         ).fetchall()
-        return [dict(row) for row in rows]
+
+        return [
+            {
+                **dict(row),
+                "is_assigned": bool(row["is_assigned"])
+            }
+            for row in rows
+        ]
 
 
 def get_ticket_by_id(ticket_id):
