@@ -538,6 +538,7 @@ Frontend có xử lý các trạng thái:
 - Error – Không thể tải hoặc xử lý yêu cầu.
 
 Đã kiểm tra luồng hiển thị Ticket và phân công kỹ thuật viên trên môi trường phát triển.
+Đã xác nhận US2–AC2 hiển thị nhóm kỹ năng, khu vực, trung tâm, trạng thái khả dụng, tay nghề và khối lượng công việc.
 
 ### 8.2. Tích hợp Frontend – Backend – Database
 
@@ -624,7 +625,7 @@ Kết quả:
 
 ### 8.6. Minh chứng và kiểm thử fresh clone
 
-Đã lưu 6 ảnh minh chứng Frontend trong `docs/`:
+Đã lưu 7 ảnh minh chứng Frontend trong `docs/`:
 
 - `buoi10-ticket-list.png` – Danh sách Ticket.
 - `buoi10-ticket-detail.png` – Chi tiết Ticket.
@@ -632,6 +633,7 @@ Kết quả:
 - `buoi10-loading-state.png` – Trạng thái Loading.
 - `buoi10-empty-state.png` – Trạng thái Empty.
 - `buoi10-error-state.png` – Trạng thái Error.
+- `buoi10-technician-details.png` – Thông tin kỹ thuật viên theo US2–AC2.
 
 Đã kiểm thử fresh clone từ GitHub trên nhánh `dev`:
 
@@ -645,10 +647,10 @@ Kết quả:
 
 Khi kiểm thử giao diện fresh clone, đã sử dụng cổng Backend `8001` và Frontend `5174` cùng cấu hình CORS/API tạm thời để tránh xung đột với môi trường phát triển.
 
-Các công việc còn lại trước khi nộp:
+Tiến độ rà soát trước khi nộp:
 
 - Kiểm tra README khớp với mã nguồn và tài liệu thiết kế.
-- Kiểm tra lịch sử Git commit.
+- Đã kiểm tra lịch sử Git: 10 Conventional Commits cho Buổi 10.
 - Rà soát checklist Buổi 10.
 
 ### 8.7. Các chức năng chưa triển khai
