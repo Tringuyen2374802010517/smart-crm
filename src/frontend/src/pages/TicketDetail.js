@@ -51,5 +51,14 @@ export async function renderTicketDetail(container, ticketId, onBack) {
     });
   } catch (error) {
     content.textContent = `Không thể tải chi tiết phiếu: ${error.message}`;
+
+    const retryButton = document.createElement('button');
+    retryButton.type = 'button';
+    retryButton.textContent = 'Thử lại';
+    retryButton.addEventListener('click', () => {
+      renderTicketDetail(container, ticketId, onBack);
+    });
+
+    content.appendChild(retryButton);
   }
 }

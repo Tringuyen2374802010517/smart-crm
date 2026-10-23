@@ -118,6 +118,13 @@ export async function renderTechnicianAssignment(
       showMessage(
         `Không thể tải kỹ thuật viên: ${error.message}`
       );
+
+      const retryButton = document.createElement('button');
+      retryButton.type = 'button';
+      retryButton.textContent = 'Thử lại';
+      retryButton.addEventListener('click', loadTechnicians);
+
+      content.appendChild(retryButton);
     }
   }
 
