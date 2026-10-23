@@ -66,6 +66,9 @@ export async function renderTechnicianAssignment(
         details.textContent =
           `Mã KTV: ${technician.technician_id} | ` +
           `Trạng thái: ${technician.availability_status ?? 'Chưa có'} | ` +
+          `Nhóm kỹ năng: ${technician.incident_group ?? 'Chưa có'} | ` +
+          `Khu vực: ${technician.area ?? 'Chưa có'} | ` +
+          `Trung tâm: ${technician.center_id ?? 'Chưa có'} | ` +
           `Tay nghề: ${technician.proficiency ?? 'Chưa có'} | ` +
           `Số phiếu đang phụ trách: ${technician.current_workload ?? 0}`;
 
