@@ -650,7 +650,7 @@ Khi kiểm thử giao diện fresh clone, đã sử dụng cổng Backend `8001`
 Tiến độ rà soát trước khi nộp:
 
 - Kiểm tra README khớp với mã nguồn và tài liệu thiết kế.
-- Đã kiểm tra lịch sử Git: 10 Conventional Commits cho Buổi 10.
+- Đã kiểm tra lịch sử Git: đáp ứng yêu cầu tối thiểu 8 Conventional Commits cho Buổi 10.
 - Rà soát checklist Buổi 10.
 
 ### 8.7. Các chức năng chưa triển khai

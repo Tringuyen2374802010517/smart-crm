@@ -67,3 +67,16 @@ Các quyết định trên được ghi nhận trong Buổi 8.
 Trạng thái: ĐÃ LÊN KẾ HOẠCH – CHƯA XÁC NHẬN HOÀN THÀNH.
 Chỉ đánh dấu hoàn thành sau khi tài liệu, sơ đồ và repository
 được cập nhật và kiểm chứng thực tế.
+
+## Điều chỉnh phạm vi triển khai Sprint 1 – Buổi 10
+
+### TD-10 – Ưu tiên luồng phân công kỹ thuật viên
+- Quyết định: Triển khai trước luồng xem phiếu chờ phân công, xem kỹ thuật viên đủ điều kiện và thực hiện phân công.
+- Lý do: Ưu tiên hoàn thiện luồng nghiệp vụ cốt lõi L4 từ Frontend đến API, Service và Database; bảo đảm có thể kiểm thử bằng dữ liệu thực.
+- Ảnh hưởng: Các chức năng mở rộng tiếp tục được giữ trong tài liệu thiết kế nhưng không được đánh dấu là đã triển khai.
+
+### TD-11 – Hoãn các chức năng mở rộng
+- Quyết định: CHƯA TRIỂN KHAI thay đổi kỹ thuật viên kèm lý do (FR4/US4), đặt lịch giao – nhận (FR5/US5), kiểm tra xung đột lịch (FR8) và giao diện kỹ thuật viên xem công việc được giao (FR6/US6).
+- Lý do: Giới hạn phạm vi Sprint 1 để tập trung kiểm chứng luồng phân công, các quy tắc nghiệp vụ và các trạng thái giao diện.
+- Ảnh hưởng: Chưa có API hoặc giao diện hoàn chỉnh cho các chức năng trên. Cần tiếp tục triển khai và kiểm thử trong giai đoạn sau.
+- Trạng thái: Đã ghi nhận quyết định phạm vi; chưa hoàn thành các chức năng được hoãn.
