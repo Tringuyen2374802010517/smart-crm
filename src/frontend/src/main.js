@@ -123,17 +123,21 @@ async function renderTicketList() {
         );
       }
 
+      const pendingTickets = tickets.filter(
+        (ticket) => ticket.status === 'PENDING'
+      );
+
       ticketList.replaceChildren();
 
-      if (tickets.length === 0) {
+      if (pendingTickets.length === 0) {
         showMessage(
           ticketList,
-          'Hiện chưa có phiếu sửa chữa.'
+          'Hiện không có phiếu PENDING.'
         );
         return;
       }
 
-      tickets.forEach((ticket) => {
+      pendingTickets.forEach((ticket) => {
         ticketList.appendChild(createTicketCard(ticket));
       });
     } catch (error) {
