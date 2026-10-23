@@ -15,4 +15,4 @@ tests/test_assignment_service.py::test_technician_insufficient_skill PASSED [ 77
 tests/test_assignment_service.py::test_empty_eligible_technicians PASSED [ 88%]
 tests/test_assignment_service.py::test_technician_not_found PASSED       [100%]
 
-============================== 9 passed in 0.16s ===============================
+============================== 9 passed in 0.17s ===============================
