@@ -148,7 +148,7 @@ Sau đó tạo dữ liệu mẫu:
 sqlite3 smartcrm.db < docs/seed.sql
 ```
 
-**Lưu ý:** Chỉ chạy `docs/schema.sql` khi khởi tạo database mới. `docs/seed.sql` sử dụng `INSERT OR IGNORE`, nên có thể chạy lại mà không tạo bản ghi trùng khóa chính của dữ liệu mẫu. Các bản ghi đã tồn tại sẽ không bị cập nhật.
+**Lưu ý:** `docs/schema.sql` sử dụng `IF NOT EXISTS` và `docs/seed.sql` sử dụng `INSERT OR IGNORE`. Hai script có thể chạy lại trên cùng database mà không tạo trùng các bảng, chỉ mục hoặc dữ liệu mẫu đã tồn tại. Các bản ghi cũ không tự động được cập nhật; đây là cơ chế khởi tạo lặp lại, không phải migration nâng cấp cấu trúc database.
 
 Script `docs/seed.sql` tạo:
 
@@ -218,12 +218,12 @@ Frontend gửi yêu cầu đến Backend đang chạy tại `http://127.0.0.1:80
 Mở Terminal tại thư mục gốc dự án:
 
 ```bash
-.venv/bin/python3 -m pytest tests/test_assignment_service.py -v
+.venv/bin/python3 -m pytest -v
 ```
 
 Kết quả kiểm thử đã ghi nhận trên môi trường phát triển:
 
-**9 passed**
+**25 passed** (9 Assignment Service tests, 8 Technician API tests, 8 Ticket API tests).
 
 Bộ unit tests kiểm tra các trường hợp:
 
@@ -237,7 +237,7 @@ Bộ unit tests kiểm tra các trường hợp:
 8. Không có kỹ thuật viên phù hợp (boundary case).
 9. Không tìm thấy kỹ thuật viên.
 
-Các unit tests sử dụng mock repository để kiểm tra business logic, không trực tiếp thay đổi database SQLite.
+9 unit tests của Assignment Service sử dụng mock repository để kiểm tra business logic. 16 API tests của Ticket và Technician sử dụng SQLite tạm, khởi tạo schema và seed riêng cho từng test, không thay đổi database phát triển.
 
 Minh chứng kết quả kiểm thử:
 
