@@ -148,7 +148,7 @@ Sau đó tạo dữ liệu mẫu:
 sqlite3 smartcrm.db < docs/seed.sql
 ```
 
-**Lưu ý:** Chỉ chạy các lệnh khởi tạo trên database mới. Không chạy lại script seed trên database đang có dữ liệu trùng khóa chính.
+**Lưu ý:** Chỉ chạy `docs/schema.sql` khi khởi tạo database mới. `docs/seed.sql` sử dụng `INSERT OR IGNORE`, nên có thể chạy lại mà không tạo bản ghi trùng khóa chính của dữ liệu mẫu. Các bản ghi đã tồn tại sẽ không bị cập nhật.
 
 Script `docs/seed.sql` tạo:
 
