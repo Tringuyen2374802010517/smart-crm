@@ -84,3 +84,17 @@ def delete_ticket(ticket_id):
         )
         connection.commit()
         return cursor.rowcount > 0
+
+
+def has_related_records(ticket_id):
+    with get_connection() as connection:
+        count = connection.execute(
+            """
+            SELECT
+                (SELECT COUNT(*) FROM assignment WHERE ticket_id = ?)
+                +
+                (SELECT COUNT(*) FROM appointment WHERE ticket_id = ?)
+            """,
+            (ticket_id, ticket_id)
+        ).fetchone()[0]
+        return count > 0

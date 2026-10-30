@@ -57,16 +57,7 @@ def update_ticket(ticket_id, title, incident_group, priority, center_id):
 def delete_ticket(ticket_id):
     get_ticket(ticket_id)
 
-    with repo.get_connection() as connection:
-        related = connection.execute(
-            """
-            SELECT
-                (SELECT COUNT(*) FROM assignment WHERE ticket_id = ?)
-                +
-                (SELECT COUNT(*) FROM appointment WHERE ticket_id = ?)
-            """,
-            (ticket_id, ticket_id)
-        ).fetchone()[0]
+    related = repo.has_related_records(ticket_id)
 
     if related > 0:
         raise BusinessError("Khong the xoa phieu da co phan cong hoac lich hen")
