@@ -1,63 +1,70 @@
 # Smart CRM – Phân công kỹ thuật viên và lịch hẹn
 
-**Sinh viên:** Nguyễn Minh Trị  
-**MSSV:** 2374802010517  
-**Track:** SE – Software Engineering  
-**Học phần:** Chuyên đề Tốt nghiệp 1 – Trường Đại học Văn Lang  
-**Luồng nghiệp vụ:** L4 – Phân công kỹ thuật viên và lịch hẹn  
+**Sinh viên:** Nguyễn Minh Trị
+**MSSV:** 2374802010517
+**Track:** Software Engineering (SE)
+**Học phần:** Chuyên đề Tốt nghiệp 1 – Trường Đại học Văn Lang
+**Dự án:** Smart CRM – Mekong Mobile
+**Luồng nghiệp vụ:** L4 – Phân công kỹ thuật viên và lịch hẹn
 **Repository:** https://github.com/Tringuyen2374802010517/smart-crm
+**Phiên bản nộp BT2:** `v0.2`
 
 ---
 
-## 1. Mô tả bài toán
+## 1. Giới thiệu dự án
 
-Smart CRM – Mekong Mobile là dự án hỗ trợ quản lý hoạt động dịch vụ sửa chữa thiết bị.
+Smart CRM – Mekong Mobile là hệ thống hỗ trợ quản lý hoạt động dịch vụ sửa chữa thiết bị.
 
-Trong luồng nghiệp vụ L4, quản lý trung tâm cần phân công kỹ thuật viên cho các phiếu dựa trên tay nghề, địa bàn, trạng thái khả dụng và khối lượng công việc hiện tại. Đồng thời, hệ thống được thiết kế để hỗ trợ đặt lịch giao – nhận máy và kiểm tra xung đột lịch hẹn.
+Trong luồng nghiệp vụ L4, quản lý trung tâm cần xem các phiếu sửa chữa, xác định kỹ thuật viên phù hợp và thực hiện phân công dựa trên các điều kiện nghiệp vụ như tay nghề, trung tâm, trạng thái khả dụng và khối lượng công việc.
 
-Mục tiêu của dự án là xây dựng các chức năng cốt lõi của luồng L4 dựa trên tài liệu phân tích và thiết kế đã thực hiện trong BT1.
+Phạm vi thiết kế tổng thể của L4 còn bao gồm thay đổi kỹ thuật viên phụ trách, đặt lịch giao – nhận thiết bị và kiểm tra xung đột lịch hẹn.
 
-Ở giai đoạn Buổi 8, dự án tập trung triển khai Backend, cơ sở dữ liệu, Ticket CRUD và chức năng phân công kỹ thuật viên cơ bản.
+Dự án được phát triển qua các giai đoạn:
 
-Đến Buổi 10, dự án đã bổ sung Frontend kết nối REST API, dữ liệu mẫu có thể tái tạo, unit tests cho business logic và các trạng thái giao diện cần thiết.
+- **BT1:** Phân tích yêu cầu, thiết kế hệ thống, xây dựng SRS, Use Case, Architecture Diagram, ERD, Wireframe và API Contract.
+- **Buổi 8 – Sprint 1:** Triển khai Backend, SQLite, Ticket CRUD và chức năng phân công kỹ thuật viên.
+- **Buổi 10 – Sprint 2:** Xây dựng Frontend kết nối REST API, bổ sung unit tests, dữ liệu mẫu và các trạng thái Loading, Empty, Error.
+- **Buổi 12 – BT2:** Tích hợp hệ thống, bổ sung Technician CRUD, kiểm thử API, kiểm tra khả năng dựng lại hệ thống và chuẩn bị demo phiên bản `v0.2`.
+
+**Phạm vi đã hiện thực trong BT2:** Quản lý Ticket, quản lý Technician và phân công kỹ thuật viên phù hợp cho Ticket.
+
+**Giới hạn:** Các chức năng quản lý lịch hẹn, thay đổi kỹ thuật viên kèm lý do và kiểm tra xung đột lịch chưa được triển khai đầy đủ trong phiên bản `v0.2`.
 
 ---
 
-## 2. Công nghệ và môi trường
+## 2. Công nghệ và kiến trúc
 
 ### 2.1. Công nghệ sử dụng
 
-| Thành phần | Công nghệ / Công cụ |
+| Thành phần | Công nghệ |
 |---|---|
-| Ngôn ngữ Backend | Python 3.12 |
-| Backend Framework | FastAPI |
-| Frontend | JavaScript, HTML, CSS, Vite |
+| Backend | Python 3.12, FastAPI |
+| Frontend | HTML, CSS, JavaScript, Vite |
 | Database | SQLite |
 | API | REST API |
 | Unit Testing | pytest |
-| API Testing | FastAPI TestClient, Swagger UI |
+| API Testing | FastAPI TestClient, httpx, Swagger UI |
 | Version Control | Git, GitHub |
-| Development Tool | Visual Studio Code |
-| Diagram / Wireframe | Draw.io |
+| Thiết kế sơ đồ | Draw.io |
+| Môi trường phát triển | macOS, Visual Studio Code |
 
-### 2.2. Môi trường phát triển đã kiểm thử
+### 2.2. Phiên bản môi trường đã sử dụng
 
 - Python 3.12.2
-- Node.js v24.12.0
+- Node.js 24.12.0
 - npm 11.6.2
 - FastAPI 0.141.1
-- Vite 8.3.5 (phiên bản thực tế khi build)
+- Vite 8.3.5
 - pytest 9.1.1
 - SQLite 3
-- macOS
 
-Các dependencies Python được khai báo trong `requirements.txt`.
+Các thư viện Python được khai báo với phiên bản cụ thể trong `requirements.txt`.
 
 Các dependencies Frontend được khai báo trong `src/frontend/package.json` và `src/frontend/package-lock.json`.
 
-### 2.3. Cấu trúc kiến trúc
+### 2.3. Kiến trúc hệ thống
 
-Dự án được tổ chức theo kiến trúc 3 lớp:
+Hệ thống sử dụng kiến trúc phân lớp:
 
 ```text
 Frontend (HTML / CSS / JavaScript / Vite)
@@ -66,19 +73,27 @@ Frontend (HTML / CSS / JavaScript / Vite)
                   v
 Backend (FastAPI)
                   |
-          API / Routes
+              API / Routes
                   |
-          Service / Business Logic
+              Service
+          (Business Logic)
                   |
-             Repository
+              Repository
                   |
                   v
-           SQLite Database
+             SQLite Database
 ```
 
-Backend tách biệt việc tiếp nhận HTTP Request, kiểm tra Business Rules và truy vấn dữ liệu.
+Vai trò của từng lớp:
 
-Frontend sử dụng REST API để lấy dữ liệu Ticket, hiển thị kỹ thuật viên phù hợp và gửi yêu cầu phân công.
+- **API / Routes:** Tiếp nhận HTTP request, định nghĩa endpoint, kiểm tra cấu trúc dữ liệu đầu vào và trả response.
+- **Service:** Xử lý nghiệp vụ, kiểm tra điều kiện hợp lệ và điều phối các thao tác.
+- **Repository:** Thực hiện truy vấn và cập nhật dữ liệu SQLite.
+- **Frontend:** Gọi REST API, hiển thị dữ liệu và xử lý tương tác của người dùng.
+
+Các lỗi nghiệp vụ được biểu diễn bằng exception tại tầng Service và chuyển thành HTTP response phù hợp thông qua exception handlers của FastAPI.
+
+Cách tổ chức này giúp tách biệt xử lý HTTP, business logic và thao tác dữ liệu, đồng thời hỗ trợ kiểm thử từng thành phần.
 
 ---
 
@@ -86,7 +101,7 @@ Frontend sử dụng REST API để lấy dữ liệu Ticket, hiển thị kỹ 
 
 ### 3.1. Yêu cầu môi trường
 
-Máy tính cần có:
+Máy tính cần cài đặt:
 
 - Python 3.12
 - Node.js tương thích với Vite 8, khuyến nghị Node.js 24
@@ -94,25 +109,28 @@ Máy tính cần có:
 - Git
 - SQLite 3
 
-Các lệnh bên dưới được viết cho macOS/Linux.
+Các lệnh dưới đây dành cho macOS/Linux.
 
-### 3.2. Clone repository
+### 3.2. Clone repository theo tag v0.2
+
+Mở Terminal tại một thư mục chưa chứa dự án, sau đó chạy:
 
 ```bash
-git clone https://github.com/Tringuyen2374802010517/smart-crm.git
+git clone --branch v0.2 https://github.com/Tringuyen2374802010517/smart-crm.git
 cd smart-crm
-git switch dev
 ```
 
-Nếu đã có repository trên máy phát triển:
+Lệnh trên tải phiên bản được đánh dấu bằng tag `v0.2`.
 
-```bash
-cd ~/Downloads/smart-crm
-```
+**Lưu ý:** Do `v0.2` là annotated tag, Git có thể hiển thị thông báo `detached HEAD`. Đây là trạng thái bình thường khi checkout một tag để kiểm tra phiên bản đã phát hành.
+
+Không cần chuyển sang nhánh `dev` khi kiểm thử bản nộp BT2.
+
+Các lệnh tiếp theo được thực hiện tại thư mục gốc `smart-crm`, trừ khi có hướng dẫn khác.
 
 ### 3.3. Tạo môi trường Python
 
-Tại thư mục gốc dự án:
+Tạo virtual environment:
 
 ```bash
 python3.12 -m venv .venv
@@ -124,80 +142,103 @@ Cài đặt dependencies:
 .venv/bin/python3 -m pip install -r requirements.txt
 ```
 
-Các thư viện phục vụ kiểm thử như `pytest` và `httpx` đã được bổ sung vào `requirements.txt`.
+File `requirements.txt` bao gồm các thư viện cần thiết để chạy Backend và bộ kiểm thử, trong đó có FastAPI, Uvicorn, pytest và httpx.
 
-### 3.4. Khởi tạo cơ sở dữ liệu
+### 3.4. Cấu hình môi trường
 
-Dự án sử dụng SQLite với 5 bảng:
+Repository có file `.env.example` với các biến cấu hình mẫu:
 
-1. `ticket` – Thông tin phiếu cần xử lý.
+```dotenv
+DATABASE_URL=sqlite:///./smartcrm.db
+APP_HOST=127.0.0.1
+APP_PORT=8000
+SECRET_KEY=
+```
+
+File này được cung cấp để mô tả các biến cấu hình dự kiến.
+
+**Trong phiên bản `v0.2`, Backend hiện sử dụng đường dẫn SQLite và cổng chạy theo cấu hình trong mã nguồn/lệnh khởi chạy; các biến trong `.env.example` chưa được nạp tự động.** Vì vậy, không bắt buộc tạo file `.env` để chạy demo.
+
+Không commit file `.env` chứa thông tin nhạy cảm hoặc khóa bí mật thật lên GitHub.
+
+### 3.5. Khởi tạo cơ sở dữ liệu
+
+Dự án sử dụng SQLite với năm bảng:
+
+1. `ticket` – Thông tin phiếu sửa chữa.
 2. `technician` – Thông tin kỹ thuật viên.
 3. `technician_skill` – Kỹ năng và mức độ thành thạo.
 4. `assignment` – Lịch sử phân công kỹ thuật viên.
-5. `appointment` – Thông tin lịch giao – nhận máy.
+5. `appointment` – Cấu trúc dữ liệu lịch giao – nhận thiết bị.
 
-Trên database mới, chạy:
+Tạo database và các bảng:
 
 ```bash
 sqlite3 smartcrm.db < docs/schema.sql
 ```
 
-Sau đó tạo dữ liệu mẫu:
+Nạp dữ liệu mẫu:
 
 ```bash
 sqlite3 smartcrm.db < docs/seed.sql
 ```
 
-**Lưu ý:** `docs/schema.sql` sử dụng `IF NOT EXISTS` và `docs/seed.sql` sử dụng `INSERT OR IGNORE`. Hai script có thể chạy lại trên cùng database mà không tạo trùng các bảng, chỉ mục hoặc dữ liệu mẫu đã tồn tại. Các bản ghi cũ không tự động được cập nhật; đây là cơ chế khởi tạo lặp lại, không phải migration nâng cấp cấu trúc database.
+Dữ liệu mẫu gồm:
 
-Script `docs/seed.sql` tạo:
+- 3 Ticket.
+- 3 Technician.
+- 3 bản ghi Technician Skill.
 
-- 3 Ticket mẫu.
-- 3 kỹ thuật viên.
-- 3 bản ghi kỹ năng.
-
-Dữ liệu mẫu có các trường hợp kỹ thuật viên khả dụng, không khả dụng, khác trung tâm và không đủ mức độ thành thạo để kiểm thử Business Rules.
-
-Kiểm tra các bảng:
+Kiểm tra danh sách bảng:
 
 ```bash
 sqlite3 smartcrm.db ".tables"
 ```
 
-Kiểm tra khóa ngoại:
+Kiểm tra ràng buộc khóa ngoại:
 
 ```bash
 sqlite3 smartcrm.db "PRAGMA foreign_key_check;"
 ```
 
-Nếu không có dòng lỗi nào được trả về thì kiểm tra khóa ngoại đạt yêu cầu.
+Nếu không có dòng lỗi nào được trả về, kiểm tra khóa ngoại đạt yêu cầu.
+
+**Khả năng chạy lại:** `schema.sql` sử dụng `IF NOT EXISTS`; `seed.sql` sử dụng `INSERT OR IGNORE`. Có thể thực thi lại hai script mà không tạo thêm bản ghi mẫu trùng khóa.
+
+Đây là cơ chế khởi tạo dữ liệu lặp lại được, không phải hệ thống migration nâng cấp cấu trúc database giữa các phiên bản.
 
 File `smartcrm.db` được tạo cục bộ và không đưa lên GitHub.
 
-### 3.5. Khởi chạy Backend
+### 3.6. Khởi chạy Backend
 
-Tại thư mục gốc dự án:
+Tại thư mục gốc dự án, chạy:
 
 ```bash
 .venv/bin/python3 -m uvicorn src.backend.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Sau khi Backend khởi chạy, truy cập:
+Sau khi Backend khởi chạy, có thể truy cập:
 
 - Swagger UI: http://127.0.0.1:8000/docs
 - Kiểm tra database: http://127.0.0.1:8000/db-check
 - Danh sách Ticket: http://127.0.0.1:8000/tickets
+- Danh sách Technician: http://127.0.0.1:8000/technicians
 
-Giữ Terminal Backend hoạt động trong quá trình sử dụng Frontend.
+Giữ Terminal Backend hoạt động trong khi sử dụng Frontend.
 
-### 3.6. Khởi chạy Frontend
+### 3.7. Khởi chạy Frontend
 
 Mở Terminal thứ hai tại thư mục gốc dự án.
 
-Cài đặt dependencies Frontend:
+Chuyển vào thư mục Frontend:
 
 ```bash
 cd src/frontend
+```
+
+Cài đặt dependencies:
+
+```bash
 npm ci
 ```
 
@@ -207,152 +248,102 @@ Khởi chạy Vite:
 npm run dev
 ```
 
-Truy cập địa chỉ được Vite hiển thị trên Terminal, thông thường:
+Truy cập:
 
 http://localhost:5173
 
-Frontend gửi yêu cầu đến Backend đang chạy tại `http://127.0.0.1:8000`.
+Frontend gửi REST API request đến Backend tại `http://localhost:8000`.
 
-### 3.7. Chạy unit tests
+Để sử dụng giao diện bình thường, Backend cần đang chạy trên cổng `8000` và Frontend trên cổng `5173`.
 
-Mở Terminal tại thư mục gốc dự án:
+### 3.8. Chạy bộ kiểm thử
+
+Mở một Terminal khác tại thư mục gốc dự án.
+
+Chạy toàn bộ bộ kiểm thử:
 
 ```bash
 .venv/bin/python3 -m pytest -v
 ```
 
-Kết quả kiểm thử đã ghi nhận trên môi trường phát triển:
+Kết quả kiểm thử đã ghi nhận cho phiên bản BT2:
 
-**25 passed** (9 Assignment Service tests, 8 Technician API tests, 8 Ticket API tests).
+**25 tests passed**, gồm:
 
-Bộ unit tests kiểm tra các trường hợp:
+| Bộ kiểm thử | Số test |
+|---|---:|
+| Assignment Service | 9 |
+| Technician API | 8 |
+| Ticket API | 8 |
+| **Tổng cộng** | **25** |
 
-1. Phân công kỹ thuật viên thành công.
-2. Không tìm thấy Ticket.
-3. Ticket không ở trạng thái PENDING.
-4. Ticket đã có phân công đang hoạt động.
-5. Kỹ thuật viên khác trung tâm.
-6. Kỹ thuật viên không khả dụng.
-7. Kỹ thuật viên không đủ kỹ năng.
-8. Không có kỹ thuật viên phù hợp (boundary case).
-9. Không tìm thấy kỹ thuật viên.
+Các nhóm trường hợp được kiểm tra gồm:
 
-9 unit tests của Assignment Service sử dụng mock repository để kiểm tra business logic. 16 API tests của Ticket và Technician sử dụng SQLite tạm, khởi tạo schema và seed riêng cho từng test, không thay đổi database phát triển.
+- **Happy path:** Dữ liệu hợp lệ, thao tác thành công.
+- **Boundary case:** Các trường hợp biên của điều kiện nghiệp vụ.
+- **Invalid input:** Dữ liệu không hợp lệ, không tìm thấy đối tượng hoặc vi phạm Business Rules.
 
-Minh chứng kết quả kiểm thử:
+Chín bài kiểm thử Assignment Service sử dụng mock repository để kiểm tra business logic.
 
-`docs/unit-test-results.txt`
+Mười sáu bài kiểm thử API của Ticket và Technician sử dụng database SQLite tạm để tránh ảnh hưởng dữ liệu phát triển.
 
-### 3.8. Build Frontend
+Các file kiểm thử:
 
-Tại thư mục gốc dự án:
+```text
+tests/test_assignment_service.py
+tests/test_technician_api.py
+tests/test_ticket_api.py
+```
+
+Kết quả kiểm thử trước đây của Buổi 10 được lưu trong `docs/unit-test-results.txt`. Đây là minh chứng lịch sử cho 9 bài kiểm thử Assignment Service, không thay thế kết quả chạy đầy đủ 25 bài kiểm thử của BT2.
+
+### 3.9. Build Frontend
+
+Tại thư mục gốc dự án, chạy:
 
 ```bash
 npm --prefix src/frontend run build
 ```
 
-Kết quả đã kiểm thử trên môi trường phát triển:
+Frontend sử dụng Vite và đã được kiểm tra build thành công.
 
-- Vite 8.3.5
-- 9 modules transformed
-- Build thành công trong 809 ms
+Thư mục `dist/` được tạo trong quá trình build và không được commit vào repository.
 
-Thư mục `dist/` được tạo khi build và được loại trừ khỏi Git.
+### 3.10. Kiểm tra khả năng dựng lại hệ thống
 
-### 3.9. Kiểm tra trên môi trường mới
+Quy trình kiểm tra phiên bản BT2:
 
-Kết quả kiểm thử fresh clone:
+1. Clone repository theo tag `v0.2`.
+2. Tạo môi trường Python và cài dependencies.
+3. Khởi tạo database bằng `schema.sql`.
+4. Nạp dữ liệu mẫu bằng `seed.sql`.
+5. Khởi chạy Backend.
+6. Cài dependencies và khởi chạy Frontend.
+7. Kiểm tra API và luồng phân công kỹ thuật viên.
+8. Chạy bộ kiểm thử bằng một lệnh pytest.
+9. Chạy lại schema và seed để xác nhận dữ liệu không bị nhân đôi.
 
-- Clone repository thành công.
-- Cài đặt Python dependencies thành công.
-- Cài đặt Frontend dependencies thành công.
-- Tạo database và seed dữ liệu thành công.
-- Backend khởi chạy thành công.
-- Frontend kết nối được API.
-- Unit tests chạy thành công.
-
-**Trạng thái:** Đã kiểm tra riêng schema, seed, Frontend build và unit tests trên môi trường phát triển. ĐÃ HOÀN THÀNH kiểm thử fresh clone ngày 23/10/2026: cài dependencies, nạp schema và seed, 9/9 unit test PASS, Frontend build thành công, Backend và Frontend khởi chạy và giao diện hiển thị đầy đủ.
+Quy trình này được thiết kế để giảng viên có thể dựng lại hệ thống từ repository mà không cần sử dụng database hay virtual environment có sẵn trên máy phát triển.
 
 ---
 
-## 4. Phạm vi
+## 4. Các chức năng đã triển khai
 
-### 4.1. Trong phạm vi
+### 4.1. Ticket CRUD
 
-Các chức năng thuộc luồng L4 bao gồm:
-
-- Xem danh sách các phiếu cần phân công.
-- Xem danh sách kỹ thuật viên khả dụng.
-- Kiểm tra tay nghề, trung tâm và trạng thái khả dụng của kỹ thuật viên.
-- Phân công kỹ thuật viên cho phiếu.
-- Thay đổi kỹ thuật viên phụ trách và ghi nhận lý do.
-- Đặt lịch giao – nhận máy.
-- Kiểm tra xung đột lịch trước khi xác nhận.
-- Cho phép kỹ thuật viên xem các phiếu và lịch hẹn được giao.
-
-Đây là phạm vi nghiệp vụ tổng thể của luồng L4. Không phải tất cả chức năng đã được triển khai trong phiên bản Buổi 10.
-
-### 4.2. Ngoài phạm vi
-
-Dự án không tập trung triển khai:
-
-- Tiếp nhận và phân loại toàn bộ yêu cầu bảo hành.
-- Quản lý kho linh kiện.
-- Quản lý thanh toán và hóa đơn.
-- Xử lý toàn bộ quy trình sửa chữa thiết bị.
-- Chức năng đăng nhập và phân quyền chi tiết.
-- Các luồng nghiệp vụ khác ngoài L4.
-- Triển khai hệ thống trong môi trường vận hành thực tế.
-
----
-
-## 5. Tài liệu phân tích và thiết kế BT1
-
-Các tài liệu được lưu trong thư mục `docs/`.
-
-| Tài liệu | Nội dung |
-|---|---|
-| `srs.md` | SRS rút gọn, FR, NFR, User Stories, Business Rules và Traceability Matrix |
-| `usecase.drawio` | Source Use Case Diagram |
-| `usecase.png` | Hình ảnh Use Case Diagram |
-| `usecase-spec.md` | Đặc tả Use Case |
-| `architecture.md` | Mô tả và lập luận kiến trúc |
-| `architecture.drawio` | Source Architecture Diagram |
-| `architecture.png` | Hình ảnh Architecture Diagram |
-| `erd.drawio` | Source Entity Relationship Diagram |
-| `erd.png` | Hình ảnh ERD |
-| `schema.sql` | SQL DDL tạo bảng và chỉ mục |
-| `seed.sql` | Dữ liệu mẫu phục vụ demo và kiểm thử |
-| `wireframe.drawio` | Source Wireframe |
-| `wireframe.png` | Wireframe các màn hình |
-| `api-contract.md` | API Contract dành cho track SE |
-| `ai-disclosure.md` | Khai báo sử dụng công cụ AI |
-| `thay-doi-thiet-ke.md` | Ghi nhận phản hồi BT1 và quyết định điều chỉnh thiết kế |
-| `minh-chung-api-buoi8.txt` | Minh chứng kiểm thử Ticket API |
-| `minh-chung-phan-cong-buoi8.txt` | Minh chứng Assignment, SQLite và danh sách API |
-| `unit-test-results.txt` | Kết quả 9 unit tests Buổi 10 |
-
-Báo cáo BT1 được lưu tại:
-
-`docs/CDTN1_Buoi6_2374802010517_NguyenMinhTri.pdf`
-
----
-
-## 6. Backend và Business Rules
-
-### 6.1. Ticket API
+Module Ticket hỗ trợ đầy đủ các thao tác:
 
 | Method | Endpoint | Chức năng |
 |---|---|---|
 | GET | `/tickets` | Xem danh sách Ticket |
 | GET | `/tickets/{ticket_id}` | Xem chi tiết Ticket |
-| POST | `/tickets` | Tạo Ticket mới |
+| POST | `/tickets` | Tạo Ticket |
 | PUT | `/tickets/{ticket_id}` | Cập nhật Ticket |
 | DELETE | `/tickets/{ticket_id}` | Xóa Ticket |
 
-Ticket mới được tạo với trạng thái mặc định `PENDING`.
+Ticket mới có trạng thái mặc định `PENDING`.
 
-Các mức ưu tiên hợp lệ:
+Các mức độ ưu tiên hợp lệ:
 
 - `CAO`
 - `TRUNG_BINH`
@@ -371,20 +362,62 @@ curl -X POST http://127.0.0.1:8000/tickets \
   }'
 ```
 
-### 6.2. Assignment API
+### 4.2. Technician CRUD
+
+Module Technician hỗ trợ đầy đủ các thao tác:
 
 | Method | Endpoint | Chức năng |
 |---|---|---|
-| GET | `/assignments/eligible-technicians/{ticket_id}` | Xem kỹ thuật viên đủ điều kiện phân công |
-| POST | `/assignments/` | Phân công kỹ thuật viên cho Ticket |
+| GET | `/technicians` | Xem danh sách kỹ thuật viên |
+| GET | `/technicians/{technician_id}` | Xem chi tiết kỹ thuật viên |
+| POST | `/technicians` | Tạo kỹ thuật viên |
+| PUT | `/technicians/{technician_id}` | Cập nhật kỹ thuật viên |
+| DELETE | `/technicians/{technician_id}` | Xóa kỹ thuật viên |
 
-Ví dụ lấy danh sách kỹ thuật viên phù hợp:
+Dữ liệu đầu vào của Technician gồm:
+
+- `name`
+- `center_id`
+- `area`
+- `availability_status`
+
+Ví dụ xem danh sách kỹ thuật viên:
+
+```bash
+curl http://127.0.0.1:8000/technicians
+```
+
+Ví dụ tạo kỹ thuật viên:
+
+```bash
+curl -X POST http://127.0.0.1:8000/technicians \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Nguyen Van A",
+    "center_id": 1,
+    "area": "HCM",
+    "availability_status": "AVAILABLE"
+  }'
+```
+
+Hai module Ticket và Technician đáp ứng yêu cầu tối thiểu hai thực thể CRUD của track SE trong BT2.
+
+### 4.3. Assignment – Phân công kỹ thuật viên
+
+Các endpoint đã triển khai:
+
+| Method | Endpoint | Chức năng |
+|---|---|---|
+| GET | `/assignments/eligible-technicians/{ticket_id}` | Xem kỹ thuật viên đủ điều kiện |
+| POST | `/assignments/` | Phân công kỹ thuật viên |
+
+Lấy danh sách kỹ thuật viên phù hợp:
 
 ```bash
 curl http://127.0.0.1:8000/assignments/eligible-technicians/1
 ```
 
-Ví dụ phân công:
+Thực hiện phân công:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/assignments/ \
@@ -395,154 +428,54 @@ curl -X POST http://127.0.0.1:8000/assignments/ \
   }'
 ```
 
-Các ví dụ Assignment yêu cầu database có dữ liệu phù hợp và Ticket chưa được phân công.
+Ví dụ trên yêu cầu Ticket chưa được phân công và kỹ thuật viên đáp ứng đầy đủ các điều kiện nghiệp vụ.
 
-### 6.3. Business Rules đã triển khai
+### 4.4. Business Rules
+
+Các quy tắc đã triển khai trong chức năng phân công:
 
 **BR1 – Giới hạn phân công đang hoạt động**
 
-- Mỗi Ticket chỉ có tối đa một Assignment đang hoạt động.
-- Assignment đang hoạt động có `ended_at IS NULL`.
+- Mỗi Ticket có tối đa một Assignment đang hoạt động.
+- Assignment đang hoạt động được xác định bởi `ended_at IS NULL`.
 - SQLite sử dụng unique index để hỗ trợ ngăn phân công trùng.
 
 **BR2 – Điều kiện kỹ thuật viên**
 
-Kỹ thuật viên phải:
+Kỹ thuật viên cần:
 
 - Thuộc cùng trung tâm với Ticket.
 - Có trạng thái `AVAILABLE`.
 - Có kỹ năng phù hợp với `incident_group`.
-- Có `proficiency >= 3`.
+- Có mức độ thành thạo `proficiency >= 3`.
 
-**Điều kiện trạng thái Ticket**
+**Điều kiện Ticket**
 
-- Ticket phải ở trạng thái `PENDING`.
+- Ticket phải có trạng thái `PENDING`.
 - Ticket chưa có Assignment đang hoạt động.
 
 **Khối lượng công việc**
 
-- `current_workload` được tính từ số Assignment đang hoạt động của kỹ thuật viên.
+- `current_workload` được tính từ số Assignment đang hoạt động.
 - Danh sách kỹ thuật viên phù hợp được sắp xếp theo khối lượng công việc tăng dần.
 
-### 6.4. Business Rules chưa hoàn thiện
-
-Các chức năng sau vẫn cần tiếp tục phát triển:
-
-- Thay đổi kỹ thuật viên phụ trách và ghi nhận lý do.
-- Quản lý lịch giao – nhận máy.
-- Kiểm tra xung đột lịch hẹn.
-- Hoàn thiện các quy tắc SLA và vòng đời trạng thái theo SRS.
-
-Bảng `appointment` đã được thiết kế trong database nhưng chưa có API quản lý lịch hẹn hoàn chỉnh.
+Nếu không đáp ứng điều kiện, hệ thống từ chối thao tác bằng thông báo lỗi phù hợp thay vì thực hiện phân công không hợp lệ.
 
 ---
 
-## 7. Trạng thái triển khai Buổi 8
+## 5. Frontend và luồng nghiệp vụ end-to-end
 
-### 7.1. Các công việc đã hoàn thành tại Buổi 8
+### 5.1. Các màn hình đã triển khai
 
-**Phân tích và điều chỉnh thiết kế**
+Frontend có ba màn hình/chế độ hiển thị chính kết nối REST API:
 
-- Đã xem xét phản hồi BT1.
-- Đã tạo `docs/thay-doi-thiet-ke.md`.
-- Đã xác định các nội dung tài liệu và sơ đồ cần tiếp tục hoàn thiện.
+1. **Ticket List:** Hiển thị danh sách phiếu sửa chữa.
+2. **Ticket Detail:** Hiển thị thông tin chi tiết một phiếu.
+3. **Technician Assignment:** Hiển thị kỹ thuật viên phù hợp và thực hiện phân công.
 
-**Cấu trúc mã nguồn**
+Frontend sử dụng dữ liệu trả về từ Backend, không sử dụng danh sách Ticket cố định để mô phỏng kết quả API.
 
-- Đã tổ chức Backend theo kiến trúc API / Routes → Service → Repository → SQLite.
-- Đã kết nối Ticket Router và Assignment Router với ứng dụng FastAPI.
-- Đã kiểm tra các endpoint được đăng ký trong OpenAPI.
-
-**Cơ sở dữ liệu**
-
-- Đã khởi tạo SQLite từ `docs/schema.sql`.
-- Đã tạo 5 bảng dữ liệu.
-- Đã tạo dữ liệu mẫu Ticket, Technician và Technician Skill trên môi trường phát triển.
-- Đã kiểm tra ràng buộc khóa ngoại.
-- Đã kiểm tra dữ liệu Assignment được lưu vào SQLite.
-
-**Module Ticket CRUD**
-
-- Xem danh sách Ticket.
-- Xem chi tiết Ticket.
-- Tạo Ticket.
-- Cập nhật Ticket.
-- Xóa Ticket.
-
-**Module phân công kỹ thuật viên**
-
-- Xem danh sách kỹ thuật viên đủ điều kiện.
-- Phân công kỹ thuật viên cho Ticket.
-- Kiểm tra trạng thái PENDING.
-- Kiểm tra cùng trung tâm.
-- Kiểm tra AVAILABLE.
-- Kiểm tra proficiency từ 3 trở lên.
-- Ngăn phân công trùng.
-- Tính current_workload.
-
-### 7.2. Kết quả kiểm thử API Buổi 8
-
-| Test Case | Kết quả mong đợi | Kết quả |
-|---|---|---|
-| GET `/tickets` | HTTP 200 | PASS |
-| POST `/tickets` với tiêu đề rỗng | HTTP 400 | PASS |
-| POST `/tickets` với dữ liệu hợp lệ | HTTP 201 | PASS |
-| GET kỹ thuật viên phù hợp cho Ticket chưa phân công | HTTP 200 | PASS |
-| POST Assignment hợp lệ | HTTP 201 | PASS |
-| POST Assignment với kỹ thuật viên không khả dụng | HTTP 400 | PASS |
-| POST Assignment với kỹ thuật viên khác trung tâm | HTTP 400 | PASS |
-| POST Assignment trùng Ticket | HTTP 400 | PASS |
-| GET kỹ thuật viên phù hợp cho Ticket đã phân công | HTTP 400 | PASS |
-
-**Tổng kết Buổi 8: 9/9 trường hợp kiểm thử API đã thực hiện thành công.**
-
-Đây là kết quả kiểm thử API được ghi nhận tại Buổi 8, khác với bộ 9 unit tests tự động được bổ sung tại Buổi 10.
-
-Minh chứng:
-
-- `docs/minh-chung-api-buoi8.txt`
-- `docs/minh-chung-phan-cong-buoi8.txt`
-
-### 7.3. Hạn chế tại thời điểm Buổi 8
-
-- Frontend chưa được triển khai.
-- Chưa có bộ unit tests tự động hoàn chỉnh.
-- Chưa có script seed dữ liệu riêng.
-- Chưa hoàn thiện chức năng thay đổi kỹ thuật viên.
-- Chưa triển khai module lịch hẹn.
-
-Các mục Frontend, unit tests và seed dữ liệu đã được bổ sung trong quá trình thực hiện Buổi 10.
-
----
-
-## 8. Trạng thái triển khai Buổi 10
-
-### 8.1. Frontend
-
-Đã triển khai giao diện Frontend bằng JavaScript và Vite, kết nối Backend thông qua REST API.
-
-Các chức năng giao diện đã thực hiện:
-
-- Hiển thị danh sách Ticket.
-- Xem thông tin chi tiết Ticket.
-- Mở giao diện phân công kỹ thuật viên.
-- Hiển thị danh sách kỹ thuật viên phù hợp từ API.
-- Gửi yêu cầu phân công kỹ thuật viên.
-- Hiển thị thông báo sau khi phân công thành công.
-- Vô hiệu hóa nút phân công đối với Ticket đã được phân công.
-
-Frontend có xử lý các trạng thái:
-
-- Loading – Đang tải dữ liệu.
-- Empty – Không có dữ liệu phù hợp.
-- Error – Không thể tải hoặc xử lý yêu cầu.
-
-Đã kiểm tra luồng hiển thị Ticket và phân công kỹ thuật viên trên môi trường phát triển.
-Đã xác nhận US2–AC2 hiển thị nhóm kỹ năng, khu vực, trung tâm, trạng thái khả dụng, tay nghề và khối lượng công việc.
-
-### 8.2. Tích hợp Frontend – Backend – Database
-
-Luồng chính đã được kiểm tra:
+### 5.2. Luồng nghiệp vụ chính
 
 ```text
 Mở Frontend
@@ -554,7 +487,10 @@ Xem danh sách Ticket
 Chọn Ticket chưa phân công
       |
       v
-Xem kỹ thuật viên phù hợp
+Xem chi tiết hoặc mở màn hình phân công
+      |
+      v
+Lấy danh sách kỹ thuật viên phù hợp từ API
       |
       v
 Chọn kỹ thuật viên
@@ -569,98 +505,182 @@ Backend kiểm tra Business Rules
 Lưu Assignment vào SQLite
       |
       v
-Hiển thị thông báo thành công
+Frontend hiển thị kết quả
 ```
 
-Đã xác nhận Assignment được lưu trong SQLite và API từ chối phân công trùng.
+Đây là luồng end-to-end đã triển khai cho nghiệp vụ phân công kỹ thuật viên của phiên bản `v0.2`.
 
-### 8.3. Dữ liệu mẫu
+### 5.3. Trạng thái giao diện
 
-Đã tạo file:
+Frontend xử lý ba trạng thái:
 
-`docs/seed.sql`
+- **Loading:** Hiển thị thông báo khi đang tải dữ liệu từ API.
+- **Empty:** Hiển thị thông báo khi không có Ticket hoặc kỹ thuật viên phù hợp.
+- **Error:** Hiển thị thông báo khi yêu cầu thất bại hoặc không thể kết nối Backend.
 
-Script đã được kiểm tra trên database tạm riêng, không ảnh hưởng database phát triển hiện tại.
+Khi Backend không khả dụng, Frontend xử lý lỗi kết nối và hiển thị thông báo thay vì để ứng dụng treo không phản hồi.
 
-Kết quả:
+### 5.4. Minh chứng giao diện
 
-| Bảng | Số bản ghi | Kết quả |
-|---|---:|---|
-| ticket | 3 | PASS |
-| technician | 3 | PASS |
-| technician_skill | 3 | PASS |
-| Kiểm tra khóa ngoại | Không có lỗi | PASS |
+Các ảnh chụp được lưu trong `docs/`:
 
-### 8.4. Unit tests
+| File | Nội dung |
+|---|---|
+| `buoi10-ticket-list.png` | Danh sách Ticket |
+| `buoi10-ticket-detail.png` | Chi tiết Ticket |
+| `buoi10-technician-details.png` | Thông tin kỹ thuật viên |
+| `buoi10-assignment-success.png` | Phân công thành công |
+| `buoi10-loading-state.png` | Trạng thái Loading |
+| `buoi10-empty-state.png` | Trạng thái Empty |
+| `buoi10-error-state.png` | Trạng thái Error |
 
-Đã tạo:
+Các ảnh API bổ sung:
 
-`tests/test_assignment_service.py`
+- `docs/api-get-tickets-200.png`
+- `docs/api-post-tickets-400.png`
 
-Bộ kiểm thử sử dụng pytest và monkeypatch để kiểm tra business logic của Assignment Service.
+---
 
-Kết quả:
+## 6. Kiểm thử và chất lượng kỹ thuật
 
-**9/9 unit tests PASSED**
+### 6.1. Các nhóm kiểm thử
 
-Bao gồm trường hợp biên khi không có kỹ thuật viên đủ điều kiện.
+**Assignment Service**
 
-Minh chứng:
+Bộ kiểm thử gồm các trường hợp:
 
-`docs/unit-test-results.txt`
+1. Phân công kỹ thuật viên thành công.
+2. Không tìm thấy Ticket.
+3. Ticket không ở trạng thái `PENDING`.
+4. Ticket đã có phân công đang hoạt động.
+5. Kỹ thuật viên khác trung tâm.
+6. Kỹ thuật viên không khả dụng.
+7. Kỹ thuật viên không đủ kỹ năng.
+8. Không có kỹ thuật viên phù hợp.
+9. Không tìm thấy kỹ thuật viên.
 
-### 8.5. Frontend build
+**Ticket API và Technician API**
 
-Đã chạy:
+Các bài kiểm thử API kiểm tra các thao tác CRUD, phản hồi HTTP và những trường hợp dữ liệu không hợp lệ hoặc đối tượng không tồn tại.
+
+### 6.2. Kết quả kiểm thử BT2
+
+Lệnh chạy:
 
 ```bash
-npm --prefix src/frontend run build
+.venv/bin/python3 -m pytest -v
 ```
 
-Kết quả:
+Kết quả đã ghi nhận:
 
-- Vite 8.3.5
-- 9 modules transformed
-- Build thành công
+**25/25 tests passed.**
 
-### 8.6. Minh chứng và kiểm thử fresh clone
+### 6.3. Kiểm tra tính lặp lại của dữ liệu
 
-Đã lưu 7 ảnh minh chứng Frontend trong `docs/`:
+Chạy lại:
 
-- `buoi10-ticket-list.png` – Danh sách Ticket.
-- `buoi10-ticket-detail.png` – Chi tiết Ticket.
-- `buoi10-assignment-success.png` – Phân công thành công.
-- `buoi10-loading-state.png` – Trạng thái Loading.
-- `buoi10-empty-state.png` – Trạng thái Empty.
-- `buoi10-error-state.png` – Trạng thái Error.
-- `buoi10-technician-details.png` – Thông tin kỹ thuật viên theo US2–AC2.
+```bash
+sqlite3 smartcrm.db < docs/schema.sql
+sqlite3 smartcrm.db < docs/seed.sql
+```
 
-Đã kiểm thử fresh clone từ GitHub trên nhánh `dev`:
+Kiểm tra số bản ghi mẫu:
 
-- Cài đặt Python dependencies thành công.
-- Tạo SQLite database từ `docs/schema.sql` và `docs/seed.sql`.
-- Backend trả về dữ liệu thực qua REST API.
-- Frontend kết nối Backend và thực hiện phân công kỹ thuật viên thành công.
-- API từ chối phân công trùng.
-- 9/9 unit tests PASSED.
-- Frontend build thành công bằng Vite.
+```bash
+sqlite3 smartcrm.db "SELECT COUNT(*) FROM ticket;"
+sqlite3 smartcrm.db "SELECT COUNT(*) FROM technician;"
+sqlite3 smartcrm.db "SELECT COUNT(*) FROM technician_skill;"
+```
 
-Khi kiểm thử giao diện fresh clone, đã sử dụng cổng Backend `8001` và Frontend `5174` cùng cấu hình CORS/API tạm thời để tránh xung đột với môi trường phát triển.
+Trên database mẫu mới, kết quả mong đợi sau lần nạp đầu tiên và lần nạp thứ hai lần lượt là:
 
-Tiến độ rà soát trước khi nộp:
+- Ticket: 3 bản ghi.
+- Technician: 3 bản ghi.
+- Technician Skill: 3 bản ghi.
 
-- Kiểm tra README khớp với mã nguồn và tài liệu thiết kế.
-- Đã kiểm tra lịch sử Git: đáp ứng yêu cầu tối thiểu 8 Conventional Commits cho Buổi 10.
-- Rà soát checklist Buổi 10.
+Script không tự động cập nhật các bản ghi mẫu đã tồn tại.
 
-### 8.7. Các chức năng chưa triển khai
+### 6.4. Bug Log
 
-- Thay đổi kỹ thuật viên và ghi nhận lý do.
-- Đặt lịch giao – nhận máy qua API và Frontend.
+Các lỗi đã được ghi nhận tại:
+
+`docs/bug-log.md`
+
+Trong đó có lỗi **BUG-001 – Seed dữ liệu không hỗ trợ chạy lặp lại**.
+
+- Nguyên nhân: Các lệnh `INSERT INTO` ban đầu có thể phát sinh lỗi trùng khóa.
+- Cách sửa: Sử dụng `INSERT OR IGNORE`.
+- Xác nhận: Chạy lại schema và seed hai lần, dữ liệu không bị nhân đôi.
+- Commit sửa lỗi: `42eb9bd`.
+
+---
+
+## 7. Phạm vi và giới hạn triển khai
+
+### 7.1. Chức năng đã triển khai
+
+- Xem danh sách Ticket.
+- Xem chi tiết Ticket.
+- CRUD Ticket.
+- CRUD Technician.
+- Xem danh sách kỹ thuật viên đủ điều kiện.
+- Kiểm tra trạng thái Ticket.
+- Kiểm tra trung tâm, tay nghề và trạng thái kỹ thuật viên.
+- Tính và sử dụng khối lượng công việc khi lựa chọn kỹ thuật viên.
+- Phân công kỹ thuật viên.
+- Ngăn phân công trùng.
+- Hiển thị kết quả và thông báo lỗi.
+- Kiểm thử tự động và khởi tạo dữ liệu mẫu.
+
+### 7.2. Chức năng chưa triển khai đầy đủ
+
+- Thay đổi kỹ thuật viên phụ trách kèm lý do.
+- Đặt lịch giao – nhận thiết bị qua API và Frontend.
 - Kiểm tra xung đột lịch hẹn.
-- Giao diện riêng cho kỹ thuật viên xem phiếu và lịch hẹn được giao.
+- Giao diện riêng để kỹ thuật viên xem phiếu và lịch hẹn được giao.
+- Hoàn thiện toàn bộ quy tắc SLA và vòng đời trạng thái theo SRS.
 
-Các nội dung trên thuộc phạm vi thiết kế tổng thể và cần được tiếp tục triển khai trong các giai đoạn sau.
+Bảng `appointment` đã được thiết kế trong cơ sở dữ liệu, nhưng chưa có module quản lý lịch hẹn hoàn chỉnh.
+
+### 7.3. Ngoài phạm vi
+
+- Quản lý kho linh kiện.
+- Quản lý thanh toán và hóa đơn.
+- Toàn bộ quy trình sửa chữa thiết bị.
+- Đăng nhập và phân quyền chi tiết.
+- Các luồng nghiệp vụ khác ngoài L4.
+- Triển khai trong môi trường production.
+
+---
+
+## 8. Tài liệu phân tích, thiết kế và thay đổi
+
+Các tài liệu BT1 và các giai đoạn triển khai tiếp theo được lưu trong `docs/`.
+
+| Tài liệu | Nội dung |
+|---|---|
+| `srs.md` | Yêu cầu chức năng, phi chức năng, User Stories, Business Rules |
+| `usecase-spec.md` | Đặc tả Use Case |
+| `usecase.drawio`, `usecase.png` | Use Case Diagram |
+| `architecture.md` | Mô tả và lập luận kiến trúc |
+| `architecture.drawio`, `architecture.png` | Architecture Diagram |
+| `erd.drawio`, `erd.png` | ERD |
+| `wireframe.drawio`, `wireframe.png` | Wireframe |
+| `api-contract.md` | API Contract |
+| `schema.sql` | Cấu trúc database |
+| `seed.sql` | Dữ liệu mẫu |
+| `thay-doi-thiet-ke.md` | Thay đổi và quyết định thiết kế |
+| `ai-disclosure.md` | Khai báo sử dụng công cụ AI |
+| `bug-log.md` | Nhật ký lỗi và cách khắc phục |
+| `minh-chung-api-buoi8.txt` | Minh chứng API Buổi 8 |
+| `minh-chung-phan-cong-buoi8.txt` | Minh chứng phân công Buổi 8 |
+| `unit-test-results.txt` | Minh chứng 9 unit tests Buổi 10 |
+
+Tài liệu BT1 được lưu tại:
+
+`docs/CDTN1_Buoi6_2374802010517_NguyenMinhTri.pdf`
+
+Các tài liệu phân tích và thiết kế của BT1 được giữ lại để phục vụ đối chiếu với phiên bản đã hiện thực.
 
 ---
 
@@ -674,82 +694,143 @@ smart-crm/
 │   ├── architecture.md
 │   ├── architecture.drawio
 │   ├── architecture.png
+│   ├── bug-log.md
 │   ├── erd.drawio
 │   ├── erd.png
 │   ├── schema.sql
 │   ├── seed.sql
 │   ├── srs.md
+│   ├── thay-doi-thiet-ke.md
 │   ├── usecase-spec.md
 │   ├── usecase.drawio
 │   ├── usecase.png
 │   ├── wireframe.drawio
 │   ├── wireframe.png
-│   ├── thay-doi-thiet-ke.md
+│   ├── unit-test-results.txt
 │   ├── minh-chung-api-buoi8.txt
 │   ├── minh-chung-phan-cong-buoi8.txt
-│   └── unit-test-results.txt
+│   └── [các ảnh minh chứng]
 ├── src/
 │   ├── __init__.py
 │   ├── backend/
-│   │   ├── __init__.py
 │   │   ├── main.py
 │   │   ├── api/
-│   │   │   ├── ticket_api.py
-│   │   │   └── assignment_api.py
+│   │   │   ├── assignment_api.py
+│   │   │   ├── technician_api.py
+│   │   │   └── ticket_api.py
 │   │   ├── services/
+│   │   │   ├── assignment_service.py
+│   │   │   ├── technician_service.py
 │   │   │   ├── ticket_service.py
-│   │   │   └── assignment_service.py
+│   │   │   └── exceptions.py
 │   │   ├── repositories/
-│   │   │   ├── ticket_repository.py
-│   │   │   └── assignment_repository.py
+│   │   │   ├── assignment_repository.py
+│   │   │   ├── technician_repository.py
+│   │   │   └── ticket_repository.py
 │   │   └── models/
 │   └── frontend/
 │       ├── api/
+│       │   ├── client.js
+│       │   └── ticket.api.js
 │       ├── public/
 │       ├── src/
+│       │   ├── main.js
+│       │   ├── style.css
 │       │   └── pages/
+│       │       ├── TicketDetail.js
+│       │       └── TechnicianAssignment.js
 │       ├── index.html
 │       ├── package.json
 │       └── package-lock.json
 ├── tests/
-│   └── test_assignment_service.py
+│   ├── test_assignment_service.py
+│   ├── test_technician_api.py
+│   └── test_ticket_api.py
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
-File `smartcrm.db` được tạo trong quá trình chạy và lưu cục bộ, không đưa lên GitHub.
-
-Các thư mục `.venv/`, `node_modules/` và `dist/` cũng được loại trừ khỏi Git.
+Các thư mục hoặc file được tạo cục bộ như `.venv/`, `node_modules/`, `dist/`, `__pycache__/` và `smartcrm.db` không thuộc nội dung cần commit.
 
 ---
 
 ## 10. Khai báo sử dụng công cụ AI
 
-| Công cụ | Mục đích sử dụng | Cách kiểm tra / chỉnh sửa |
+Dự án có sử dụng công cụ AI để hỗ trợ một số công việc trong quá trình phân tích, thiết kế, lập trình và kiểm thử.
+
+| Công cụ | Mục đích sử dụng | Cách kiểm chứng |
 |---|---|---|
-| ChatGPT | Hỗ trợ phân tích yêu cầu, xây dựng SRS, User Stories, Acceptance Criteria, Use Case Specification, Architecture, Data Model, SQL DDL, API Contract, triển khai Backend, Frontend và unit tests | Đối chiếu yêu cầu bài tập, kiểm tra mã nguồn, thực thi lệnh, kiểm thử API, Frontend và business logic |
-| Draw.io AI | Hỗ trợ xây dựng Architecture Diagram, ERD và Wireframe | Kiểm tra thành phần, quan hệ, PK/FK, bố cục và tính nhất quán với SRS |
+| ChatGPT | Hỗ trợ phân tích yêu cầu, SRS, User Stories, Use Case, kiến trúc, dữ liệu, Backend, Frontend, kiểm thử và tài liệu | Đối chiếu yêu cầu, kiểm tra mã nguồn, chạy test, kiểm thử API và luồng nghiệp vụ |
+| Draw.io AI | Hỗ trợ xây dựng sơ đồ kiến trúc, ERD và Wireframe | Kiểm tra quan hệ, thành phần, khóa dữ liệu, bố cục và tính nhất quán |
 
-Sinh viên chịu trách nhiệm rà soát, kiểm chứng và điều chỉnh nội dung trước khi sử dụng.
+Sinh viên chịu trách nhiệm kiểm tra, điều chỉnh và giải thích mã nguồn cũng như nội dung được sử dụng trong bài làm.
 
-Chi tiết được trình bày tại:
+Chi tiết được ghi tại:
 
 `docs/ai-disclosure.md`
 
 ---
 
-## 11. Ghi chú
+## 11. Hướng dẫn demo BT2
 
-Dự án Smart CRM – Mekong Mobile tập trung vào luồng nghiệp vụ L4: Phân công kỹ thuật viên và lịch hẹn.
+Demo tập trung vào luồng nghiệp vụ chính đã triển khai.
 
-BT1 tập trung vào phân tích và thiết kế hệ thống.
+### 11.1. Demo luồng thành công
 
-Từ Buổi 8, dự án bắt đầu triển khai Backend, cơ sở dữ liệu, Ticket CRUD và chức năng phân công kỹ thuật viên.
+1. Khởi chạy Backend và Frontend theo mục 3.
+2. Mở danh sách Ticket trên Frontend.
+3. Chọn Ticket có trạng thái `PENDING` và chưa được phân công.
+4. Xem thông tin Ticket và danh sách kỹ thuật viên phù hợp.
+5. Chọn kỹ thuật viên hợp lệ.
+6. Thực hiện phân công.
+7. Quan sát thông báo kết quả và trạng thái Ticket.
 
-Đến Buổi 10, dự án đã bổ sung Frontend kết nối REST API, script dữ liệu mẫu, bộ unit tests và hướng dẫn chạy hệ thống.
+### 11.2. Demo xử lý lỗi
 
-Các chức năng thay đổi kỹ thuật viên, quản lý lịch hẹn và kiểm tra xung đột lịch vẫn cần tiếp tục phát triển.
+Có thể kiểm tra các trường hợp:
 
-Đã kiểm tra fresh clone, minh chứng giao diện và lịch sử Git commit trong phiên rà soát ngày 23/10/2026. Trước khi nộp, chỉ cần đối chiếu lại nội dung PDF và yêu cầu nộp cụ thể của giảng viên.
+- Ticket không tồn tại.
+- Kỹ thuật viên không tồn tại.
+- Kỹ thuật viên không đáp ứng Business Rules.
+- Ticket đã được phân công.
+- Backend không hoạt động khi Frontend gửi yêu cầu.
+
+Hệ thống cần từ chối yêu cầu không hợp lệ và hiển thị thông báo phù hợp.
+
+### 11.3. Demo kiểm thử
+
+Chạy:
+
+```bash
+.venv/bin/python3 -m pytest -v
+```
+
+Kết quả đã ghi nhận của phiên bản BT2: **25 tests passed**.
+
+### 11.4. Demo lỗi đã sửa
+
+Mở `docs/bug-log.md` và trình bày BUG-001:
+
+1. Cách tái hiện lỗi seed trùng khóa.
+2. Nguyên nhân.
+3. Cách sửa bằng `INSERT OR IGNORE`.
+4. Kết quả kiểm thử sau khi sửa.
+
+---
+
+## 12. Tổng kết
+
+Phiên bản Smart CRM `v0.2` hiện thực các thành phần kỹ thuật chính của luồng L4:
+
+- Backend FastAPI tổ chức theo API / Service / Repository.
+- SQLite với schema và seed có thể chạy lại.
+- Hai thực thể Ticket và Technician có đầy đủ CRUD.
+- Chức năng phân công kỹ thuật viên theo Business Rules.
+- Frontend kết nối REST API với ba màn hình chính.
+- Các trạng thái Loading, Empty và Error.
+- Bộ kiểm thử tự động gồm 25 test.
+- README và tài liệu phục vụ dựng lại, kiểm tra và demo hệ thống.
+
+Dự án tiếp tục kế thừa các tài liệu phân tích, thiết kế của BT1. Những chức năng chưa hoàn thiện, đặc biệt là quản lý lịch hẹn và kiểm tra xung đột lịch, được xác định rõ để tiếp tục phát triển trong các giai đoạn sau.
