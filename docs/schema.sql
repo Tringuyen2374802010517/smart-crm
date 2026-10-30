@@ -7,7 +7,7 @@
 -- 1. TICKET
 -- =====================================================
 
-CREATE TABLE ticket (
+CREATE TABLE IF NOT EXISTS ticket (
     ticket_id INTEGER PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     incident_group VARCHAR(255) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE ticket (
 -- 2. TECHNICIAN
 -- =====================================================
 
-CREATE TABLE technician (
+CREATE TABLE IF NOT EXISTS technician (
     technician_id INTEGER PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     center_id INTEGER NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE technician (
 -- 3. TECHNICIAN_SKILL
 -- =====================================================
 
-CREATE TABLE technician_skill (
+CREATE TABLE IF NOT EXISTS technician_skill (
     technician_skill_id INTEGER PRIMARY KEY,
     technician_id INTEGER NOT NULL,
     incident_group VARCHAR(255) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE technician_skill (
 -- 4. ASSIGNMENT
 -- =====================================================
 
-CREATE TABLE assignment (
+CREATE TABLE IF NOT EXISTS assignment (
     assignment_id INTEGER PRIMARY KEY,
     ticket_id INTEGER NOT NULL,
     technician_id INTEGER NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE assignment (
 -- 5. APPOINTMENT
 -- =====================================================
 
-CREATE TABLE appointment (
+CREATE TABLE IF NOT EXISTS appointment (
     appointment_id INTEGER PRIMARY KEY,
     ticket_id INTEGER NOT NULL,
     technician_id INTEGER NOT NULL,
@@ -91,23 +91,23 @@ CREATE TABLE appointment (
 -- =====================================================
 
 -- Tăng tốc lọc phiếu theo trạng thái
-CREATE INDEX idx_ticket_status
+CREATE INDEX IF NOT EXISTS idx_ticket_status
 ON ticket(status);
 
 -- Tăng tốc tìm kỹ thuật viên khả dụng theo trung tâm
-CREATE INDEX idx_technician_availability
+CREATE INDEX IF NOT EXISTS idx_technician_availability
 ON technician(availability_status, center_id);
 
 -- Tăng tốc tra cứu kỹ năng của kỹ thuật viên
-CREATE INDEX idx_technician_skill_lookup
+CREATE INDEX IF NOT EXISTS idx_technician_skill_lookup
 ON technician_skill(technician_id, incident_group);
 
 -- Tăng tốc tra cứu lịch hẹn theo kỹ thuật viên và thời gian
-CREATE INDEX idx_appointment_technician_time
+CREATE INDEX IF NOT EXISTS idx_appointment_technician_time
 ON appointment(technician_id, start_time, end_time);
 
 -- Đảm bảo mỗi phiếu chỉ có tối đa một phân công đang hoạt động
 -- ended_at IS NULL nghĩa là phân công chưa kết thúc
-CREATE UNIQUE INDEX idx_assignment_active_ticket
+CREATE UNIQUE INDEX IF NOT EXISTS idx_assignment_active_ticket
 ON assignment(ticket_id)
 WHERE ended_at IS NULL;
