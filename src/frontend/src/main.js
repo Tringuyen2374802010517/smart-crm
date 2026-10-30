@@ -1,3 +1,6 @@
+import { getCurrentUser, logout, renderLogin } from './auth.js';
+import { apiRequest } from '../api/client.js';
+import { renderAppointmentScheduling } from './pages/AppointmentScheduling.js';
 import './style.css';
 import { getTickets } from '../api/ticket.api.js';
 import { renderTicketDetail } from './pages/TicketDetail.js';
@@ -23,6 +26,9 @@ app.innerHTML = `
         </button>
         <button id="nav-tickets" class="nav-item active" type="button">
           ▤ &nbsp; Quản lý phiếu
+        </button>
+        <button id="nav-appointments" class="nav-item" type="button">
+          ◷ &nbsp; Lịch hẹn
         </button>
       </nav>
 
@@ -54,6 +60,7 @@ app.innerHTML = `
 const screen = document.querySelector('#screen');
 const navTickets = document.querySelector('#nav-tickets');
 const navDashboard = document.querySelector('#nav-dashboard');
+const navAppointments = document.querySelector('#nav-appointments');
 
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -65,6 +72,7 @@ function node(tag, text, className) {
 function setNavigation(active) {
   navTickets.classList.toggle('active', active === 'tickets');
   navDashboard.classList.toggle('active', active === 'dashboard');
+  navAppointments.classList.toggle('active', active === 'appointments');
 }
 
 function statusBadge(value) {
@@ -103,6 +111,116 @@ function openTicketDetail(ticketId) {
 function openAssignment(ticketId) {
   setNavigation('tickets');
   renderTechnicianAssignment(screen, ticketId, renderTicketList);
+}
+
+function openAppointment(ticketId) {
+  setNavigation('appointments');
+  renderAppointmentScheduling(screen, ticketId, renderTicketList);
+}
+
+async function renderAppointmentList() {
+  setNavigation('appointments');
+  screen.replaceChildren();
+
+  const heading = node('div', undefined, 'crm-page-heading');
+  const title = node('div');
+  title.append(
+    node('h2', 'Quản lý lịch hẹn'),
+    node('p', 'Danh sách lịch giao và nhận máy')
+  );
+  heading.append(title);
+  screen.append(heading);
+
+  const container = node('div', 'Đang tải lịch hẹn...', 'crm-panel appointment-list-panel');
+  screen.append(container);
+
+  try {
+    const appointments = await apiRequest('/appointments');
+    container.replaceChildren();
+
+    if (!appointments.length) {
+      container.append(
+        node('p', 'Chưa có lịch hẹn nào.', 'crm-empty')
+      );
+      return;
+    }
+
+    const table = node('table', undefined, 'crm-table');
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    [
+      'Mã lịch',
+      'Phiếu',
+      'Kỹ thuật viên',
+      'Loại lịch',
+      'Bắt đầu',
+      'Kết thúc',
+      'Trạng thái'
+    ].forEach((label) => {
+      headerRow.append(node('th', label));
+    });
+
+    thead.append(headerRow);
+
+    const tbody = document.createElement('tbody');
+
+    appointments.forEach((item) => {
+      const row = document.createElement('tr');
+      const typeLabel =
+        item.appointment_type === 'DELIVERY'
+          ? 'Giao máy'
+          : item.appointment_type === 'PICKUP'
+            ? 'Nhận máy'
+            : item.appointment_type;
+
+      const formatTime = (value) => {
+        if (!value) return '—';
+        const date = new Date(value);
+        return Number.isNaN(date.getTime())
+          ? value
+          : date.toLocaleString('vi-VN', {
+              timeZone: 'Asia/Ho_Chi_Minh',
+              hour12: false
+            });
+      };
+
+      [
+        '#' + item.appointment_id,
+        '#' + item.ticket_id,
+        item.technician_name || '—',
+        typeLabel,
+        formatTime(item.start_time),
+        formatTime(item.end_time),
+        item.status
+      ].forEach((value, index) => {
+        const cell = node('td');
+
+        if (index === 6) {
+          const badge = node(
+            'span',
+            value === 'SCHEDULED' ? 'Đã lên lịch' : value,
+            'appointment-status-badge'
+          );
+          if (value !== 'SCHEDULED') {
+            badge.classList.add('appointment-status-other');
+          }
+          cell.append(badge);
+        } else {
+          cell.textContent = String(value ?? '—');
+        }
+
+        row.append(cell);
+      });
+
+      tbody.append(row);
+    });
+
+    table.append(thead, tbody);
+    container.append(table);
+  } catch (error) {
+    container.textContent = 'Không tải được lịch hẹn: ' + error.message;
+  }
 }
 
 function makeStat(label, value, icon, color) {
@@ -274,6 +392,16 @@ async function renderTicketList() {
 
       actions.append(detail, assign);
 
+      if (ticket.status === 'ASSIGNED') {
+        const appointment = makeButton(
+          'Đặt lịch',
+          () => openAppointment(ticket.ticket_id),
+          'crm-outline'
+        );
+        actions.appendChild(appointment);
+      }
+
+
         if (ticket.status === 'ASSIGNED') {
           const complete = makeButton(
             'Hoàn thành',
@@ -403,5 +531,61 @@ async function renderDashboard() {
 
 navTickets.addEventListener('click', renderTicketList);
 navDashboard.addEventListener('click', renderDashboard);
+navAppointments.addEventListener('click', renderAppointmentList);
 
-renderTicketList();
+
+// Authentication gate: chỉ hiển thị CRM khi phiên hợp lệ.
+const loginContainer = document.createElement('div');
+loginContainer.id = 'auth-screen';
+document.body.appendChild(loginContainer);
+
+const logoutButton = document.createElement('button');
+logoutButton.id = 'crm-logout-button';
+logoutButton.type = 'button';
+logoutButton.className = 'crm-logout';
+logoutButton.textContent = 'Đăng xuất';
+
+document.querySelector('.crm-sidebar').appendChild(logoutButton);
+
+function showLogin() {
+  app.style.display = 'none';
+  loginContainer.style.display = 'block';
+
+  renderLogin(loginContainer, () => {
+    showCRM();
+  });
+}
+
+function showCRM() {
+  loginContainer.style.display = 'none';
+  app.style.display = '';
+  renderTicketList();
+}
+
+logoutButton.addEventListener('click', async () => {
+  logoutButton.disabled = true;
+
+  try {
+    await logout();
+  } catch (error) {
+    console.error('Không kết nối được API đăng xuất:', error);
+  } finally {
+    logoutButton.disabled = false;
+    showLogin();
+  }
+});
+
+async function initializeAuthentication() {
+  app.style.display = 'none';
+  loginContainer.textContent = 'Đang kiểm tra phiên đăng nhập...';
+
+  const user = await getCurrentUser();
+
+  if (user) {
+    showCRM();
+  } else {
+    showLogin();
+  }
+}
+
+initializeAuthentication();

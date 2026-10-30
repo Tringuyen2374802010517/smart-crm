@@ -26,9 +26,9 @@ Dự án được phát triển qua các giai đoạn:
 - **Buổi 10 – Sprint 2:** Xây dựng Frontend kết nối REST API, bổ sung unit tests, dữ liệu mẫu và các trạng thái Loading, Empty, Error.
 - **Buổi 12 – BT2:** Tích hợp hệ thống, bổ sung Technician CRUD, kiểm thử API, kiểm tra khả năng dựng lại hệ thống và chuẩn bị demo phiên bản `v0.2`.
 
-**Phạm vi đã hiện thực trong BT2:** Quản lý Ticket, quản lý Technician và phân công kỹ thuật viên phù hợp cho Ticket.
+**Phạm vi phiên bản v0.2:** Quản lý Ticket, quản lý Technician và phân công kỹ thuật viên. Các chức năng phát triển bổ sung sau v0.2 được mô tả ở mục cuối README.
 
-**Giới hạn:** Các chức năng quản lý lịch hẹn, thay đổi kỹ thuật viên kèm lý do và kiểm tra xung đột lịch chưa được triển khai đầy đủ trong phiên bản `v0.2`.
+**Giới hạn của phiên bản v0.2:** Chưa triển khai đầy đủ quản lý lịch hẹn, thay đổi kỹ thuật viên và kiểm tra xung đột lịch. Sau v0.2, chức năng đặt lịch và kiểm tra trùng lịch đã được bổ sung; việc thay đổi kỹ thuật viên kèm lý do vẫn cần xác minh mức độ hoàn thiện.
 
 ---
 
@@ -447,7 +447,7 @@ Kỹ thuật viên cần:
 - Thuộc cùng trung tâm với Ticket.
 - Có trạng thái `AVAILABLE`.
 - Có kỹ năng phù hợp với `incident_group`.
-- Có mức độ thành thạo `proficiency >= 3`.
+- Đáp ứng mức tay nghề theo độ ưu tiên: `THAP >= 2`, `TRUNG_BINH >= 3`, `CAO >= 4`.
 
 **Điều kiện Ticket**
 
@@ -467,7 +467,7 @@ Nếu không đáp ứng điều kiện, hệ thống từ chối thao tác bằ
 
 ### 5.1. Các màn hình đã triển khai
 
-Frontend có ba màn hình/chế độ hiển thị chính kết nối REST API:
+Ở phiên bản v0.2, Frontend có ba màn hình/chế độ hiển thị chính kết nối REST API:
 
 1. **Ticket List:** Hiển thị danh sách phiếu sửa chữa.
 2. **Ticket Detail:** Hiển thị thông tin chi tiết một phiếu.
@@ -632,7 +632,7 @@ Trong đó có lỗi **BUG-001 – Seed dữ liệu không hỗ trợ chạy l�
 - Hiển thị kết quả và thông báo lỗi.
 - Kiểm thử tự động và khởi tạo dữ liệu mẫu.
 
-### 7.2. Chức năng chưa triển khai đầy đủ
+### 7.2. Giới hạn của phiên bản v0.2
 
 - Thay đổi kỹ thuật viên phụ trách kèm lý do.
 - Đặt lịch giao – nhận thiết bị qua API và Frontend.
@@ -640,14 +640,14 @@ Trong đó có lỗi **BUG-001 – Seed dữ liệu không hỗ trợ chạy l�
 - Giao diện riêng để kỹ thuật viên xem phiếu và lịch hẹn được giao.
 - Hoàn thiện toàn bộ quy tắc SLA và vòng đời trạng thái theo SRS.
 
-Bảng `appointment` đã được thiết kế trong cơ sở dữ liệu, nhưng chưa có module quản lý lịch hẹn hoàn chỉnh.
+Ở phiên bản v0.2, bảng `appointment` đã được thiết kế nhưng chưa có module quản lý lịch hẹn hoàn chỉnh. Sau v0.2, hệ thống đã bổ sung API và giao diện đặt lịch, kiểm tra xung đột lịch.
 
 ### 7.3. Ngoài phạm vi
 
 - Quản lý kho linh kiện.
 - Quản lý thanh toán và hóa đơn.
 - Toàn bộ quy trình sửa chữa thiết bị.
-- Đăng nhập và phân quyền chi tiết.
+- Phân quyền chi tiết ở Backend (sau v0.2 đã bổ sung đăng nhập và đăng xuất, nhưng chưa bảo vệ đồng bộ các Business API).
 - Các luồng nghiệp vụ khác ngoài L4.
 - Triển khai trong môi trường production.
 
@@ -834,3 +834,95 @@ Phiên bản Smart CRM `v0.2` hiện thực các thành phần kỹ thuật chí
 - README và tài liệu phục vụ dựng lại, kiểm tra và demo hệ thống.
 
 Dự án tiếp tục kế thừa các tài liệu phân tích, thiết kế của BT1. Những chức năng chưa hoàn thiện, đặc biệt là quản lý lịch hẹn và kiểm tra xung đột lịch, được xác định rõ để tiếp tục phát triển trong các giai đoạn sau.
+
+---
+
+## Hướng dẫn chạy phiên bản phát triển hiện tại
+
+Phần này áp dụng cho nhánh phát triển hiện tại, không phải tag `v0.2`.
+
+### Database
+
+Chạy `docs/schema.sql` và `docs/seed.sql` theo mục 3.5. Schema hiện tại có 7 bảng: `ticket`, `technician`, `technician_skill`, `assignment`, `appointment`, `crm_user`, `crm_session`.
+
+### Tạo tài khoản quản lý
+
+Sau khi cài đặt Python dependencies và khởi tạo Database, chạy tại thư mục gốc:
+
+```bash
+.venv/bin/python -m scripts.create_admin
+```
+
+Nhập tên đăng nhập và mật khẩu theo hướng dẫn. Mật khẩu được nhập ẩn và lưu dưới dạng hash. Không commit mật khẩu, token hoặc Database cục bộ.
+
+### Khởi chạy và kiểm thử
+
+Khởi chạy Backend và Frontend theo mục 3.6 và 3.7, sau đó truy cập `http://localhost:5173` để đăng nhập.
+
+Chạy kiểm thử bằng `.venv/bin/python -m pytest -v` và build bằng `npm --prefix src/frontend run build`.
+
+Kết quả kiểm tra ngày 30/10/2026: **51/51 tests passed**, Frontend build PASS, khởi tạo 7 bảng và chạy seed hai lần PASS.
+
+### Giới hạn
+
+Authentication chưa bảo vệ đồng bộ toàn bộ Business API. Chưa xác nhận kiểm thử giao diện end-to-end và chức năng thay đổi kỹ thuật viên kèm lý do.
+
+---
+
+## Cập nhật chức năng sau BT2
+
+Các chức năng được phát triển bổ sung sau phiên bản v0.2:
+
+### 1. Phân công kỹ thuật viên theo mức ưu tiên
+
+Hệ thống lọc kỹ thuật viên theo các điều kiện:
+
+- Cùng trung tâm với phiếu.
+- Trạng thái AVAILABLE.
+- Có kỹ năng phù hợp với nhóm sự cố.
+- Khối lượng công việc chưa vượt giới hạn.
+- Tay nghề đáp ứng mức ưu tiên của phiếu:
+  - THAP: proficiency >= 2.
+  - TRUNG_BINH: proficiency >= 3.
+  - CAO: proficiency >= 4.
+
+### 2. Quản lý lịch hẹn
+
+- Xem lịch hẹn.
+- Xem lịch hẹn theo phiếu.
+- Kiểm tra xung đột lịch của kỹ thuật viên.
+- Tạo lịch hẹn cho phiếu đã được phân công.
+
+### 3. Đăng nhập và đăng xuất
+
+- Đăng nhập bằng tài khoản quản lý.
+- Duy trì phiên đăng nhập trên giao diện.
+- Đăng xuất khỏi hệ thống.
+
+Lưu ý: Cơ chế xác thực chưa được áp dụng đồng bộ để bảo vệ
+toàn bộ Business API ở Backend.
+
+### 4. Giao diện
+
+- Danh sách và chi tiết phiếu sửa chữa.
+- Phân công kỹ thuật viên.
+- Đặt lịch hẹn.
+- Hiển thị thông tin kỹ thuật viên phụ trách.
+- Cập nhật trạng thái xử lý phiếu.
+
+### 5. Dữ liệu demo
+
+Database phát triển cục bộ hiện có:
+
+- 15 phiếu sửa chữa ở trạng thái PENDING.
+- 11 kỹ thuật viên với các mức tay nghề khác nhau.
+- Các nhóm sự cố MAN_HINH và PIN.
+
+Dữ liệu demo cục bộ không đồng nghĩa với dữ liệu được tạo
+bởi docs/seed.sql khi clone repository mới.
+
+### 6. Kiểm thử
+
+Các chức năng mới đã được kiểm tra từng phần trong quá trình
+phát triển. Cần chạy lại toàn bộ pytest và kiểm thử tích hợp
+trước khi xác nhận kết quả cuối cùng.

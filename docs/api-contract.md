@@ -420,3 +420,63 @@ Các chức năng này được giữ trong SRS, Use Case Specification và API 
 - `docs/erd.drawio` – Sơ đồ cơ sở dữ liệu.
 - `docs/schema.sql` – SQL DDL.
 - `docs/thay-doi-thiet-ke.md` – Nhật ký thay đổi thiết kế.
+
+---
+
+## Phụ lục – API thực tế sau v0.2
+
+Danh sách dưới đây được trích xuất từ OpenAPI Schema của mã nguồn hiện tại. Các endpoint thiết kế ở phần trước được giữ lại để đối chiếu với BT1.
+
+### Ticket
+
+| Method | Endpoint |
+|---|---|
+| GET | `/tickets` |
+| POST | `/tickets` |
+| GET | `/tickets/{ticket_id}` |
+| PUT | `/tickets/{ticket_id}` |
+| DELETE | `/tickets/{ticket_id}` |
+| PATCH | `/tickets/{ticket_id}/complete` |
+
+### Technician
+
+| Method | Endpoint |
+|---|---|
+| GET | `/technicians` |
+| POST | `/technicians` |
+| GET | `/technicians/{technician_id}` |
+| PUT | `/technicians/{technician_id}` |
+| DELETE | `/technicians/{technician_id}` |
+
+### Assignment
+
+| Method | Endpoint |
+|---|---|
+| POST | `/assignments/` |
+| GET | `/assignments/eligible-technicians/{ticket_id}` |
+| GET | `/assignments/ticket/{ticket_id}/detail` |
+
+### Appointment
+
+| Method | Endpoint |
+|---|---|
+| GET | `/appointments` |
+| POST | `/appointments` |
+| POST | `/appointments/check` |
+| GET | `/appointments/context/{ticket_id}` |
+| GET | `/appointments/ticket/{ticket_id}` |
+
+### Authentication
+
+| Method | Endpoint |
+|---|---|
+| POST | `/auth/login` |
+| POST | `/auth/logout` |
+| GET | `/auth/me` |
+
+### Giới hạn cần lưu ý
+
+- OpenAPI Schema xác nhận endpoint được đăng ký, không tự xác nhận API hoạt động đúng.
+- Frontend đã có cơ chế đăng nhập, nhưng các Business API chưa được bảo vệ đồng bộ bằng xác thực token.
+- Các quy tắc phân công hiện tại sử dụng ngưỡng tay nghề THAP >= 2, TRUNG_BINH >= 3 và CAO >= 4.
+- Cần chạy lại kiểm thử trước khi công bố kết quả BT2.

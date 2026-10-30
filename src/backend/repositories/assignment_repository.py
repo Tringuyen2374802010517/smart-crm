@@ -32,7 +32,14 @@ def get_technician(technician_id):
         return dict(row) if row else None
 
 
-def get_eligible_technicians(center_id, incident_group):
+def required_proficiency(priority):
+    thresholds = {"THAP": 2, "TRUNG_BINH": 3, "CAO": 4}
+    if priority not in thresholds:
+        raise ValueError(f"Mức ưu tiên không hợp lệ: {priority}")
+    return thresholds[priority]
+
+
+def get_eligible_technicians(center_id, incident_group, priority):
     with get_connection() as connection:
         rows = connection.execute(
             """
@@ -56,7 +63,7 @@ def get_eligible_technicians(center_id, incident_group):
             WHERE t.center_id = ?
               AND t.availability_status = 'AVAILABLE'
               AND s.incident_group = ?
-              AND s.proficiency >= 3
+              AND s.proficiency >= ?
               AND (
                   SELECT COUNT(*)
                   FROM assignment a
@@ -65,7 +72,7 @@ def get_eligible_technicians(center_id, incident_group):
               ) < 5
             ORDER BY current_workload ASC, t.technician_id ASC
             """,
-            (center_id, incident_group)
+            (center_id, incident_group, required_proficiency(priority))
         ).fetchall()
         return [dict(row) for row in rows]
 
@@ -94,7 +101,7 @@ def create_assignment(ticket_id, technician_id):
         connection.execute("BEGIN IMMEDIATE")
 
         ticket = connection.execute(
-            "SELECT status FROM ticket WHERE ticket_id = ?",
+            "SELECT status, priority FROM ticket WHERE ticket_id = ?",
             (ticket_id,)
         ).fetchone()
 
@@ -131,7 +138,7 @@ def create_assignment(ticket_id, technician_id):
             technician is None
             or technician["availability_status"] != "AVAILABLE"
             or technician["proficiency"] is None
-            or technician["proficiency"] < 3
+            or technician["proficiency"] < required_proficiency(ticket["priority"])
         ):
             raise ValueError("Kỹ thuật viên không đủ điều kiện")
 

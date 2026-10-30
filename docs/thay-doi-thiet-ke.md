@@ -80,3 +80,50 @@ Chỉ đánh dấu hoàn thành sau khi tài liệu, sơ đồ và repository
 - Lý do: Giới hạn phạm vi Sprint 1 để tập trung kiểm chứng luồng phân công, các quy tắc nghiệp vụ và các trạng thái giao diện.
 - Ảnh hưởng: Chưa có API hoặc giao diện hoàn chỉnh cho các chức năng trên. Cần tiếp tục triển khai và kiểm thử trong giai đoạn sau.
 - Trạng thái: Đã ghi nhận quyết định phạm vi; chưa hoàn thành các chức năng được hoãn.
+
+---
+
+## Cập nhật thiết kế sau phiên bản v0.2
+
+Ngày ghi nhận: 30/10/2026.
+
+### TD-12 – Điều chỉnh ngưỡng tay nghề theo mức ưu tiên
+
+- Quyết định: SỬA quy tắc lọc kỹ thuật viên.
+- Nội dung: THAP yêu cầu proficiency >= 2; TRUNG_BINH >= 3; CAO >= 4.
+- Lý do: Mức độ ưu tiên của phiếu cần được phản ánh trong yêu cầu năng lực kỹ thuật viên.
+- Ảnh hưởng: Assignment Service, Repository, SRS và tài liệu kiến trúc.
+- Trạng thái: Đã cập nhật mã nguồn và tài liệu; chờ kiểm thử lại.
+
+### TD-13 – Bổ sung chức năng lịch hẹn
+
+- Quyết định: TRIỂN KHAI BỔ SUNG sau Sprint 1.
+- Nội dung: API xem lịch, lấy ngữ cảnh phiếu, kiểm tra xung đột và tạo lịch hẹn; bổ sung giao diện đặt lịch.
+- Lý do: Tiếp tục hoàn thiện luồng L4 đã được xác định trong SRS.
+- Ảnh hưởng: Appointment API, Frontend và API Contract.
+- Trạng thái: Đã ghi nhận endpoint; chờ kiểm thử tích hợp.
+
+### TD-14 – Bổ sung đăng nhập và quản lý phiên
+
+- Quyết định: TRIỂN KHAI BỔ SUNG.
+- Nội dung: API đăng nhập, kiểm tra phiên, đăng xuất và giao diện yêu cầu đăng nhập.
+- Lý do: Bổ sung khả năng nhận diện người dùng khi thao tác trên giao diện.
+- Ảnh hưởng: Authentication API, Frontend và Database.
+- Giới hạn: Các Business API chưa được bảo vệ đồng bộ bằng xác thực.
+- Trạng thái: Đã ghi nhận endpoint; chờ kiểm thử lại.
+
+### TD-15 – Mở rộng giao diện nghiệp vụ
+
+- Quyết định: TRIỂN KHAI BỔ SUNG.
+- Nội dung: Màn hình danh sách phiếu, chi tiết phiếu, phân công kỹ thuật viên và đặt lịch hẹn.
+- Lý do: Hỗ trợ thao tác luồng L4 trực tiếp trên giao diện.
+- Ảnh hưởng: Các thành phần Frontend và tài liệu README.
+- Trạng thái: Đã cập nhật mã nguồn; chờ kiểm thử tích hợp.
+
+## Ghi chú kiểm chứng
+
+Các trạng thái trên phản ánh thay đổi đã ghi nhận trong mã nguồn
+và tài liệu. Chỉ xác nhận chức năng hoàn thành sau khi kiểm thử
+Backend, Frontend và các quy tắc nghiệp vụ thành công.
+
+TD-10 và TD-11 vẫn được giữ nguyên như lịch sử quyết định Sprint 1.

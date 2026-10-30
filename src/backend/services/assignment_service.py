@@ -18,7 +18,8 @@ def get_eligible_technicians(ticket_id):
 
     return repo.get_eligible_technicians(
         ticket["center_id"],
-        ticket["incident_group"]
+        ticket["incident_group"],
+        ticket["priority"]
     )
 
 
@@ -47,7 +48,8 @@ def assign_technician(ticket_id, technician_id):
 
     eligible = repo.get_eligible_technicians(
         ticket["center_id"],
-        ticket["incident_group"]
+        ticket["incident_group"],
+        ticket["priority"]
     )
 
     eligible_ids = {

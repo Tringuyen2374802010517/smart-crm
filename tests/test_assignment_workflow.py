@@ -80,7 +80,7 @@ def test_workload_limit_five(workflow_db):
     for ticket_id in range(1, 6):
         repo.create_assignment(ticket_id, 1)
 
-    eligible = repo.get_eligible_technicians(1, "MAN_HINH")
+    eligible = repo.get_eligible_technicians(1, "MAN_HINH", "CAO")
     assert eligible == []
 
     with pytest.raises(ValueError, match="giới hạn 5"):
@@ -97,7 +97,7 @@ def test_complete_ticket_releases_workload(workflow_db):
     assert repo.get_ticket(1)["status"] == "COMPLETED"
     assert repo.get_active_assignment(1) is None
 
-    eligible = repo.get_eligible_technicians(1, "MAN_HINH")
+    eligible = repo.get_eligible_technicians(1, "MAN_HINH", "CAO")
     assert len(eligible) == 1
     assert eligible[0]["current_workload"] == 4
 

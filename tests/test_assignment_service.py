@@ -12,6 +12,7 @@ def mock_repo(monkeypatch):
         "status": "PENDING",
         "center_id": 1,
         "incident_group": "MAN_HINH",
+        "priority": "CAO",
     }
 
     technician = {
@@ -40,7 +41,7 @@ def mock_repo(monkeypatch):
     monkeypatch.setattr(
         service.repo,
         "get_eligible_technicians",
-        lambda center_id, incident_group: eligible,
+        lambda center_id, incident_group, priority: eligible,
     )
     monkeypatch.setattr(
         service.repo,

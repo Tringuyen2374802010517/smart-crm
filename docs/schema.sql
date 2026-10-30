@@ -111,3 +111,28 @@ ON appointment(technician_id, start_time, end_time);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_assignment_active_ticket
 ON assignment(ticket_id)
 WHERE ended_at IS NULL;
+
+
+-- =====================================================
+-- 7. AUTHENTICATION (v0.2)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS crm_user (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'MANAGER',
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS crm_session (
+    session_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    token_hash TEXT NOT NULL UNIQUE,
+    expires_at TEXT NOT NULL,
+    revoked_at TEXT,
+    FOREIGN KEY (user_id) REFERENCES crm_user(user_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_crm_session_token
+ON crm_session(token_hash);

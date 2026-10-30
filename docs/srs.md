@@ -142,7 +142,7 @@ AC1 – Phân công thành công
 - When: Quản lý xác nhận phân công.
 - Then: Hệ thống tạo bản ghi phân công và xác định kỹ thuật viên phụ trách phiếu.
 AC2 – Từ chối kỹ thuật viên không phù hợp
-- Given: Kỹ thuật viên không AVAILABLE, không cùng trung tâm hoặc có proficiency dưới 3 đối với nhóm sự cố của phiếu.
+- Given: Kỹ thuật viên không AVAILABLE, không cùng trung tâm hoặc có proficiency thấp hơn ngưỡng yêu cầu theo mức ưu tiên của phiếu.
 - When: Quản lý thực hiện phân công.
 - Then: Hệ thống từ chối phân công và thông báo lý do.
 AC3 – Ngăn phân công trùng
@@ -179,7 +179,12 @@ BR2 – Điều kiện kỹ thuật viên
 
 Kỹ thuật viên chỉ được phân công khi:
 - Có trạng thái AVAILABLE.
-- Có proficiency ≥ 3 đối với nhóm sự cố của phiếu.
+- Có kỹ năng phù hợp với nhóm sự cố của phiếu.
+- Đáp ứng ngưỡng proficiency theo mức ưu tiên:
+  - THAP: proficiency ≥ 2.
+  - TRUNG_BINH: proficiency ≥ 3.
+  - CAO: proficiency ≥ 4.
+- Proficiency được đánh giá trên thang điểm từ 1 đến 5.
 - Thuộc cùng trung tâm với phiếu.
 BR3 – Điều kiện trạng thái phiếu
 

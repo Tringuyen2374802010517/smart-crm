@@ -1,3 +1,5 @@
+from src.backend.api.auth_api import router as auth_router
+from src.backend.api.appointment_api import router as appointment_router
 from src.backend.api.technician_api import router as technician_router
 
 import sqlite3
@@ -59,3 +61,7 @@ def db_check():
 app.include_router(ticket_router)
 app.include_router(assignment_router)
 app.include_router(technician_router)
+
+app.include_router(appointment_router)
+
+app.include_router(auth_router)

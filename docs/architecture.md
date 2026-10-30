@@ -96,3 +96,46 @@ Các nhóm dữ liệu chính:
 **NFR2:** Vì NFR2 yêu cầu thao tác phân công kỹ thuật viên hoặc đặt lịch phản hồi trong thời gian không quá 2 giây, tôi chọn xử lý các Business Rule tại Backend trước khi ghi dữ liệu vào Database, đánh đổi là Backend phải đảm nhận nhiều logic nghiệp vụ hơn.
 
 **NFR3:** Vì NFR3 yêu cầu quy trình phân công kỹ thuật viên hoàn thành trong tối đa 5 bước tương tác chính, tôi chọn thiết kế Frontend tập trung vào luồng chọn phiếu → xem kỹ thuật viên → chọn kỹ thuật viên → xác nhận phân công, đánh đổi là giao diện được thiết kế chuyên biệt hơn cho luồng L4.
+
+---
+
+## Phụ lục – Kiến trúc triển khai sau v0.2
+
+### 1. Công nghệ
+- Frontend: HTML, CSS, JavaScript, Vite.
+- Backend: Python, FastAPI.
+- Database: SQLite.
+- Giao tiếp: REST API.
+
+### 2. Các module
+- Ticket: Quản lý phiếu và trạng thái xử lý.
+- Technician: Quản lý thông tin kỹ thuật viên.
+- Assignment: Lọc và phân công kỹ thuật viên.
+- Appointment: Xem, kiểm tra trùng và tạo lịch hẹn.
+- Authentication: Đăng nhập, kiểm tra phiên, đăng xuất.
+
+### 3. Business Rules phân công
+Kỹ thuật viên phải đáp ứng:
+- Cùng trung tâm với phiếu.
+- Trạng thái AVAILABLE.
+- Có kỹ năng phù hợp với nhóm sự cố.
+- Khối lượng công việc chưa vượt giới hạn.
+- Ngưỡng proficiency theo mức ưu tiên:
+  - THAP: >= 2.
+  - TRUNG_BINH: >= 3.
+  - CAO: >= 4.
+
+### 4. Luồng xử lý
+Frontend (Vite) -> REST API (FastAPI) -> SQLite.
+
+Các chức năng phân công được tổ chức theo các lớp
+API, Service và Repository.
+
+### 5. Giới hạn
+- Chưa bảo vệ đồng bộ toàn bộ Business API bằng token.
+- Chưa xác nhận các mục tiêu hiệu năng NFR.
+- Cần kiểm thử tích hợp toàn bộ chức năng mới.
+
+### 6. Ghi chú phiên bản
+Phụ lục này mô tả các thành phần phát triển sau v0.2.
+Nội dung thiết kế BT1 được giữ lại để đối chiếu.
