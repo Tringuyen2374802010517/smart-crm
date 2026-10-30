@@ -2,7 +2,7 @@
 
 ## Smart CRM – Mekong Mobile
 
-**Luồng nghiệp vụ:** L4 – Phân công kỹ thuật viên và lịch hẹn  
+**Luồng nghiệp vụ:** L4 – Phân công kỹ thuật viên và lịch hẹn
 **Track:** SE
 
 ---
@@ -28,8 +28,35 @@ Các kết quả do AI hỗ trợ được sinh viên kiểm tra và chỉnh s�
 
 Tôi xác nhận đã khai báo việc sử dụng công cụ AI trong quá trình thực hiện BT1. Tôi đã kiểm tra, chỉnh sửa và chịu trách nhiệm về tính phù hợp của toàn bộ nội dung trong bài nộp.
 
-**Sinh viên:** Nguyễn Minh Trị  
-**MSSV:** 2374802010517  
-**Track:** SE  
-**Luồng:** L4 – Phân công kỹ thuật viên và lịch hẹn  
+**Sinh viên:** Nguyễn Minh Trị
+**MSSV:** 2374802010517
+**Track:** SE
+**Luồng:** L4 – Phân công kỹ thuật viên và lịch hẹn
 **Ngày khai báo:** 02/10/2026
+
+---
+
+## 4. Bổ sung khai báo sử dụng AI trong BT2
+
+**Giai đoạn:** Sprint 1 – BT2
+**Ngày cập nhật:** 30/10/2026
+
+| Công cụ AI | Nội dung hỗ trợ | Cách kiểm chứng |
+|---|---|---|
+| ChatGPT | Hỗ trợ phân tích và hướng dẫn triển khai CRUD cho Ticket và Technician; tổ chức Controller/API, Service, Repository; xử lý lỗi nghiệp vụ; xây dựng và rà soát test cases; cải thiện schema, seed, README và Bug Log | Sinh viên thực hiện các thao tác trong repository, kiểm tra thay đổi bằng Git, chạy pytest, kiểm tra API và đối chiếu với yêu cầu BT2 |
+| ChatGPT | Hỗ trợ hướng dẫn kiểm tra khả năng tái lập dự án và quy trình Git | Kiểm tra fresh clone, cài đặt dependencies, khởi tạo SQLite, chạy 25 bài kiểm thử, build frontend và xác nhận commit trên GitHub |
+
+### Kết quả kiểm chứng
+
+- 25/25 bài kiểm thử pytest thành công trên bản clone cục bộ.
+- Frontend build thành công bằng `npm run build`.
+- Khởi tạo schema và seed trên database mới thành công.
+- Clone repository trực tiếp từ GitHub thành công tại commit `82f35f3`.
+- Các thay đổi được lưu trong lịch sử Git và có thể đối chiếu.
+
+### Cam kết
+
+Tôi đã kiểm tra kết quả được AI hỗ trợ, thực hiện các thao tác triển khai và kiểm thử trên môi trường phát triển, đồng thời chịu trách nhiệm về nội dung bài nộp BT2.
+
+**Sinh viên:** Nguyễn Minh Trị
+**MSSV:** 2374802010517
