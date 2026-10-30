@@ -1,6 +1,6 @@
 
 import pytest
-from fastapi import HTTPException
+from src.backend.services.exceptions import BusinessError, NotFoundError
 
 from src.backend.services import assignment_service as service
 
@@ -67,20 +67,20 @@ def test_ticket_not_found(mock_repo, monkeypatch):
         service.repo, "get_ticket", lambda ticket_id: None
     )
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(NotFoundError) as error:
         service.assign_technician(999, 1)
 
-    assert error.value.status_code == 404
+    assert error.value.message
 
 
 def test_ticket_not_pending(mock_repo):
     ticket, _, _ = mock_repo
     ticket["status"] = "COMPLETED"
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(BusinessError) as error:
         service.assign_technician(10, 1)
 
-    assert error.value.status_code == 400
+    assert error.value.message
 
 
 def test_duplicate_assignment(mock_repo, monkeypatch):
@@ -90,40 +90,40 @@ def test_duplicate_assignment(mock_repo, monkeypatch):
         lambda ticket_id: {"assignment_id": 99},
     )
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(BusinessError) as error:
         service.assign_technician(10, 1)
 
-    assert error.value.status_code == 400
+    assert error.value.message
 
 
 def test_technician_different_center(mock_repo):
     _, technician, _ = mock_repo
     technician["center_id"] = 2
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(BusinessError) as error:
         service.assign_technician(10, 1)
 
-    assert error.value.status_code == 400
+    assert error.value.message
 
 
 def test_technician_unavailable(mock_repo):
     _, technician, _ = mock_repo
     technician["availability_status"] = "BUSY"
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(BusinessError) as error:
         service.assign_technician(10, 1)
 
-    assert error.value.status_code == 400
+    assert error.value.message
 
 
 def test_technician_insufficient_skill(mock_repo):
     _, _, eligible = mock_repo
     eligible.clear()
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(BusinessError) as error:
         service.assign_technician(10, 1)
 
-    assert error.value.status_code == 400
+    assert error.value.message
 
 
 def test_empty_eligible_technicians(mock_repo):
@@ -140,7 +140,7 @@ def test_technician_not_found(mock_repo, monkeypatch):
         service.repo, "get_technician", lambda technician_id: None
     )
 
-    with pytest.raises(HTTPException) as error:
+    with pytest.raises(NotFoundError) as error:
         service.assign_technician(10, 999)
 
-    assert error.value.status_code == 404
+    assert error.value.message

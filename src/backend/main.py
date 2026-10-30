@@ -1,14 +1,27 @@
 
 import sqlite3
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, JSONResponse
 
 from src.backend.api.ticket_api import router as ticket_router
 from src.backend.api.assignment_api import router as assignment_router
 
+from src.backend.services.exceptions import BusinessError, NotFoundError
+
 app = FastAPI()
+
+
+@app.exception_handler(NotFoundError)
+async def handle_not_found(request: Request, exc: NotFoundError):
+    return JSONResponse(status_code=404, content={"detail": exc.message})
+
+
+@app.exception_handler(BusinessError)
+async def handle_business_error(request: Request, exc: BusinessError):
+    return JSONResponse(status_code=400, content={"detail": exc.message})
+
 
 # Allow the Vite frontend to call FastAPI during development.
 app.add_middleware(
