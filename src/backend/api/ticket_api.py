@@ -49,3 +49,9 @@ def update_ticket(ticket_id: int, data: TicketInput):
 def delete_ticket(ticket_id: int):
     service.delete_ticket(ticket_id)
     return {"message": "Xoa phieu thanh cong"}
+
+
+@router.patch("/{ticket_id}/complete")
+def complete_ticket(ticket_id: int):
+    from src.backend.services import assignment_service
+    return assignment_service.complete_ticket(ticket_id)

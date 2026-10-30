@@ -65,3 +65,21 @@ def assign_technician(ticket_id, technician_id):
         if isinstance(error, sqlite3.IntegrityError):
             raise BusinessError("Khong the tao phan cong trung lap hoac khong hop le") from error
         raise
+
+
+def complete_ticket(ticket_id):
+    ticket = repo.get_ticket(ticket_id)
+
+    if ticket is None:
+        raise NotFoundError("Khong tim thay phieu")
+
+    if ticket["status"] != "ASSIGNED":
+        raise BusinessError("Chi co the hoan thanh phieu ASSIGNED")
+
+    if not repo.get_active_assignment(ticket_id):
+        raise BusinessError("Phieu khong co phan cong dang hoat dong")
+
+    try:
+        return repo.complete_ticket(ticket_id)
+    except ValueError as error:
+        raise BusinessError(str(error)) from error

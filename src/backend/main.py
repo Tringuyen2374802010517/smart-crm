@@ -13,6 +13,17 @@ from src.backend.services.exceptions import BusinessError, NotFoundError
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 
 @app.exception_handler(NotFoundError)
 async def handle_not_found(request: Request, exc: NotFoundError):
@@ -25,15 +36,6 @@ async def handle_business_error(request: Request, exc: BusinessError):
 
 
 # Allow the Vite frontend to call FastAPI during development.
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=False,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization"],
-)
-
-
 @app.get("/", response_class=PlainTextResponse)
 def home():
     return "Hello Smart CRM"
