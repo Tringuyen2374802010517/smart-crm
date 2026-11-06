@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.2, pytest-9.1.1, pluggy-1.7.0 -- /Users/nguyenminhtri/Downloads/smart-crm/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/nguyenminhtri/Downloads/smart-crm
+plugins: anyio-4.15.1
+collecting ... collected 12 items
+
+tests/test_assignment_service.py::test_assign_success PASSED             [  8%]
+tests/test_appointment_api.py::test_create_appointment_success PASSED    [ 16%]
+tests/test_reassignment_api.py::test_manager_can_reassign PASSED         [ 25%]
+tests/test_assignment_workflow.py::test_workload_limit_five PASSED       [ 33%]
+tests/test_appointment_api.py::test_adjacent_appointments_allowed PASSED [ 41%]
+tests/test_ticket_api.py::test_invalid_ticket_priority PASSED            [ 50%]
+tests/test_reassignment_api.py::test_empty_reason_is_rejected PASSED     [ 58%]
+tests/test_business_auth.py::test_missing_token_returns_401[/tickets] PASSED [ 66%]
+tests/test_reassignment_api.py::test_technician_role_is_forbidden PASSED [ 75%]
+tests/test_business_auth.py::test_revoked_token_returns_401 PASSED       [ 83%]
+tests/test_assignment_workflow.py::test_failed_assignment_rolls_back PASSED [ 91%]
+tests/test_reassignment.py::test_reassignment_records_reason_and_preserves_one_active PASSED [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/nguyenminhtri/Downloads/smart-crm/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 12 passed, 1 warning in 0.35s =========================

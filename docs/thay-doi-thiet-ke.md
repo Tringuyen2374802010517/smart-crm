@@ -127,3 +127,57 @@ và tài liệu. Chỉ xác nhận chức năng hoàn thành sau khi kiểm th�
 Backend, Frontend và các quy tắc nghiệp vụ thành công.
 
 TD-10 và TD-11 vẫn được giữ nguyên như lịch sử quyết định Sprint 1.
+
+---
+
+## Cập nhật sau kiểm thử Buổi 14
+
+Ngày ghi nhận: 06/11/2026.
+
+### TD-16 – Bảo vệ API nghiệp vụ bằng xác thực
+
+- Quyết định: SỬA.
+- Lý do: Kiểm thử phát hiện API nghiệp vụ cho phép
+  truy cập khi chưa đăng nhập (BUG-01).
+- Nội dung: Bổ sung xác thực Bearer token cho các
+  business router và cập nhật Frontend API client.
+- Minh chứng: Commit `6cc8aa3`, BUG-01.
+- Trạng thái: Đã sửa và kiểm thử.
+
+### TD-17 – Hoàn thiện thay đổi kỹ thuật viên kèm lý do
+
+- Quyết định: TRIỂN KHAI BỔ SUNG.
+- Lý do: Hoàn thiện FR4/US4 đã được hoãn tại TD-11.
+- Nội dung: Manager có thể thay đổi kỹ thuật viên
+  của phiếu ASSIGNED, bắt buộc nhập lý do.
+- Quy tắc: Kỹ thuật viên mới phải đủ điều kiện về
+  trung tâm, trạng thái, kỹ năng và workload.
+- Dữ liệu: Kết thúc phân công cũ, tạo phân công mới
+  trong cùng transaction và giữ lịch sử.
+- Giao diện: Bổ sung form đổi kỹ thuật viên và
+  bảng lịch sử phân công.
+- Minh chứng: Commit `e601110`, BUG-02.
+- Kiểm thử: 86 passed, 0 failed, 1 warning.
+- Trạng thái: Đã triển khai và kiểm thử.
+
+### TD-18 – Kiểm soát quyền tạo phân công kỹ thuật viên
+
+- Quyết định: SỬA.
+- Lý do: BUG-03 cho phép Technician tạo phân công
+  thông qua API dù FR3/US3 quy định Manager thực hiện.
+- Nội dung: Bổ sung dependency `require_manager`
+  cho endpoint `POST /assignments/`.
+- Expected: Technician nhận HTTP 403 Forbidden.
+- Minh chứng: Commit `6cc17ba`, BUG-03.
+- Kiểm thử: Tại thời điểm sửa lỗi, 87 passed,
+  0 failed, 1 warning.
+- Trạng thái: Đã sửa và kiểm thử.
+
+### Ghi chú
+
+TD-11 phản ánh quyết định phạm vi tại Sprint 1.
+TD-17 ghi nhận việc hoàn thiện chức năng trong
+giai đoạn sau, không thay thế lịch sử TD-11.
+
+BUG-02 được phân loại là Requirement Gap,
+không phải lỗi runtime đã được tái hiện.
