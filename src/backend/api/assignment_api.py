@@ -18,19 +18,6 @@ def get_eligible_technicians(ticket_id: int):
     return service.get_eligible_technicians(ticket_id)
 
 
-@router.post("/", status_code=201)
-def create_assignment(data: AssignmentCreate):
-    return service.assign_technician(
-        data.ticket_id,
-        data.technician_id
-    )
-
-
-class ReassignmentInput(BaseModel):
-    technician_id: int
-    reason: str = Field(min_length=1, max_length=255)
-
-
 def require_manager(
     authorization: str | None = Header(default=None),
 ):
@@ -44,6 +31,21 @@ def require_manager(
 
     return user
 
+
+@router.post("/", status_code=201)
+def create_assignment(
+    data: AssignmentCreate,
+    manager=Depends(require_manager),
+):
+    return service.assign_technician(
+        data.ticket_id,
+        data.technician_id
+    )
+
+
+class ReassignmentInput(BaseModel):
+    technician_id: int
+    reason: str = Field(min_length=1, max_length=255)
 
 
 @router.get("/ticket/{ticket_id}/reassignment-candidates")
