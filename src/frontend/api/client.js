@@ -1,8 +1,11 @@
 
+import { getToken } from '../src/auth.js';
+
 const API_BASE_URL = 'http://localhost:8000';
 
 export async function apiRequest(endpoint, options = {}) {
   const { headers, ...restOptions } = options;
+  const token = getToken();
 
   let response;
 
@@ -11,6 +14,7 @@ export async function apiRequest(endpoint, options = {}) {
       ...restOptions,
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...headers,
       },
     });

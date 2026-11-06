@@ -1,10 +1,10 @@
-from src.backend.api.auth_api import router as auth_router
+from src.backend.api.auth_api import require_user, router as auth_router
 from src.backend.api.appointment_api import router as appointment_router
 from src.backend.api.technician_api import router as technician_router
 
 import sqlite3
 
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, JSONResponse
 
@@ -14,6 +14,13 @@ from src.backend.api.assignment_api import router as assignment_router
 from src.backend.services.exceptions import BusinessError, NotFoundError
 
 app = FastAPI()
+
+
+def require_authenticated_user(
+    authorization: str | None = Header(default=None)
+):
+    return require_user(authorization)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -58,10 +65,10 @@ def db_check():
     }
 
 
-app.include_router(ticket_router)
-app.include_router(assignment_router)
-app.include_router(technician_router)
+app.include_router(ticket_router, dependencies=[Depends(require_authenticated_user)])
+app.include_router(assignment_router, dependencies=[Depends(require_authenticated_user)])
+app.include_router(technician_router, dependencies=[Depends(require_authenticated_user)])
 
-app.include_router(appointment_router)
+app.include_router(appointment_router, dependencies=[Depends(require_authenticated_user)])
 
 app.include_router(auth_router)

@@ -5,6 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.backend.main import app
+from src.backend.api import auth_api
 from src.backend.repositories import ticket_repository, assignment_repository
 
 
@@ -23,7 +24,44 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setattr(ticket_repository, "DB_PATH", db_path)
     monkeypatch.setattr(assignment_repository, "DB_PATH", db_path)
 
-    return TestClient(app)
+    # Create an isolated authentication database for this test.
+    auth_db_path = tmp_path / "auth_test.db"
+    monkeypatch.setattr(auth_api, "DB_PATH", auth_db_path)
+    monkeypatch.setattr(auth_api, "ITERATIONS", 1000)
+
+    with auth_api.connection() as db:
+        auth_api.init_auth_db(db)
+        db.execute(
+            """
+            INSERT INTO crm_user
+                (username, password_hash, role, created_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                "test_manager",
+                auth_api.hash_password("TestPassword123"),
+                "MANAGER",
+                auth_api.utc_now().isoformat(),
+            ),
+        )
+        db.commit()
+
+    # Log in through the real authentication API.
+    test_client = TestClient(app)
+    login_response = test_client.post(
+        "/auth/login",
+        json={
+            "username": "test_manager",
+            "password": "TestPassword123",
+        },
+    )
+
+    assert login_response.status_code == 200, login_response.text
+
+    token = login_response.json()["access_token"]
+    test_client.headers["Authorization"] = f"Bearer {token}"
+
+    return test_client
 
 
 def valid_payload():

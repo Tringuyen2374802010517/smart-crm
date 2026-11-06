@@ -414,20 +414,10 @@ async function renderTicketList() {
               complete.textContent = 'Đang xử lý...';
 
               try {
-                const response = await fetch(
-                  `http://127.0.0.1:8000/tickets/${ticket.ticket_id}/complete`,
+                await apiRequest(
+                  `/tickets/${ticket.ticket_id}/complete`,
                   { method: 'PATCH' }
                 );
-
-                if (!response.ok) {
-                  const data = await response.json().catch(() => ({}));
-                  throw new Error(
-                    typeof data.detail === 'string'
-                      ? data.detail
-                      : 'Không thể hoàn thành phiếu.'
-                  );
-                }
-
                 await loadTickets();
               } catch (error) {
                 window.alert(error.message);
