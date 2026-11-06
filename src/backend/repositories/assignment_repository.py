@@ -186,6 +186,132 @@ def create_assignment(ticket_id, technician_id):
         connection.close()
 
 
+
+def reassign_technician(ticket_id, technician_id, reason):
+    reason = reason.strip()
+    if not reason or len(reason) > 255:
+        raise ValueError("Ly do thay doi phai co 1-255 ky tu")
+
+    connection = get_connection()
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+
+        ticket = connection.execute(
+            """
+            SELECT ticket_id, status, center_id,
+                   incident_group, priority
+            FROM ticket
+            WHERE ticket_id = ?
+            """,
+            (ticket_id,),
+        ).fetchone()
+
+        if ticket is None:
+            raise ValueError("Khong tim thay phieu")
+
+        if ticket["status"] != "ASSIGNED":
+            raise ValueError("Chi duoc doi ky thuat vien cua phieu ASSIGNED")
+
+        active_rows = connection.execute(
+            """
+            SELECT assignment_id, technician_id
+            FROM assignment
+            WHERE ticket_id = ? AND ended_at IS NULL
+            """,
+            (ticket_id,),
+        ).fetchall()
+
+        if len(active_rows) != 1:
+            raise ValueError("Phieu phai co dung mot phan cong dang hoat dong")
+
+        old_assignment = active_rows[0]
+
+        if old_assignment["technician_id"] == technician_id:
+            raise ValueError("Ky thuat vien moi phai khac ky thuat vien cu")
+
+        technician = connection.execute(
+            """
+            SELECT t.center_id, t.availability_status,
+                   (
+                       SELECT MAX(s.proficiency)
+                       FROM technician_skill s
+                       WHERE s.technician_id = t.technician_id
+                         AND s.incident_group = ?
+                   ) AS proficiency
+            FROM technician t
+            WHERE t.technician_id = ?
+            """,
+            (ticket["incident_group"], technician_id),
+        ).fetchone()
+
+        if technician is None:
+            raise ValueError("Khong tim thay ky thuat vien moi")
+
+        if technician["center_id"] != ticket["center_id"]:
+            raise ValueError("Ky thuat vien khac trung tam")
+
+        if technician["availability_status"] != "AVAILABLE":
+            raise ValueError("Ky thuat vien khong kha dung")
+
+        if (
+            technician["proficiency"] is None
+            or technician["proficiency"]
+            < required_proficiency(ticket["priority"])
+        ):
+            raise ValueError("Ky thuat vien khong du ky nang")
+
+        workload = connection.execute(
+            """
+            SELECT COUNT(*)
+            FROM assignment
+            WHERE technician_id = ?
+              AND ended_at IS NULL
+            """,
+            (technician_id,),
+        ).fetchone()[0]
+
+        if workload >= 5:
+            raise ValueError("Ky thuat vien da dat gioi han 5 phieu")
+
+        changed_at = datetime.now(timezone.utc).isoformat()
+
+        updated = connection.execute(
+            """
+            UPDATE assignment
+            SET ended_at = ?, change_reason = ?
+            WHERE assignment_id = ? AND ended_at IS NULL
+            """,
+            (changed_at, reason, old_assignment["assignment_id"]),
+        )
+
+        if updated.rowcount != 1:
+            raise ValueError("Khong the ket thuc phan cong cu")
+
+        cursor = connection.execute(
+            """
+            INSERT INTO assignment
+                (ticket_id, technician_id, assigned_at)
+            VALUES (?, ?, ?)
+            """,
+            (ticket_id, technician_id, changed_at),
+        )
+
+        row = connection.execute(
+            "SELECT * FROM assignment WHERE assignment_id = ?",
+            (cursor.lastrowid,),
+        ).fetchone()
+
+        result = dict(row)
+        connection.commit()
+        return result
+
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
 def complete_ticket(ticket_id):
     completed_at = datetime.now(timezone.utc).isoformat()
     connection = get_connection()
@@ -231,3 +357,27 @@ def complete_ticket(ticket_id):
         raise
     finally:
         connection.close()
+
+
+def get_assignment_history(ticket_id):
+    with get_connection() as connection:
+        rows = connection.execute(
+            """
+            SELECT
+                a.assignment_id,
+                a.ticket_id,
+                a.technician_id,
+                tech.name AS technician_name,
+                a.assigned_at,
+                a.ended_at,
+                a.change_reason
+            FROM assignment a
+            JOIN technician tech
+              ON tech.technician_id = a.technician_id
+            WHERE a.ticket_id = ?
+            ORDER BY a.assigned_at ASC, a.assignment_id ASC
+            """,
+            (ticket_id,),
+        ).fetchall()
+
+        return [dict(row) for row in rows]

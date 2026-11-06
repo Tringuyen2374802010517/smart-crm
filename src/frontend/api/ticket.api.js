@@ -24,3 +24,24 @@ export function assignTechnician(ticketId, technicianId) {
     }),
   });
 }
+
+
+export function reassignTechnician(ticketId, technicianId, reason) {
+  return apiRequest(
+    `/assignments/ticket/${encodeURIComponent(ticketId)}/reassign`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({
+        technician_id: Number(technicianId),
+        reason: String(reason).trim(),
+      }),
+    }
+  );
+}
+
+
+export function getReassignmentCandidates(ticketId) {
+  return apiRequest(
+    `/assignments/ticket/${encodeURIComponent(ticketId)}/reassignment-candidates`
+  );
+}

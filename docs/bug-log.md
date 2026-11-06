@@ -48,3 +48,149 @@ Chạy schema và seed trên database tạm:
 
 `INSERT OR IGNORE` chỉ bỏ qua dữ liệu đã tồn tại theo
 ràng buộc SQLite; không tự động cập nhật dữ liệu mẫu cũ.
+
+---
+
+## BUG-01: API nghiệp vụ cho phép truy cập khi chưa đăng nhập
+
+- **Module:** Backend Authentication / API Security
+- **Mức độ:** Major
+- **Trạng thái:** Fixed
+- **Phát hiện bằng:** Kiểm thử API thủ công bằng curl
+- **Commit sửa lỗi:** `6cc8aa3`
+- **Branch:** `feature/l4-modern-ui`
+
+### 1. Mô tả lỗi
+
+Các API nghiệp vụ chưa yêu cầu xác thực người dùng.
+Request không có Bearer token vẫn có thể truy cập danh sách
+phiếu sửa chữa.
+
+### 2. Các bước tái hiện
+
+1. Khởi động FastAPI.
+2. Gửi GET /tickets mà không cung cấp Authorization header.
+3. Quan sát HTTP status và dữ liệu trả về.
+
+### 3. Expected / Actual trước khi sửa
+
+- **Expected:** HTTP 401 Unauthorized.
+- **Actual:** HTTP 200 OK, trả về danh sách phiếu.
+- **Kết quả:** FAIL.
+
+### 4. Nguyên nhân gốc
+
+Các business router chưa được gắn dependency xác thực.
+Frontend cũng chưa gửi Bearer token nhất quán cho
+các request nghiệp vụ.
+
+### 5. Cách khắc phục
+
+- Thêm dependency xác thực cho Tickets, Assignments,
+  Technicians và Appointments tại Backend.
+- Bổ sung Bearer token vào API client của Frontend.
+- Chuyển thao tác hoàn thành phiếu sang sử dụng API client.
+- Cập nhật các fixture kiểm thử để đăng nhập bằng tài khoản
+  thử nghiệm trên database tạm.
+- Bổ sung 12 test bảo mật trong test_business_auth.py.
+
+### 6. Kiểm thử sau khi sửa
+
+- GET /tickets không có token: HTTP 401 — PASS.
+- Token sai, token bị thu hồi và request ghi dữ liệu
+  không có token: PASS trong bộ test bảo mật.
+- Token hợp lệ truy cập GET /tickets: PASS.
+- Toàn bộ pytest: 63 passed, 0 failed, 1 warning.
+- Frontend: người thực hiện xác nhận các màn hình
+  được kiểm tra hoạt động bình thường.
+
+### 7. Lý do phân loại Major
+
+Lỗi cho phép người chưa đăng nhập truy cập dữ liệu
+nghiệp vụ, vi phạm yêu cầu kiểm soát truy cập.
+Đã xác nhận truy cập đọc trái phép; chưa thực hiện
+đánh giá đầy đủ mọi tác động bảo mật.
+
+### 8. Minh chứng
+
+- Commit sửa lỗi: `6cc8aa3`.
+- Test bảo mật: `tests/test_business_auth.py`.
+- Ảnh chụp kiểm thử: `docs/screenshots/BUG-01.png`.
+
+---
+
+## BUG-02: Chưa hỗ trợ thay đổi kỹ thuật viên sau khi phân công
+
+- **Module:** Assignment Management
+- **Mức độ:** Major (đánh giá theo ảnh hưởng nghiệp vụ)
+- **Trạng thái:** Fixed
+- **Phát hiện bằng:** Rà soát chức năng theo phản hồi BT2
+- **Branch:** `feature/l4-modern-ui`
+- **Loại:** Missing functionality / Requirement gap
+
+### 1. Mô tả
+
+Phiên bản trước chưa hỗ trợ Manager thay đổi kỹ thuật viên
+cho phiếu đã được phân công và ghi nhận lý do thay đổi.
+
+Đây là chức năng còn thiếu so với yêu cầu nghiệp vụ,
+không phải lỗi runtime đã được tái hiện.
+
+### 2. Các bước xác minh trước khi sửa
+
+1. Đăng nhập bằng tài khoản Manager.
+2. Mở chi tiết phiếu ở trạng thái ASSIGNED.
+3. Kiểm tra khả năng thay đổi kỹ thuật viên và nhập lý do.
+4. Đối chiếu chức năng hiện có với yêu cầu nghiệp vụ.
+
+### 3. Expected / Actual trước khi sửa
+
+- **Expected:** Manager có thể chọn kỹ thuật viên thay thế
+  đủ điều kiện, nhập lý do và lưu lịch sử thay đổi.
+- **Actual:** Chưa có luồng đổi kỹ thuật viên hoàn chỉnh
+  trên API và giao diện.
+
+### 4. Nguyên nhân
+
+Chức năng phân công ban đầu chỉ xử lý phiếu PENDING.
+Luồng thay đổi kỹ thuật viên của phiếu ASSIGNED chưa
+được triển khai đầy đủ.
+
+### 5. Cách khắc phục
+
+- Bổ sung API đổi kỹ thuật viên dành cho Manager.
+- Kiểm tra kỹ thuật viên thay thế theo trung tâm,
+  trạng thái khả dụng, kỹ năng, mức thành thạo
+  và giới hạn khối lượng công việc.
+- Bắt buộc nhập lý do thay đổi.
+- Kết thúc phân công cũ và tạo phân công mới
+  trong cùng một transaction.
+- Lưu lịch sử phân công trong database.
+- Bổ sung API và giao diện xem lịch sử phân công.
+- Bổ sung kiểm thử tự động cho chức năng.
+
+### 6. Kiểm thử sau khi sửa
+
+- Đổi kỹ thuật viên phiếu #1 từ #1 sang #8: PASS.
+- Phân công cũ có ended_at và change_reason: PASS.
+- Phân công mới có ended_at = NULL: PASS.
+- Chỉ còn một phân công đang hoạt động: PASS.
+- Manager xem được lịch sử hai lần phân công: PASS.
+- API history kiểm tra quyền truy cập: PASS.
+- Full regression: 86 passed, 0 failed, 1 warning.
+- Frontend Vite build: PASS.
+
+### 7. Minh chứng
+
+- `docs/screenshots/BUG-02-before.png`
+- `docs/screenshots/BUG-02-after.png`
+- `docs/screenshots/BUG-02-database.png`
+- `docs/screenshots/BUG-02-history.png`
+- `docs/screenshots/BUG-02-tests.png`
+- `tests/test_reassignment.py`
+- `tests/test_reassignment_api.py`
+
+### 8. Giới hạn
+
+Chưa thực hiện kiểm thử tải đồng thời nhiều người dùng
+trên môi trường production.

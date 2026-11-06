@@ -1,4 +1,5 @@
-import { getTicketById } from '../../api/ticket.api.js';
+import { getTicketById, getReassignmentCandidates, reassignTechnician } from '../../api/ticket.api.js';
+import { getCurrentUser } from '../auth.js';
 import { apiRequest } from '../../api/client.js';
 
 function el(tag, text = '', className = '') {
@@ -167,7 +168,206 @@ export async function renderTicketDetail(container, ticketId, onBack) {
       technicianCard.append(profile, technicianGrid);
     }
 
-    content.append(overview, technicianCard);
+
+
+    // BUG-02: Assignment history UI
+    const historyUser = await getCurrentUser();
+
+    if (historyUser?.role === 'MANAGER') {
+      const historyCard = el('section', '', 'detail-card');
+
+      historyCard.append(
+        el('span', 'LỊCH SỬ PHÂN CÔNG', 'detail-eyebrow'),
+        el('h3', 'Các lần phân công kỹ thuật viên')
+      );
+
+      try {
+        const history = await apiRequest(
+          `/assignments/ticket/${encodeURIComponent(ticketId)}/history`
+        );
+
+        if (!history.length) {
+          historyCard.append(
+            el('p', 'Chưa có lịch sử phân công.', 'detail-empty')
+          );
+        } else {
+          const wrapper = el('div');
+          wrapper.style.overflowX = 'auto';
+
+          const table = document.createElement('table');
+          table.style.width = '100%';
+          table.style.borderCollapse = 'collapse';
+          table.style.marginTop = '16px';
+
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+
+          for (const label of [
+            'Kỹ thuật viên',
+            'Bắt đầu',
+            'Kết thúc',
+            'Lý do thay đổi',
+            'Trạng thái'
+          ]) {
+            const th = el('th', label);
+            th.style.padding = '12px';
+            th.style.textAlign = 'left';
+            th.style.borderBottom = '1px solid #ddd';
+            headerRow.append(th);
+          }
+
+          thead.append(headerRow);
+          table.append(thead);
+
+          const tbody = document.createElement('tbody');
+
+          for (const item of history) {
+            const tr = document.createElement('tr');
+
+            const values = [
+              `${item.technician_name} (#${item.technician_id})`,
+              formatDate(item.assigned_at),
+              item.ended_at ? formatDate(item.ended_at) : '—',
+              item.change_reason || '—',
+              item.ended_at ? 'Đã kết thúc' : 'Đang phụ trách'
+            ];
+
+            for (const value of values) {
+              const td = el('td', value);
+              td.style.padding = '12px';
+              td.style.borderBottom = '1px solid #eee';
+              td.style.verticalAlign = 'top';
+              tr.append(td);
+            }
+
+            tbody.append(tr);
+          }
+
+          table.append(tbody);
+          wrapper.append(table);
+          historyCard.append(wrapper);
+        }
+      } catch (error) {
+        historyCard.append(
+          el(
+            'p',
+            `Không thể tải lịch sử phân công: ${error.message}`,
+            'detail-empty'
+          )
+        );
+      }
+
+      content.append(historyCard);
+    }
+
+    // BUG-02: Reassignment form
+    const currentUser = await getCurrentUser();
+
+    if (
+      currentUser?.role === 'MANAGER' &&
+      ticket.status === 'ASSIGNED' &&
+      assignment &&
+      !assignment.ended_at
+    ) {
+      const formCard = el('section', '', 'detail-card');
+      formCard.append(
+        el('span', 'ĐIỀU CHỈNH PHÂN CÔNG', 'detail-eyebrow'),
+        el('h3', 'Đổi kỹ thuật viên phụ trách')
+      );
+
+      const form = document.createElement('form');
+      form.style.display = 'grid';
+      form.style.gap = '12px';
+
+      const technicianLabel = el('label', 'Kỹ thuật viên mới');
+      const technicianSelect = document.createElement('select');
+      technicianSelect.required = true;
+      technicianSelect.style.padding = '12px';
+      technicianSelect.style.width = '100%';
+
+      const reasonLabel = el('label', 'Lý do thay đổi');
+      const reasonInput = document.createElement('textarea');
+      reasonInput.required = true;
+      reasonInput.maxLength = 255;
+      reasonInput.rows = 3;
+      reasonInput.placeholder = 'Nhập lý do đổi kỹ thuật viên...';
+      reasonInput.style.padding = '12px';
+      reasonInput.style.width = '100%';
+
+      const message = el('p', '');
+      message.setAttribute('role', 'status');
+
+      const submit = el('button', 'Xác nhận đổi kỹ thuật viên', 'crm-primary');
+      submit.type = 'submit';
+
+      form.append(
+        technicianLabel,
+        technicianSelect,
+        reasonLabel,
+        reasonInput,
+        message,
+        submit
+      );
+
+      formCard.append(form);
+
+      try {
+        const candidates = await getReassignmentCandidates(ticketId);
+
+        technicianSelect.replaceChildren();
+
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Chọn kỹ thuật viên đủ điều kiện';
+        technicianSelect.append(placeholder);
+
+        for (const technician of candidates) {
+          const option = document.createElement('option');
+          option.value = String(technician.technician_id);
+          option.textContent =
+            `${technician.name} (#${technician.technician_id})`;
+          technicianSelect.append(option);
+        }
+
+        if (candidates.length === 0) {
+          message.textContent = 'Không có kỹ thuật viên đủ điều kiện.';
+          submit.disabled = true;
+        }
+      } catch (error) {
+        message.textContent =
+          `Không thể tải danh sách kỹ thuật viên: ${error.message}`;
+        submit.disabled = true;
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const technicianId = Number(technicianSelect.value);
+        const reason = reasonInput.value.trim();
+
+        if (!technicianId || !reason) {
+          message.textContent =
+            'Vui lòng chọn kỹ thuật viên và nhập lý do thay đổi.';
+          return;
+        }
+
+        submit.disabled = true;
+        message.textContent = 'Đang cập nhật phân công...';
+
+        try {
+          await reassignTechnician(ticketId, technicianId, reason);
+          await renderTicketDetail(container, ticketId, onBack);
+        } catch (error) {
+          message.textContent = `Đổi kỹ thuật viên thất bại: ${error.message}`;
+          submit.disabled = false;
+        }
+      });
+
+      content.append(overview, technicianCard, formCard);
+    } else {
+      content.append(overview, technicianCard);
+    }
+
   } catch (error) {
     content.replaceChildren(
       el(

@@ -69,6 +69,58 @@ def assign_technician(ticket_id, technician_id):
         raise
 
 
+
+
+def get_reassignment_candidates(ticket_id):
+    ticket = repo.get_ticket(ticket_id)
+
+    if ticket is None:
+        raise NotFoundError("Khong tim thay phieu")
+
+    if ticket["status"] != "ASSIGNED":
+        raise BusinessError("Chi duoc doi ky thuat vien cua phieu ASSIGNED")
+
+    active_assignment = repo.get_active_assignment(ticket_id)
+
+    if active_assignment is None:
+        raise BusinessError("Phieu chua co phan cong dang hoat dong")
+
+    technicians = repo.get_eligible_technicians(
+        ticket["center_id"],
+        ticket["incident_group"],
+        ticket["priority"],
+    )
+
+    return [
+        technician
+        for technician in technicians
+        if technician["technician_id"] != active_assignment["technician_id"]
+    ]
+
+
+def reassign_technician(ticket_id, technician_id, reason):
+    if not isinstance(reason, str) or not reason.strip():
+        raise BusinessError("Bat buoc nhap ly do thay doi")
+
+    reason = reason.strip()
+
+    if len(reason) > 255:
+        raise BusinessError("Ly do thay doi toi da 255 ky tu")
+
+    if repo.get_ticket(ticket_id) is None:
+        raise NotFoundError("Khong tim thay phieu")
+
+    if repo.get_technician(technician_id) is None:
+        raise NotFoundError("Khong tim thay ky thuat vien")
+
+    try:
+        return repo.reassign_technician(
+            ticket_id, technician_id, reason
+        )
+    except ValueError as error:
+        raise BusinessError(str(error)) from error
+
+
 def complete_ticket(ticket_id):
     ticket = repo.get_ticket(ticket_id)
 

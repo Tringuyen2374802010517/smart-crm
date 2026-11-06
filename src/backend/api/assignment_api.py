@@ -1,5 +1,6 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
+from src.backend.api.auth_api import require_user
+from fastapi import APIRouter, Depends, Header, HTTPException
+from pydantic import BaseModel, Field
 
 from src.backend.services import assignment_service as service
 
@@ -23,6 +24,48 @@ def create_assignment(data: AssignmentCreate):
         data.ticket_id,
         data.technician_id
     )
+
+
+class ReassignmentInput(BaseModel):
+    technician_id: int
+    reason: str = Field(min_length=1, max_length=255)
+
+
+def require_manager(
+    authorization: str | None = Header(default=None),
+):
+    user, _ = require_user(authorization)
+
+    if user["role"] != "MANAGER":
+        raise HTTPException(
+            status_code=403,
+            detail="Chi quan ly trung tam duoc thay doi ky thuat vien",
+        )
+
+    return user
+
+
+
+@router.get("/ticket/{ticket_id}/reassignment-candidates")
+def get_reassignment_candidates(
+    ticket_id: int,
+    manager=Depends(require_manager),
+):
+    return service.get_reassignment_candidates(ticket_id)
+
+
+@router.put("/ticket/{ticket_id}/reassign")
+def reassign_assignment(
+    ticket_id: int,
+    data: ReassignmentInput,
+    manager=Depends(require_manager),
+):
+    return service.reassign_technician(
+        ticket_id,
+        data.technician_id,
+        data.reason,
+    )
+
 
 @router.get("/ticket/{ticket_id}/detail")
 def get_ticket_assignment_detail(ticket_id: int):
@@ -69,3 +112,19 @@ def get_ticket_assignment_detail(ticket_id: int):
             "ticket_status": ticket["status"],
             "assignment": dict(row) if row else None,
         }
+
+
+@router.get("/ticket/{ticket_id}/history")
+def get_assignment_history(
+    ticket_id: int,
+    manager=Depends(require_manager),
+):
+    from src.backend.repositories import assignment_repository as repo
+
+    if repo.get_ticket(ticket_id) is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Không tìm thấy phiếu",
+        )
+
+    return repo.get_assignment_history(ticket_id)
