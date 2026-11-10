@@ -65,6 +65,36 @@ def db_check():
     }
 
 
+
+@app.get("/health")
+def health_check():
+    try:
+        with sqlite3.connect("smartcrm.db", timeout=5) as conn:
+            conn.execute("SELECT 1").fetchone()
+            required_tables = (
+                "ticket",
+                "technician",
+                "technician_skill",
+                "crm_user",
+            )
+            for table in required_tables:
+                row = conn.execute(
+                    "SELECT 1 FROM sqlite_master "
+                    "WHERE type = 'table' AND name = ?",
+                    (table,),
+                ).fetchone()
+                if row is None:
+                    raise sqlite3.DatabaseError("Missing required table")
+
+        return {"status": "healthy", "database": "connected"}
+    except sqlite3.Error:
+        from fastapi import HTTPException
+        raise HTTPException(
+            status_code=503,
+            detail="Database unavailable",
+        )
+
+
 app.include_router(ticket_router, dependencies=[Depends(require_authenticated_user)])
 app.include_router(assignment_router, dependencies=[Depends(require_authenticated_user)])
 app.include_router(technician_router, dependencies=[Depends(require_authenticated_user)])
