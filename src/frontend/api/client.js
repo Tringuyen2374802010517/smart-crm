@@ -1,7 +1,9 @@
 
 import { getToken } from '../src/auth.js';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.DEV
+  ? 'http://localhost:8000'
+  : '/api';
 
 export async function apiRequest(endpoint, options = {}) {
   const { headers, ...restOptions } = options;

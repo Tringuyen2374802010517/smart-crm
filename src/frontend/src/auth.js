@@ -1,4 +1,6 @@
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.DEV
+  ? 'http://localhost:8000'
+  : '/api';
 const TOKEN_KEY = 'smartcrm_access_token';
 
 export function getToken() {
