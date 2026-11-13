@@ -961,3 +961,22 @@ bởi docs/seed.sql khi clone repository mới.
 Các chức năng mới đã được kiểm tra từng phần trong quá trình
 phát triển. Cần chạy lại toàn bộ pytest và kiểm thử tích hợp
 trước khi xác nhận kết quả cuối cùng.
+
+## BT3 – Current Release Notes
+
+The current BT3 deliverable targets release `v1.0`. Earlier sections describing `v0.2`, BT2 and historical limitations are retained for traceability and should not be interpreted as the final BT3 verification status.
+
+The current BT3 release includes Docker packaging, regression verification, security evidence, API documentation and optional public Render deployment.
+
+See:
+
+- [Deployment Guide](docs/deployment-guide.md)
+- [Test Plan](docs/test-plan.md)
+- [Test Report](docs/test-report.md)
+- [Bug Log](docs/bug-log.md)
+- [Security Checklist](docs/checklist-bao-mat.md)
+- [API Reference](docs/api-reference-bt3.md)
+- [Design Changes](docs/thay-doi-thiet-ke.md)
+- [AI Disclosure](docs/ai-disclosure.md)
+
+The published `v1.0` tag must be synchronized with the final documentation commit before submission.

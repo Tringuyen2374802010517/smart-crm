@@ -7,6 +7,7 @@
 - **Trạng thái:** Fixed
 - **Commit sửa lỗi:** [42eb9bd](https://github.com/Tringuyen2374802010517/smart-crm/commit/42eb9bd)
 - **File liên quan:** `docs/seed.sql`
+- **Phát hiện bởi:** Kiểm thử chạy lại database seed trong quá trình rà soát BT2.
 
 ### 1. Mô tả
 

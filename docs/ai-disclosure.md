@@ -83,3 +83,13 @@ Tôi đã kiểm tra kết quả được AI hỗ trợ, thực hiện các thao
 **Sinh viên:** Nguyễn Minh Trị
 
 **MSSV:** 2374802010517
+
+## 6. Cập nhật khai báo AI – Hoàn thiện tài liệu BT3
+
+**Ngày cập nhật:** 14/11/2026
+
+- Công cụ: ChatGPT.
+- Nội dung hỗ trợ: Rà soát tính nhất quán giữa README, Test Report, Deployment Guide, Design Changes và AI Disclosure; hướng dẫn ghi nhận minh chứng triển khai Render.
+- Cách kiểm chứng: Sinh viên đối chiếu cấu hình Dockerfile, Nginx, startup script, kết quả kiểm thử và các ảnh minh chứng thực tế.
+- Giới hạn: Nội dung hướng dẫn không thay thế việc kiểm tra cấu hình Render thực tế hoặc xác nhận bảo mật production.
+- Cam kết: Sinh viên kiểm tra, chỉnh sửa và chịu trách nhiệm về tài liệu cuối cùng.

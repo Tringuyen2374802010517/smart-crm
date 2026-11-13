@@ -3,7 +3,7 @@
 - Sinh viên: Nguyễn Minh Trị
 - MSSV: 2374802010517
 - Track: Software Engineering (SE)
-- Ngày kiểm thử: 06/11/2026
+- Ngày kiểm thử TC-01–TC-12: 06/11/2026; cập nhật regression BT3: 14/11/2026
 - Công cụ: pytest 9.1.1, Python 3.12.2
 - Kết quả: 12 passed, 0 failed, 1 warning (0.35s)
 - Log: `docs/test-results-buoi14.txt`
@@ -33,7 +33,8 @@
 - Security / Authorization: TC-08 đến TC-10.
 - Data Integrity / Regression: TC-11 và TC-12.
 - Tổng cộng: 12 PASS, 0 FAIL.
-- Full regression mới nhất sau khi sửa BUG-03: 87 PASS, 0 FAIL, 1 warning.
+- Full regression sau khi sửa BUG-03: 87 PASS, 0 FAIL, 1 warning.
+- Full regression mới nhất (14/11/2026): 100 PASS, 0 FAIL, 1 warning (1.09s); log: `docs/test-results-bt3-latest.txt`.
 
 ## 3. Giới hạn
 
@@ -77,10 +78,11 @@ Ngày kiểm thử: 10/11/2026.
 ### 5.2. Tổng hợp
 
 - Tổng cộng: 9 PASS, 0 FAIL trong phạm vi các trường hợp BT3 đã kiểm thử.
-- Regression: 87 PASS, 0 FAIL, 1 warning.
+- Regression lịch sử: 87 PASS, 0 FAIL, 1 warning.
+- Regression mới nhất (14/11/2026): 100 PASS, 0 FAIL, 1 warning (1.06s); log: `docs/test-results-bt3-latest.txt`.
 - Log regression: docs/test-results-bt3.txt.
 - Frontend production build và Docker build check đã thực hiện thành công.
-- Clean-room được tạo từ bản clone của repository cục bộ, chưa phải clone trực tiếp từ GitHub remote.
+- Tại thời điểm kiểm thử ban đầu, clean-room được tạo từ bản clone của repository cục bộ. Sau đó, đã thực hiện fresh clone từ GitHub public tag v1.0 và kiểm chứng Docker trong môi trường độc lập. Bản tag cuối cần được đồng bộ sau commit tài liệu.
 
 ### 5.3. Kiểm thử bảo mật và giới hạn
 
@@ -97,3 +99,25 @@ Ngày kiểm thử: 10/11/2026.
 - Mã nguồn kiểm thử: tests/.
 - Ảnh giao diện clean-room và kết quả regression đã được chụp; việc đưa vào docs/screenshots/ sẽ hoàn tất ở bước tổng hợp minh chứng.
 - Các kết quả triển khai Docker, persistence, reverse proxy và authentication đã được xác nhận qua Terminal trong quá trình BT3.
+
+## 6. BT3 Final Verification Update
+
+The earlier 87-passed regression result in Section 5 records an earlier testing stage and is retained for historical traceability.
+
+Latest observed regression result:
+
+- 100 tests passed.
+- 0 tests failed.
+- 1 deprecation warning.
+
+Additional verification evidence:
+
+- Public GitHub `v1.0` tag was used in an isolated fresh-clone Docker verification.
+- Backend and frontend health checks returned HTTP 200.
+- Unauthenticated business GET checks: 11/11 returned HTTP 401.
+- TECHNICIAN authorization checks: 4/4 returned HTTP 403.
+- Seed initialization was repeated without duplicate demo records.
+
+The final `v1.0` release tag must be synchronized after the documentation changes are committed.
+
+Evidence is stored under `evidence/C1/`, `evidence/C2/`, `evidence/C3/`, `evidence/C6/`, and `evidence/C8/`.

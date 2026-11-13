@@ -208,7 +208,7 @@ Ngày ghi nhận: 13/11/2026.
 - Lý do: Tăng khả năng tái lập và tránh tác động đến database phát triển.
 - Ảnh hưởng: Docker Compose, scripts/init_db.py, tài liệu triển khai và ảnh minh chứng.
 - Kiểm chứng: Clean-room deployment thành công; chạy seed hai lần không tạo dữ liệu trùng trong database kiểm thử.
-- Giới hạn: Chưa xác nhận triển khai từ GitHub public tag v1.0.
+- Ghi chú lịch sử: Tại thời điểm TD-21, chưa xác nhận triển khai từ GitHub public tag v1.0. Việc fresh clone và kiểm chứng Docker đã được thực hiện sau đó; xem TD-24.
 
 ### TD-22 – Mở rộng kiểm thử và tài liệu kỹ thuật
 
@@ -217,3 +217,20 @@ Ngày ghi nhận: 13/11/2026.
 - Ảnh hưởng: docs/test-report.md, docs/api-reference-bt3.md, docs/checklist-bao-mat.md và docs/ai-disclosure.md.
 - Kiểm chứng: 87 pytest PASS; 11/11 HTTP 401 PASS; 4/4 HTTP 403 PASS; 28 API được tài liệu hóa.
 - Giới hạn: Không phải mọi API đều đã được kiểm thử request/response thực tế.
+
+### TD-23 – Triển khai công khai trên Render
+
+- Quyết định: Sử dụng Render Web Service với Dockerfile riêng để triển khai công khai prototype.
+- Lý do: Cung cấp môi trường demo qua URL công khai và đáp ứng phần điểm cộng BT3.
+- Kiến trúc: Nginx lắng nghe cổng 10000, chuyển tiếp API đến FastAPI trên localhost:8000.
+- Dữ liệu: SQLite tại `/app/data/smartcrm.db`; cần đối chiếu cấu hình lưu trữ thực tế trên Render.
+- Ảnh hưởng: `Dockerfile.render`, `nginx.render.conf`, `scripts/render-start.sh` và Deployment Guide.
+- Minh chứng: Bảy ảnh tại `evidence/Render/`, gồm triển khai, đăng nhập, phân công và kiểm tra dữ liệu.
+- Giới hạn: Không khẳng định mọi cấu hình production security đã được kiểm chứng.
+
+### TD-24 – Đồng bộ kết quả kiểm thử và tài liệu phát hành BT3
+
+- Quyết định: Giữ kết quả kiểm thử cũ như lịch sử và bổ sung kết quả mới nhất.
+- Kiểm chứng: 100 pytest PASS, 0 failed, 1 warning; 11/11 HTTP 401 và 4/4 HTTP 403.
+- Kiểm chứng tái lập: Đã fresh clone từ GitHub public tag v1.0 trong môi trường Docker độc lập.
+- Giới hạn: Cần đồng bộ lại tag v1.0 sau commit tài liệu cuối cùng.

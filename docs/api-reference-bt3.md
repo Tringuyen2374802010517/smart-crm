@@ -77,6 +77,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
 ---
@@ -126,6 +128,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
@@ -177,6 +181,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -217,6 +223,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
 ---
@@ -256,6 +264,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
@@ -307,6 +317,8 @@ None declared
 
 **Authentication / role:** MANAGER only; verified by source inspection and TECHNICIAN HTTP 403 tests.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 403 verified with TECHNICIAN session. Other scenarios not fully verified.
 
 ---
@@ -346,6 +358,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
@@ -387,6 +401,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
 ---
@@ -426,6 +442,8 @@ None declared
 ```
 
 **Authentication / role:** MANAGER only; verified by source inspection and TECHNICIAN HTTP 403 tests.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 401 verified without authentication; HTTP 403 verified with TECHNICIAN session. Other scenarios not fully verified.
 
@@ -478,6 +496,8 @@ None declared
 
 **Authentication / role:** MANAGER only; verified by source inspection and TECHNICIAN HTTP 403 tests.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 403 verified with TECHNICIAN session. Other scenarios not fully verified.
 
 ---
@@ -517,6 +537,8 @@ None declared
 ```
 
 **Authentication / role:** MANAGER only; verified by source inspection and TECHNICIAN HTTP 403 tests.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 401 verified without authentication; HTTP 403 verified with TECHNICIAN session. Other scenarios not fully verified.
 
@@ -568,6 +590,8 @@ None declared
 
 **Authentication / role:** Public endpoint; verify deployment-specific access restrictions separately.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -607,6 +631,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -645,6 +671,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
@@ -755,6 +783,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
 ---
@@ -805,6 +835,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -844,6 +876,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
@@ -896,6 +930,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -936,6 +972,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -974,6 +1012,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
@@ -1025,6 +1065,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -1064,6 +1106,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** HTTP 200 verified with authenticated TECHNICIAN session in clean-room; HTTP 401 verified without authentication. Other scenarios not fully verified.
 
@@ -1116,6 +1160,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -1156,6 +1202,8 @@ None declared
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
 
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
+
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
 ---
@@ -1195,6 +1243,8 @@ None declared
 ```
 
 **Authentication / role:** Authenticated user; based on router dependencies or authentication implementation.
+
+**Error responses:** OpenAPI-declared error status(es): HTTP 422. These are schema declarations, not endpoint-specific runtime verification. See 'BT3 – Backend HTTP Error Audit' for additional source-code error paths and their verification limits.
 
 **Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
 
@@ -1669,3 +1719,42 @@ Source: src/backend/api/auth_api.py (lines 130–198).
 | POST /auth/logout | Required | Calls require_user(authorization) and revokes session |
 
 Login success returns access_token, token_type, expires_at and user (user_id, username, role). Logout success returns a message confirming logout. These structures are derived from source code; runtime responses have not been verified here.
+
+---
+
+## BT3 – Automated Test Evidence Mapping
+
+The automated regression suite was executed using:
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
+Latest observed result: **100 passed, 1 warning, 0 failed**.
+
+The warning originates from a deprecated Starlette/AnyIO
+compatibility alias and does not indicate a failed test.
+
+### Existing test coverage
+
+| API / functionality | Test file | Evidence scope |
+|---|---|---|
+| Login, logout, current user | `tests/test_auth_api.py` | Authentication tests; verify individual test implementation for HTTP versus service-level coverage |
+| Technician CRUD | `tests/test_technician_api.py` | HTTP TestClient requests for create, list, detail, update, delete and invalid inputs |
+| Ticket CRUD | `tests/test_ticket_api.py` | HTTP TestClient requests for create, list, detail, update, delete and invalid inputs |
+| Appointment creation and business rules | `tests/test_appointment_api.py` | Appointment service/business-rule tests; not automatically classified as HTTP tests |
+| Assignment and completion workflow | `tests/test_assignment_workflow.py` | Workflow-level tests; not automatically classified as HTTP tests |
+| Reassignment and role restrictions | `tests/test_reassignment_api.py` | HTTP TestClient requests for reassignment, candidate lookup, history and access restrictions |
+
+### Evidence limitations
+
+- A passing automated test does not automatically establish
+  complete HTTP request/response coverage for every endpoint.
+- The API Reference includes declared OpenAPI responses, which
+  may differ from errors raised at runtime by business logic.
+- The backend HTTP error audit is based on source-code inspection.
+  It is not proof that every listed error path was executed.
+- Successful HTTP status and top-level JSON type checks do not
+  establish complete response-schema verification.
+- Endpoints without endpoint-specific runtime evidence remain
+  unverified for those scenarios.

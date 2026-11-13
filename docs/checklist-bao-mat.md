@@ -8,13 +8,13 @@
 
 | No. | Security Criterion | Status | Evidence and Assessment |
 |---|---|---|---|
-| 1 | Secrets and environment configuration | CHƯA LÀM | `.env` is excluded by `.gitignore` and `.dockerignore`. The current `.env.example` uses a password placeholder. A private strong password must be configured before deployment. Historical Git revisions and complete secret exposure have not yet been fully audited. |
-| 2 | Input validation and SQL injection prevention | CHƯA LÀM | Pydantic models validate API inputs. Parameterized SQLite queries are used in the authentication module and repository code. Complete validation and SQL query coverage have not been independently verified. |
-| 3 | Authentication and authorization | CHƯA LÀM | Protected API routes require authentication. Four unauthenticated GET requests returned HTTP 401. Manager-only checks exist for assignment operations. Complete role-based and resource-level authorization has not been verified. |
-| 4 | Password hashing and session security | ĐÃ LÀM | Passwords use PBKDF2-HMAC-SHA256 with 600,000 iterations and random salts. Session tokens are generated using `secrets.token_urlsafe(32)`, stored as SHA-256 hashes, expire after 8 hours, and support revocation on logout. |
-| 5 | Safe error handling | CHƯA LÀM | HTTP 401, 403 and 404 responses are implemented. The healthcheck handles SQLite errors. A complete review of exception messages and internal error exposure remains pending. |
-| 6 | Safe logging | CHƯA LÀM | No comprehensive logging security review has been completed. Sensitive values, passwords and authentication tokens must not be written to application logs. |
-| 7 | Dependency security | CHƯA LÀM | Python dependencies are pinned to exact versions in `requirements.txt`. A dependency vulnerability audit and frontend dependency review have not yet been completed. |
+| 1 | Secrets and environment configuration | PARTIALLY VERIFIED | `.env` is excluded by `.gitignore` and `.dockerignore`. The current `.env.example` uses a password placeholder. A private strong password must be configured before deployment. Historical Git revisions and complete secret exposure have not yet been fully audited. |
+| 2 | Input validation and SQL injection prevention | PARTIALLY VERIFIED | Pydantic models validate API inputs. Parameterized SQLite queries are used in the authentication module and repository code. Complete validation and SQL query coverage have not been independently verified. |
+| 3 | Authentication and authorization | PARTIALLY VERIFIED | Protected API routes require authentication. Four unauthenticated GET requests returned HTTP 401. Manager-only checks exist for assignment operations. Complete role-based and resource-level authorization has not been verified. |
+| 4 | Password hashing and session security | VERIFIED | Passwords use PBKDF2-HMAC-SHA256 with 600,000 iterations and random salts. Session tokens are generated using `secrets.token_urlsafe(32)`, stored as SHA-256 hashes, expire after 8 hours, and support revocation on logout. |
+| 5 | Safe error handling | PARTIALLY VERIFIED | HTTP 401, 403 and 404 responses are implemented. The healthcheck handles SQLite errors. A complete review of exception messages and internal error exposure remains pending. |
+| 6 | Safe logging | NOT VERIFIED | No comprehensive logging security review has been completed. Sensitive values, passwords and authentication tokens must not be written to application logs. |
+| 7 | Dependency security | PARTIALLY VERIFIED | Python dependencies are pinned to exact versions in `requirements.txt`. A dependency vulnerability audit and frontend dependency review have not yet been completed. |
 
 ## Authentication Test Evidence
 
