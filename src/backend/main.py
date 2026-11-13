@@ -53,17 +53,19 @@ def home():
 @app.get("/db-check")
 def db_check():
     conn = sqlite3.connect("smartcrm.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT 1")
-    result = cursor.fetchone()
-    conn.close()
 
-    return {
-        "status": "OK",
-        "database": "SQLite",
-        "result": result[0]
-    }
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1")
+        result = cursor.fetchone()
 
+        return {
+            "status": "OK",
+            "database": "SQLite",
+            "result": result[0]
+        }
+    finally:
+        conn.close()
 
 
 @app.get("/health")

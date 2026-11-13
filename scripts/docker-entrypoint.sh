@@ -1,16 +1,29 @@
 #!/bin/sh
+
 set -eu
 
-mkdir -p /app/data
-
 if [ ! -L /app/smartcrm.db ]; then
-    if [ -f /app/smartcrm.db ]; then
-        echo "ERROR: Existing database file blocks Docker volume link."
-        exit 1
-    fi
-    ln -s /app/data/smartcrm.db /app/smartcrm.db
+    echo "ERROR: Database symlink is missing."
+    exit 1
 fi
 
-python -m scripts.init_db
+if [ ! -d /app/data ]; then
+    echo "ERROR: Database volume is not mounted."
+    exit 1
+fi
 
-exec uvicorn src.backend.main:app --host 0.0.0.0 --port 8000
+chown -R appuser:appuser /app/data
+chmod 700 /app/data
+
+if [ -f /app/data/smartcrm.db ]; then
+    chmod 600 /app/data/smartcrm.db
+fi
+
+echo "PASS: Database permissions configured."
+
+gosu appuser python -m scripts.init_db
+
+exec gosu appuser uvicorn \
+    src.backend.main:app \
+    --host 0.0.0.0 \
+    --port 8000

@@ -83,3 +83,32 @@ def test_logout_revokes_token(auth_db):
         api.me(authorization=authorization)
 
     assert error.value.status_code == 401
+
+
+@pytest.mark.parametrize(
+    "stored",
+    [
+        None,
+        "",
+        "invalid",
+        "md5$600000$abcd$abcd",
+        "pbkdf2_sha256$not-a-number$abcd$abcd",
+        "pbkdf2_sha256$999$abcd$abcd",
+        "pbkdf2_sha256$1000001$abcd$abcd",
+        "pbkdf2_sha256$600000$abcd$abcd",
+        "pbkdf2_sha256$600000$" + "00" * 16 + "$" + "00" * 31,
+    ],
+)
+def test_verify_password_rejects_malformed_hash(stored):
+    assert api.verify_password("TestPassword123", stored) is False
+
+
+def test_verify_password_rejects_non_string_password():
+    assert api.verify_password(None, "invalid") is False
+
+
+def test_verify_password_accepts_valid_hash(auth_db):
+    stored = api.hash_password("TestPassword123")
+
+    assert api.verify_password("TestPassword123", stored) is True
+    assert api.verify_password("WrongPassword", stored) is False

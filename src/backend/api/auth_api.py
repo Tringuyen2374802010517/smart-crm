@@ -61,23 +61,62 @@ def hash_password(password):
     return f"pbkdf2_sha256${ITERATIONS}${salt.hex()}${digest.hex()}"
 
 
+MAX_PBKDF2_ITERATIONS = 1_000_000
+MIN_PBKDF2_ITERATIONS = 1_000
+
+
 def verify_password(password, stored):
+    if not isinstance(password, str):
+        return False
+
+    if not isinstance(stored, str):
+        return False
+
     try:
-        algorithm, count, salt_hex, digest_hex = stored.split("$")
+        parts = stored.split("$")
+
+        if len(parts) != 4:
+            return False
+
+        algorithm, count, salt_hex, digest_hex = parts
+
         if algorithm != "pbkdf2_sha256":
+            return False
+
+        if not count.isascii() or not count.isdigit():
+            return False
+
+        iterations = int(count)
+
+        if not (
+            MIN_PBKDF2_ITERATIONS
+            <= iterations
+            <= MAX_PBKDF2_ITERATIONS
+        ):
+            return False
+
+        salt = bytes.fromhex(salt_hex)
+        expected_digest = bytes.fromhex(digest_hex)
+
+        if len(salt) != 16:
+            return False
+
+        if len(expected_digest) != 32:
             return False
 
         calculated = hashlib.pbkdf2_hmac(
             "sha256",
             password.encode("utf-8"),
-            bytes.fromhex(salt_hex),
-            int(count)
+            salt,
+            iterations
         )
+
         return hmac.compare_digest(
             calculated,
-            bytes.fromhex(digest_hex)
+            expected_digest
         )
-    except (ValueError, TypeError):
+
+    except (ValueError, TypeError, AttributeError):
         return False
 
 
