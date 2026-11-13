@@ -32,7 +32,13 @@ None declared
 
 **Authentication / role:** Public endpoint; verify deployment-specific access restrictions separately.
 
-**Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
+**Runtime request/response evidence:** Verified against the fresh-clone Docker backend.
+
+- HTTP status: `200 OK`
+- Content-Type: `text/plain`
+- Response body: `Hello Smart CRM`
+
+**Error responses:** No endpoint-specific error status was established by this successful runtime test. Failure behavior has not been verified.
 
 ---
 
@@ -669,7 +675,13 @@ None declared
 
 **Authentication / role:** Public endpoint; verify deployment-specific access restrictions separately.
 
-**Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
+**Runtime request/response evidence:** Verified against the fresh-clone Docker backend.
+
+- HTTP status: `200 OK`
+- Content-Type: `application/json`
+- Response body: `{"status":"OK","database":"SQLite","result":1}`
+
+**Error responses:** No endpoint-specific error status was established by this successful runtime test. Failure behavior has not been verified.
 
 ---
 
@@ -698,7 +710,13 @@ None declared
 
 **Authentication / role:** Public endpoint; verify deployment-specific access restrictions separately.
 
-**Runtime request/response evidence:** No endpoint-specific runtime evidence established in this audit.
+**Runtime request/response evidence:** Verified against the fresh-clone Docker backend.
+
+- HTTP status: `200 OK`
+- Content-Type: `application/json`
+- Response body: `{"status":"healthy","database":"connected"}`
+
+**Error responses:** No endpoint-specific error status was established by this successful runtime test. Failure behavior has not been verified.
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Project:** Smart CRM – Mekong Mobile (L4)
 **Deployment Method:** Docker Compose
-**Release:** v1.0 (pending publication)
+**Release:** v1.0
 
 ## 1. Requirements
 
@@ -19,7 +19,7 @@ Python and Node.js do not need to be installed directly on the host machine when
 
 **Step 1: Clone the repository**
 
-After the v1.0 release tag has been published:
+To deploy from the published v1.0 release tag:
 
 ```bash
 git clone https://github.com/Tringuyen2374802010517/smart-crm.git
@@ -192,4 +192,4 @@ Verified result: 87 tests passed, with one deprecation warning.
 
 The Docker deployment and clean-room verification have been completed locally.
 
-GitHub publication and release tag `v1.0` are pending final documentation review and release verification.
+The `v1.0` release tag has been published on GitHub. Final documentation updates must be included in the submitted release.

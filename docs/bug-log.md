@@ -5,7 +5,7 @@
 - **Module:** Database Initialization
 - **Mức độ:** Medium
 - **Trạng thái:** Fixed
-- **Commit sửa lỗi:** `42eb9bd`
+- **Commit sửa lỗi:** [42eb9bd](https://github.com/Tringuyen2374802010517/smart-crm/commit/42eb9bd)
 - **File liên quan:** `docs/seed.sql`
 
 ### 1. Mô tả
@@ -61,7 +61,7 @@ ràng buộc SQLite; không tự động cập nhật dữ liệu mẫu cũ.
 - **Mức độ:** Major
 - **Trạng thái:** Fixed
 - **Phát hiện bằng:** Kiểm thử API thủ công bằng curl
-- **Commit sửa lỗi:** `6cc8aa3`
+- **Commit sửa lỗi:** [6cc8aa3](https://github.com/Tringuyen2374802010517/smart-crm/commit/6cc8aa3)
 - **Branch:** `feature/l4-modern-ui`
 
 ### 1. Mô tả lỗi
@@ -130,7 +130,7 @@ nghiệp vụ, vi phạm yêu cầu kiểm soát truy cập.
 - **Module:** Assignment Management
 - **Mức độ:** Major (đánh giá theo ảnh hưởng nghiệp vụ)
 - **Trạng thái:** Fixed
-- **Commit sửa lỗi:** `e601110`
+- **Commit sửa lỗi:** [e601110](https://github.com/Tringuyen2374802010517/smart-crm/commit/e601110)
 - **Phát hiện bằng:** Rà soát chức năng theo phản hồi BT2
 - **Branch:** `feature/l4-modern-ui`
 - **Loại:** Missing functionality / Requirement gap
@@ -209,7 +209,7 @@ trên môi trường production.
 - **Module:** Assignment Management / Role-Based Access Control
 - **Mức độ:** Major
 - **Trạng thái:** Fixed
-- **Commit sửa lỗi:** `6cc17ba`
+- **Commit sửa lỗi:** [6cc17ba](https://github.com/Tringuyen2374802010517/smart-crm/commit/6cc17ba)
 - **Phát hiện bằng:** Kiểm thử API tự động với pytest
 - **Branch:** `feature/l4-modern-ui`
 - **Yêu cầu liên quan:** FR3, US3 trong `docs/srs.md`
