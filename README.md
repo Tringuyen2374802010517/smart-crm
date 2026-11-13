@@ -1,36 +1,36 @@
 ## BT3 – Docker Deployment (v1.0)
 
-Requirements: Git, Docker Desktop with Docker Compose v2, ports 8000 and 5173.
+**Requirements:** Git, Docker Desktop with Docker Compose v2, and available ports 8000 and 5173.
 
-Clone the public repository and check out tag v1.0:
+### Quick Start – Two main commands
 
-    git clone https://github.com/Tringuyen2374802010517/smart-crm.git
-    cd smart-crm
-    git checkout v1.0
+**1. Clone the published release**
 
-Create .env from .env.example and replace the demo password placeholder with a private password.
+```bash
+git clone --branch v1.0 https://github.com/Tringuyen2374802010517/smart-crm.git
+```
 
-    cp .env.example .env
+**Required setup before starting:** Enter the cloned `smart-crm` directory, create `.env` from `.env.example`, and replace `DEMO_ADMIN_PASSWORD` with a strong private password. These are mandatory setup actions, not included in the two main commands.
 
-Start the application:
+**2. Build and start the application**
 
-    docker compose up -d --build --wait
+Run from inside the `smart-crm` directory:
 
-Verify both containers:
+```bash
+docker compose up -d --build --wait
+```
 
-    docker compose ps
+**Verification**
 
-Frontend: http://localhost:5173/
-Backend health: http://localhost:8000/health
-Nginx proxy: http://localhost:5173/api/health
+- Frontend: http://localhost:5173/
+- Backend health: http://localhost:8000/health
+- Nginx API proxy: http://localhost:5173/api/health
+- Both Docker services should report healthy.
 
-Stop without deleting database data:
+For environment setup, verification commands, shutdown, and troubleshooting, see [Deployment Guide](docs/deployment-guide.md).
 
-    docker compose down
+---
 
-Do not run docker compose down -v on the existing project.
-
-Detailed instructions: [Deployment Guide](docs/deployment-guide.md).
 
 
 # Smart CRM – Phân công kỹ thuật viên và lịch hẹn
@@ -979,4 +979,4 @@ See:
 - [Design Changes](docs/thay-doi-thiet-ke.md)
 - [AI Disclosure](docs/ai-disclosure.md)
 
-The published `v1.0` tag must be synchronized with the final documentation commit before submission.
+The final BT3 release is published under tag `v1.0`. A fresh clone passed 100 automated tests (2 dependency deprecation warnings), and Docker Backend, Frontend, SQLite health and Nginx API proxy checks passed. Historical BT2 notes above describe earlier development states, not the verified BT3 release.
