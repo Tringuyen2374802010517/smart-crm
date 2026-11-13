@@ -480,3 +480,102 @@ Danh sách dưới đây được trích xuất từ OpenAPI Schema của mã ng
 - Frontend đã có cơ chế đăng nhập, nhưng các Business API chưa được bảo vệ đồng bộ bằng xác thực token.
 - Các quy tắc phân công hiện tại sử dụng ngưỡng tay nghề THAP >= 2, TRUNG_BINH >= 3 và CAO >= 4.
 - Cần chạy lại kiểm thử trước khi công bố kết quả BT2.
+
+---
+
+## Phụ lục BT3 – API thực tế và bảo mật triển khai
+
+**Ngày cập nhật:** 10/11/2026
+
+Phụ lục này phản ánh trạng thái triển khai tại BT3. Các phần mô tả API thiết kế và tình trạng Sprint 1 phía trên được giữ lại làm tài liệu lịch sử, không đại diện cho toàn bộ trạng thái hiện tại.
+
+### 1. Authentication
+
+| Method | Endpoint | Mục đích | Yêu cầu xác thực |
+|---|---|---|---|
+| POST | `/auth/login` | Đăng nhập, cấp access token | Không |
+| GET | `/auth/me` | Xem thông tin người dùng hiện tại | Bearer token |
+| POST | `/auth/logout` | Thu hồi phiên đăng nhập | Bearer token |
+
+Mật khẩu được lưu dưới dạng PBKDF2-HMAC-SHA256. Access token có thời hạn 8 giờ và được lưu trong database dưới dạng SHA-256 hash.
+
+### 2. Assignment và Reassignment
+
+| Method | Endpoint | Mục đích | Phân quyền |
+|---|---|---|---|
+| GET | `/assignments/eligible-technicians/{ticket_id}` | Danh sách kỹ thuật viên đủ điều kiện | Đăng nhập |
+| POST | `/assignments/` | Tạo phân công | MANAGER |
+| GET | `/assignments/ticket/{ticket_id}/reassignment-candidates` | Danh sách ứng viên thay thế | MANAGER |
+| PUT | `/assignments/ticket/{ticket_id}/reassign` | Thay đổi kỹ thuật viên và ghi nhận lý do | MANAGER |
+| GET | `/assignments/ticket/{ticket_id}/detail` | Chi tiết phân công | Đăng nhập |
+| GET | `/assignments/ticket/{ticket_id}/history` | Lịch sử phân công | MANAGER |
+
+**Request tạo phân công:**
+
+- `ticket_id`: integer
+- `technician_id`: integer
+
+**Request thay đổi kỹ thuật viên:**
+
+- Path parameter: `ticket_id` (integer)
+- Body: `technician_id` (integer)
+- Body: `reason` (string, từ 1 đến 255 ký tự)
+
+Các quy tắc nghiệp vụ về điều kiện kỹ thuật viên và trạng thái phiếu được xử lý tại service và repository.
+
+### 3. Ticket, Technician và Appointment
+
+Các nhóm API sau đã được đăng ký và yêu cầu xác thực:
+
+- Ticket: danh sách, chi tiết, tạo, cập nhật, xóa và hoàn thành phiếu.
+- Technician: danh sách, chi tiết, tạo, cập nhật và xóa kỹ thuật viên.
+- Appointment: danh sách, lịch hẹn theo phiếu, kiểm tra điều kiện lịch hẹn, tạo lịch hẹn và dữ liệu ngữ cảnh lịch hẹn.
+
+Danh sách endpoint cụ thể được ghi tại phụ lục API thực tế phía trên. Việc yêu cầu đăng nhập không đồng nghĩa với việc đã xác minh đầy đủ phân quyền theo vai trò cho mọi thao tác.
+
+### 4. API Security
+
+Các router Ticket, Technician, Assignment và Appointment được bảo vệ bằng dependency xác thực chung trong `src/backend/main.py`.
+
+Request cần gửi header:
+
+    Authorization: Bearer <access_token>
+
+Các phản hồi bảo mật theo mã nguồn và phạm vi kiểm thử hiện tại:
+
+| Trường hợp | HTTP Status | Trạng thái |
+|---|---|---|
+| Truy cập API nghiệp vụ không có token | 401 | Đã kiểm thử 4 endpoint |
+| Token không hợp lệ hoặc hết hạn | 401 | Cần kiểm thử riêng |
+| Người dùng không có quyền MANAGER tại endpoint yêu cầu quyền Manager | 403 | Đã kiểm tra logic mã nguồn, cần kiểm thử riêng |
+
+**Bằng chứng kiểm thử BT3:**
+
+- `GET /tickets` không có token: HTTP 401 – PASS
+- `GET /technicians` không có token: HTTP 401 – PASS
+- `GET /appointments` không có token: HTTP 401 – PASS
+- `GET /assignments/eligible-technicians/1` không có token: HTTP 401 – PASS
+
+**Kết quả: 4/4 endpoint được kiểm tra đã từ chối truy cập không xác thực.**
+
+### 5. Docker và Nginx Reverse Proxy
+
+Trong môi trường Docker, frontend sử dụng Nginx để chuyển tiếp request từ `/api/` đến backend FastAPI.
+
+Ví dụ:
+
+    GET http://localhost:5173/api/health
+
+Nginx chuyển tiếp request đến endpoint `/health` của backend.
+
+Môi trường clean-room sử dụng cổng frontend `15173` và backend `18000`, với Docker volume độc lập.
+
+### 6. Giới hạn và lưu ý
+
+- Các endpoint trong phần thiết kế mục tiêu không nhất thiết trùng với đường dẫn API thực tế.
+- Thông tin trạng thái Sprint 1 ở các mục trước chỉ phản ánh thời điểm Sprint 1.
+- Kiểm thử HTTP 401 đã xác nhận bảo vệ xác thực trên bốn endpoint đại diện, không phải toàn bộ kiểm thử phân quyền.
+- HTTPS, rate limiting và các biện pháp hardening bổ sung chưa được xác minh hoặc triển khai đầy đủ.
+- Tài liệu này mô tả triển khai phục vụ học tập và kiểm thử nội bộ, không phải chứng nhận an toàn cho môi trường production.
+
+**Tài liệu liên quan:** `docs/deployment-guide.md`, `docs/checklist-bao-mat.md`, `docs/test-report.md`.

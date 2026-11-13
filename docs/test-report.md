@@ -55,3 +55,45 @@ không phải test failure.
 - Log kiểm thử: `docs/test-results-buoi14.txt`.
 - Mã nguồn: thư mục `tests/`.
 - Ảnh kiểm thử TC-01 đến TC-12: đã lưu đầy đủ trong `docs/screenshots/`.
+
+## 5. Phụ lục BT3 – Packaging, Deployment and Security
+
+Ngày kiểm thử: 10/11/2026.
+
+### 5.1. Kết quả kiểm thử triển khai
+
+| ID | Hạng mục | Kết quả thực tế | Status |
+|---|---|---|---|
+| BT3-TC-01 | Docker Compose deployment | Backend và frontend khởi động, healthcheck healthy | PASS |
+| BT3-TC-02 | Backend healthcheck | GET /health trả HTTP 200, database connected | PASS |
+| BT3-TC-03 | Frontend | HTTP 200, giao diện tải thành công | PASS |
+| BT3-TC-04 | SQLite persistence | Số lượng dữ liệu không thay đổi sau khi recreate backend container | PASS |
+| BT3-TC-05 | Clean-room deployment | Frontend 15173, backend 18000 hoạt động với volume độc lập | PASS |
+| BT3-TC-06 | Nginx reverse proxy | GET /api/health trả HTTP 200 thông qua Nginx | PASS |
+| BT3-TC-07 | Authentication | POST /api/auth/login và GET /api/auth/me trả HTTP 200; role MANAGER | PASS |
+| BT3-TC-08 | Unauthenticated API | GET /tickets, /technicians, /appointments và /assignments/eligible-technicians/1 đều trả HTTP 401 | PASS |
+| BT3-TC-09 | Regression | pytest: 87 passed, 0 failed, 1 warning trong 0.97 giây | PASS |
+
+### 5.2. Tổng hợp
+
+- Tổng cộng: 9 PASS, 0 FAIL trong phạm vi các trường hợp BT3 đã kiểm thử.
+- Regression: 87 PASS, 0 FAIL, 1 warning.
+- Log regression: docs/test-results-bt3.txt.
+- Frontend production build và Docker build check đã thực hiện thành công.
+- Clean-room được tạo từ bản clone của repository cục bộ, chưa phải clone trực tiếp từ GitHub remote.
+
+### 5.3. Kiểm thử bảo mật và giới hạn
+
+- Bốn endpoint nghiệp vụ đại diện từ chối truy cập không có token với HTTP 401.
+- Đăng nhập và truy vấn thông tin người dùng qua Nginx reverse proxy hoạt động.
+- Phân quyền MANAGER được kiểm tra ở mã nguồn và đã có kiểm thử tự động trong bộ regression.
+- Chưa kiểm thử độc lập đầy đủ các tình huống token hết hạn, rate limiting và kiểm thử xâm nhập.
+- HTTPS và các biện pháp production hardening chưa được xác nhận đầy đủ.
+- Kết quả phù hợp phạm vi triển khai và kiểm thử học thuật, không phải chứng nhận bảo mật production.
+
+### 5.4. Minh chứng
+
+- Log tự động: docs/test-results-bt3.txt.
+- Mã nguồn kiểm thử: tests/.
+- Ảnh giao diện clean-room và kết quả regression đã được chụp; việc đưa vào docs/screenshots/ sẽ hoàn tất ở bước tổng hợp minh chứng.
+- Các kết quả triển khai Docker, persistence, reverse proxy và authentication đã được xác nhận qua Terminal trong quá trình BT3.

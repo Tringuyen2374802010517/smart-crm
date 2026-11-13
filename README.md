@@ -1,3 +1,38 @@
+## BT3 – Docker Deployment (v1.0)
+
+Requirements: Git, Docker Desktop with Docker Compose v2, ports 8000 and 5173.
+
+Clone the public repository and check out tag v1.0:
+
+    git clone https://github.com/Tringuyen2374802010517/smart-crm.git
+    cd smart-crm
+    git checkout v1.0
+
+Create .env from .env.example and replace the demo password placeholder with a private password.
+
+    cp .env.example .env
+
+Start the application:
+
+    docker compose up -d --build --wait
+
+Verify both containers:
+
+    docker compose ps
+
+Frontend: http://localhost:5173/
+Backend health: http://localhost:8000/health
+Nginx proxy: http://localhost:5173/api/health
+
+Stop without deleting database data:
+
+    docker compose down
+
+Do not run docker compose down -v on the existing project.
+
+Detailed instructions: [Deployment Guide](docs/deployment-guide.md).
+
+
 # Smart CRM – Phân công kỹ thuật viên và lịch hẹn
 
 **Sinh viên:** Nguyễn Minh Trị

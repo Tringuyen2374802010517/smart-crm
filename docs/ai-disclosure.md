@@ -60,3 +60,26 @@ Tôi đã kiểm tra kết quả được AI hỗ trợ, thực hiện các thao
 
 **Sinh viên:** Nguyễn Minh Trị
 **MSSV:** 2374802010517
+
+---
+
+## 5. Bổ sung khai báo sử dụng AI trong BT3
+
+**Giai đoạn:** Buổi 16 – Đóng gói prototype và tài liệu kỹ thuật
+
+**Ngày cập nhật:** 13/11/2026
+
+| Công cụ AI | Mục đích sử dụng | Nội dung được hỗ trợ | Cách kiểm chứng / chỉnh sửa |
+|---|---|---|---|
+| ChatGPT | Hỗ trợ hướng dẫn triển khai và rà soát kỹ thuật | Docker Compose, Nginx reverse proxy, healthcheck, Deployment Guide | Sinh viên chạy Docker trên máy, kiểm tra container healthy, giao diện và API trên môi trường clean-room |
+| ChatGPT | Hỗ trợ tổ chức tài liệu kiểm thử | Test Plan, Test Report, Bug Log và regression evidence | Đối chiếu test case, kết quả pytest, ảnh minh chứng và fixing commits trong Git |
+| ChatGPT | Hỗ trợ rà soát API và bảo mật | API Reference, OpenAPI, phân quyền và Security Checklist | Đối chiếu mã nguồn, schema, HTTP 200/401/403 và ghi rõ những trường hợp chưa kiểm chứng |
+| ChatGPT | Hỗ trợ kiểm tra khả năng tái lập | Deployment Guide, seed idempotency và quy trình phát hành | Chạy thử trên SQLite và Docker clean-room riêng biệt; kiểm tra kết quả trước khi kết luận |
+
+**Giới hạn:** Các ví dụ request/response minh họa không được xem là kết quả kiểm thử runtime. Việc triển khai từ GitHub public tag v1.0 chỉ được xác nhận sau khi thực hiện thành công.
+
+**Cam kết:** Sinh viên kiểm tra, chỉnh sửa và chịu trách nhiệm về nội dung cuối cùng của BT3.
+
+**Sinh viên:** Nguyễn Minh Trị
+
+**MSSV:** 2374802010517

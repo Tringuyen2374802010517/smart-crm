@@ -181,3 +181,39 @@ giai đoạn sau, không thay thế lịch sử TD-11.
 
 BUG-02 được phân loại là Requirement Gap,
 không phải lỗi runtime đã được tái hiện.
+
+---
+
+## Cập nhật thiết kế BT3 – Buổi 16
+
+Ngày ghi nhận: 13/11/2026.
+
+### TD-19 – Đóng gói hệ thống bằng Docker Compose
+
+- Quyết định: Đóng gói Backend FastAPI và Frontend thành các container riêng.
+- Lý do: Hỗ trợ triển khai prototype nhất quán và giảm phụ thuộc vào cấu hình máy phát triển.
+- Ảnh hưởng: compose.yaml, Dockerfiles, .env.example và Deployment Guide.
+- Kiểm chứng: Docker Compose chạy thành công, các container ở trạng thái healthy.
+
+### TD-20 – Sử dụng Nginx reverse proxy
+
+- Quyết định: Frontend Nginx chuyển tiếp các yêu cầu API đến Backend trong mạng Docker.
+- Lý do: Hạn chế vấn đề cấu hình API URL và hỗ trợ truy cập qua cùng một origin.
+- Ảnh hưởng: Cấu hình Nginx, Frontend build và Docker deployment.
+- Kiểm chứng: Giao diện và API hoạt động qua reverse proxy trong clean-room.
+
+### TD-21 – Bổ sung healthcheck và kiểm tra tái lập
+
+- Quyết định: Kiểm tra trạng thái container, triển khai trên clean-room riêng và xác minh seed idempotency.
+- Lý do: Tăng khả năng tái lập và tránh tác động đến database phát triển.
+- Ảnh hưởng: Docker Compose, scripts/init_db.py, tài liệu triển khai và ảnh minh chứng.
+- Kiểm chứng: Clean-room deployment thành công; chạy seed hai lần không tạo dữ liệu trùng trong database kiểm thử.
+- Giới hạn: Chưa xác nhận triển khai từ GitHub public tag v1.0.
+
+### TD-22 – Mở rộng kiểm thử và tài liệu kỹ thuật
+
+- Quyết định: Bổ sung regression evidence, API Reference, Security Checklist và AI Disclosure cho BT3.
+- Lý do: Đáp ứng yêu cầu kiểm thử, bảo mật và bàn giao prototype.
+- Ảnh hưởng: docs/test-report.md, docs/api-reference-bt3.md, docs/checklist-bao-mat.md và docs/ai-disclosure.md.
+- Kiểm chứng: 87 pytest PASS; 11/11 HTTP 401 PASS; 4/4 HTTP 403 PASS; 28 API được tài liệu hóa.
+- Giới hạn: Không phải mọi API đều đã được kiểm thử request/response thực tế.
